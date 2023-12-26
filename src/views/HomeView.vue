@@ -1,30 +1,7 @@
 <template>
   <!-- 상단 nabvar -->
-  <v-app-bar dense elevation="0" height="65px" color="#363636" style="">
-    <v-app-bar-nav-icon @click.stop="mini = !mini" class="drawer-icon" color="white"></v-app-bar-nav-icon>
-    <v-toolbar-title class="header-main-icon pa-1" @click="$router.push({name: 'home'})" style="color:white;">메인</v-toolbar-title>
-    <v-spacer/>
-      <v-text-field class="search-input shrink mx-4" flat hide-details solo dense label="검색" prepend-inner-icon="mdi-magnify"></v-text-field>    
-    <v-btn icon>
-        <v-icon color="white">mdi-heart</v-icon>
-    </v-btn>
-
-
-    <!-- 텍스트에 마우스를 호버할 때 v-list 나타나기 -->
-    <div @mouseover="showList = true" @mouseleave="showList = false">
-      <v-btn>
-        Hover me
-      </v-btn>
-    </div>
-    <v-list v-show="showList" style="position: absolute; z-index: 100 !important; top: 200px;">
-      <v-list-item v-for="item in listItems" :key="item.id">
-        <v-list-item-content>
-          <v-list-item-title>{{ item.text }}</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-    </v-list>
-
-  </v-app-bar>
+  <div>
+  <HeaderComponent/>
   <!-- bodu -->
   <v-container class="fill-height">
     <v-responsive class="align-center text-center fill-height">
@@ -95,11 +72,11 @@
       </v-row>
     </v-responsive>
   </v-container>
+  </div>
 </template>
 
 <script setup>
-  import { reactive, ref } from 'vue';
-  
+  import HeaderComponent from '@/components/HeaderComponent.vue';
   // const items = reactive([
   //   { title: 'Click Me' },
   //   { title: 'Click Me' },
@@ -107,11 +84,5 @@
   //   { title: 'Click Me 2' }
   // ]);
 
-  const showList = ref(false);
 
-  const listItems = reactive([
-    { id: 1, text: 'Item 1' },
-    { id: 2, text: 'Item 2' },
-    { id: 3, text: 'Item 10' }
-  ])
 </script>
