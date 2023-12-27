@@ -4,6 +4,7 @@
         <ul>
             <li v-for="item in items" :key="item" class="header-list">
                 <router-link
+                    :class="{ 'header-color': item.name == '홈' }"
                     id="header-text"
                     :to="item.url"
                     v-if="!item.children">
@@ -22,16 +23,38 @@
                         id="header-container-list"       
                     >
                         <v-list class="rounded-0" nav density="compact" width="300" bg-color="#323337">
-                            <v-list-item v-for="child in item.children" :value="child" :key="child" color="white">
-                                <router-link :to="child.url" id="header-sub-text">
-                                    <v-list-item-title>{{ child.name }}</v-list-item-title>
-                                </router-link>
+                            <v-list-item 
+                                class="header-child-container-list"
+                                :href="child.url" 
+                                :active="false" 
+                                v-for="child in item.children" :value="child" :key="child.id" 
+                                color="white"
+                            >
+                                <!-- <router-link :to="child.url" id="header-sub-text">
+                                </router-link> -->
+                                {{ child.name }}                          
                             </v-list-item>     
                         </v-list>
                     </v-card>
                 </span>
             </li>
         </ul>
+        <v-card
+            class="ml-15"
+            color="grey-lighten-3"
+            width="300"
+        >
+                <v-text-field
+                    :loading="loading"
+                    density="compact"
+                    variant="solo"
+                    label="Search templates"
+                    append-inner-icon="mdi-magnify"
+                    single-line
+                    hide-details
+                    @click:append-inner="onClick"
+                ></v-text-field>
+        </v-card>
     </nav>
   </header>
 </template>
@@ -54,15 +77,18 @@ export default {
                 children: [
                     {
                         url: '#service1',
-                        name: 'Service1'
+                        name: 'Service1',
+                        id: 1
                     },
                     {
                         url: '#service2',
-                        name: 'Service2'
+                        name: 'Service2',
+                        id: 2
                     },
                     {
                         url: '#service3',
-                        name: 'Service3'
+                        name: 'Service3',
+                        id: 3
                     },
                 ]
             },
@@ -142,6 +168,10 @@ export default {
   #header-sub-text {
     text-decoration: none;
     color: white;
+  }
+
+  .header-color {
+    color: #F7A600 !important;
   }
 
   .header-list:hover {
