@@ -1,4 +1,5 @@
 // Composables
+import AboutView from '@/views/about/AboutView.vue'
 import MainView from '@/views/main/MainView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 const routes = [
@@ -16,12 +17,15 @@ const routes = [
   // },
   {
     path: '/',
-    name: 'HomeView',
-    component: () => import('@/views/HomeView.vue'),
+    name: 'homeView',
+    meta: { hideHeader: false, hideFooter: false },
+    component: MainView,
   },
   {
-    path: '/home',
-    component: MainView
+    path: '/about',
+    name: 'aboutView',
+    meta: { hideHeader: false, hideFooter: false },
+    component: AboutView
   }
 ]
 

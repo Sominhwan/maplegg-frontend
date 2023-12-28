@@ -42,7 +42,7 @@
         <v-card
             class="ml-15"
             color="#17181E"
-            width="350"
+            width="300"
             elevation="0"
             flat
         >
@@ -51,7 +51,7 @@
                 variant="solo"
                 bg-color="#323337"
                 rounded
-                label="캐릭터 또는 길드명을 입력하세요."
+                label="캐릭터 또는 길드명"
                 append-inner-icon="mdi-magnify"
                 single-line
                 hide-details
@@ -71,11 +71,11 @@ export default {
     isOpen: false,
     items: [
             {
-                url: '#home',
+                url: '/',
                 name: '홈'
             },
             {
-                url: '#about',
+                url: '/about',
                 name: '가이드'
             },
             {

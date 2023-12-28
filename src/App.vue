@@ -1,11 +1,32 @@
 <template>
   <v-app>
-  <router-view />
+    <HeaderComponent v-if="!$route.meta.hideHeader"/>
+    <v-sheet class="fill-height">
+      <router-view />
+    </v-sheet>
+    <FooterComponent v-if="!$route.meta.hideFooter"/>
   </v-app>
 </template>
 
-<script setup>
-  //
+<script>
+import FooterComponent from '@/layouts/footer/FooterComponent.vue';
+import HeaderComponent from '@/layouts/header/HeaderComponent.vue';
+
+export default {
+  components: {
+    FooterComponent,
+    HeaderComponent
+  },
+  mounted() {
+    console.log(this.$route.path)
+  },
+  watch: {
+
+  },
+  setup(props, context) {
+  
+  }
+}
 </script>
 <style lang="scss">
 * {
