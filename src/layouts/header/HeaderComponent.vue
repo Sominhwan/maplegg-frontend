@@ -41,24 +41,31 @@
         </ul>
         <v-card
             class="ml-15"
-            color="grey-lighten-3"
-            width="300"
+            color="#17181E"
+            width="350"
+            elevation="0"
+            flat
         >
-                <v-text-field
-                    :loading="loading"
-                    density="compact"
-                    variant="solo"
-                    label="Search templates"
-                    append-inner-icon="mdi-magnify"
-                    single-line
-                    hide-details
-                    @click:append-inner="onClick"
-                ></v-text-field>
+            <v-text-field
+                density="compact"
+                variant="solo"
+                bg-color="#323337"
+                rounded
+                label="캐릭터 또는 길드명을 입력하세요."
+                append-inner-icon="mdi-magnify"
+                single-line
+                hide-details
+                maxlength="30"
+                v-model="searchInfoValue"
+                @click:append-inner="searchInfo()"
+                @keyup.enter="searchInfo()"
+            ></v-text-field>
         </v-card>
     </nav>
   </header>
 </template>
 <script>
+import { ref } from 'vue';
 export default {
   data: () => ({
     isOpen: false,
@@ -105,7 +112,18 @@ export default {
         mouseleave: function () {
             this.isOpen = false;
         }
+  },
+  setup(props, context) {
+    const searchInfoValue = ref('');
+    const searchInfo = () => {
+        console.log(searchInfoValue.value)
+    };
+
+    return {
+        searchInfoValue,
+        searchInfo
     }
+  }
 }
 </script>
 <style scoped>
@@ -152,7 +170,6 @@ export default {
   #nav > ul > li > span:after {
       content: '▼';
       display: inline-block;
-
   }
 
   #header-text {

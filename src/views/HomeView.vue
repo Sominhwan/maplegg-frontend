@@ -1,82 +1,37 @@
 <template>
   <!-- 상단 nabvar -->
-  <div>
+
   <HeaderComponent/>
   <!-- bodu -->
-  <v-container class="fill-height">
-    <v-responsive class="align-center text-center fill-height">
-      <v-img height="300" src="@/assets/logo.svg" />
-
-      <div class="text-body-2 font-weight-light mb-n1">메이플 오픈 api</div>
-
-      <h1 class="text-h2 font-weight-bold">Maple GG</h1>
-
-      <div class="py-14" />
-
-      <v-row class="d-flex align-center justify-center">
-        <v-col cols="auto">
-          <v-btn
-            href="https://vuetifyjs.com/components/all/"
-            min-width="164"
-            rel="noopener noreferrer"
-            target="_blank"
-            variant="text"
-          >
-            <v-icon
-              icon="mdi-view-dashboard"
-              size="large"
-              start
-            />
-
-            Components
-          </v-btn>
-        </v-col>
-
-        <v-col cols="auto">
-          <v-btn
-            color="primary"
-            href="https://vuetifyjs.com/introduction/why-vuetify/#feature-guides"
-            min-width="228"
-            rel="noopener noreferrer"
-            size="x-large"
-            target="_blank"
-            variant="flat"
-          >
-            <v-icon
-              icon="mdi-speedometer"
-              size="large"
-              start
-            />
-
-            Get Started
-          </v-btn>
-        </v-col>
-
-        <v-col cols="auto">
-          <v-btn
-            href="https://community.vuetifyjs.com/"
-            min-width="164"
-            rel="noopener noreferrer"
-            target="_blank"
-            variant="text"
-          >
-            <v-icon
-              icon="mdi-account-group"
-              size="large"
-              start
-            />
-
-            Community
-          </v-btn>
-        </v-col>
-      </v-row>
-    </v-responsive>
-  </v-container>
-  </div>
+  <!-- <v-sheet class="fill-height">
+    <v-img :src="MainBackground" aspect-ratio="16/9" cover height="400"/>
+  </v-sheet> -->
+  <MainView/>
+  <FooterComponent/>
 </template>
 
-<script setup>
-  import HeaderComponent from '@/components/HeaderComponent.vue';
+<script>
+//import MainBackground from '@/assets/main/main-background.jpg';
+import FooterComponent from '@/layouts/footer/FooterComponent.vue';
+import HeaderComponent from '@/layouts/header/HeaderComponent.vue';
+import MainView from '@/views/main/MainView.vue';
+
+export default {
+  components: {
+    FooterComponent,
+    HeaderComponent,
+    MainView
+  },
+  mounted() {
+    console.log(this.$route.path)
+  },
+  watch: {
+
+  },
+  setup(props, context) {
+  
+  }
+}
   // const items = reactive([
   //   { title: 'Click Me' },
   //   { title: 'Click Me' },
@@ -86,3 +41,6 @@
 
 
 </script>
+<style scoped>
+
+</style>

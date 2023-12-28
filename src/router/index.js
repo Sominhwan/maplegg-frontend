@@ -1,19 +1,28 @@
 // Composables
+import MainView from '@/views/main/MainView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
-
 const routes = [
+  // {
+  //   path: '/',
+  //   component: () => import('@/layouts/default/Default.vue'),
+  //   children: [
+  //     {
+  //       path: '',
+  //       name: 'HomeView',
+
+  //       component: () => import('@/views/HomeView.vue'),
+  //     },
+  //   ],
+  // },
   {
     path: '/',
-    component: () => import('@/layouts/default/Default.vue'),
-    children: [
-      {
-        path: '',
-        name: 'HomeView',
-
-        component: () => import('@/views/HomeView.vue'),
-      },
-    ],
+    name: 'HomeView',
+    component: () => import('@/views/HomeView.vue'),
   },
+  {
+    path: '/home',
+    component: MainView
+  }
 ]
 
 const router = createRouter({
