@@ -3,6 +3,18 @@
       class=" text-center d-flex flex-column"
       color="#F5F7FA"
     >
+    <v-row justify="center" no-gutters>
+      <v-btn
+        v-for="link in links"
+        :key="link"
+        color="black"
+        variant="text"
+        class="mx-2"
+        rounded="xl"
+      >
+        {{ link }}
+      </v-btn>
+    </v-row>
       <div>
         <v-btn
           v-for="icon in icons"
@@ -29,6 +41,14 @@
 import { ref } from 'vue';
 export default {
     setup() {
+      const links = ref([
+        'Home',
+        'About Us',
+        'Team',
+        'Services',
+        'Blog',
+        'Contact Us',
+      ]);
       const icons = ref([
         {
           icon: 'mdi-facebook', color: '#1877F2'
@@ -57,6 +77,7 @@ export default {
       }
     };
       return {
+        links,
         icons,
         getButtonStyle
       };

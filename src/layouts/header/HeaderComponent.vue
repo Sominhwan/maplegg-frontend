@@ -51,7 +51,7 @@
                 variant="solo"
                 bg-color="#323337"
                 rounded
-                label="캐릭터 또는 길드명"
+                placeholder="캐릭터 또는 길드명"
                 append-inner-icon="mdi-magnify"
                 single-line
                 hide-details

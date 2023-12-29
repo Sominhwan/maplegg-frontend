@@ -1,17 +1,17 @@
 <template>
     <img src="@/assets/main/main-background.jpg" aspect-ratio="16/9" cover height="500" style="position: relative; width: 100%"/>
     <div class="overlay-text">
-      <h2>Maple.gg</h2>
+      <h2>Op.gg</h2>
     </div>
     <v-card
-      class="main-search-input ml-15"
+      class="main-search-input"
       width="400"
       style="background-color: rgba(0, 0, 0, 0.0);"
     >
       <v-text-field
           variant="solo"
           bg-color="#323337"
-          label="캐릭터 또는 길드명을 입력하세요."
+          placeholder="캐릭터 또는 길드명을 입력하세요."
           append-inner-icon="mdi-magnify"
           rounded
           single-line
@@ -25,11 +25,11 @@
 </template>
 
 <script>
-import { ref } from 'vue';
 import { getText } from "@/api/main/main.js";
+import { ref } from 'vue';
 export default {
   mounted() {
-    this.test()
+
   },
   methods: {
     test() {
@@ -65,7 +65,7 @@ export default {
     position: absolute;
     top: 200px;
     left: 50%;
-    transform: translate(-75%, 0);
+    transform: translate(-50%, 0);
     color: white;
     font-size: 24px;
     font-weight: bold;
@@ -77,6 +77,6 @@ export default {
     position: absolute;
     top: 300px;
     left: 50%;
-    transform: translate(-75%, 0);
+    transform: translate(-50%, 0);
   }
 </style>
