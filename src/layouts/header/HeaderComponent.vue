@@ -201,28 +201,28 @@ export default {
   }
 
   .dropdown {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      display: none;
-      padding: 0;
-      list-style-type: none;
-      background-color: #17181E;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    display: none;
+    padding: 0;
+    list-style-type: none;
+    background-color: #17181E;
   }
 
   .dropdown li {
-      width: 150px;
-      border-bottom: 1px solid #fff;
+    width: 150px;
+    border-bottom: 1px solid #fff;
   }
 
   .dropdown li a {
-      display: block;
-      padding: 10px;
-      color: #fff;
-      text-decoration: none;
+    display: block;
+    padding: 10px;
+    color: #fff;
+    text-decoration: none;
   }
 
   .isOpen {
-      display: block;
+    display: block;
   }
 </style>

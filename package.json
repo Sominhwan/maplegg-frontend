@@ -14,7 +14,8 @@
     "pinia": "^2.0.23",
     "roboto-fontface": "*",
     "vue": "^3.2.0",
-    "vue-router": "^4.0.0"
+    "vue-router": "^4.0.0",
+    "vue3-marquee-slider": "^1.0.5"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",
