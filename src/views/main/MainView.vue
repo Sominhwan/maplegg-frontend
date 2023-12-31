@@ -9,22 +9,20 @@
       width="400"
       style="background-color: rgba(0, 0, 0, 0.0);"
     >
-      <v-form @submit="searchInfo()">
-        <v-text-field
-            variant="solo"
-            bg-color="#323337"
-            placeholder="캐릭터 또는 길드명을 입력하세요."
-            append-inner-icon="mdi-magnify"
-            rounded
-            single-line
-            hide-details
-            maxlength="30"
-            v-model="searchInfoValue"
-            @click:append-inner="searchInfo()"
-            autofocus
-        ></v-text-field>
-        <!-- @keyup.enter="searchInfo()" -->
-      </v-form>
+      <v-text-field
+          variant="solo"
+          bg-color="#323337"
+          placeholder="캐릭터 또는 길드명을 입력하세요."
+          append-inner-icon="mdi-magnify"
+          rounded
+          single-line
+          hide-details
+          maxlength="30"
+          v-model="searchInfoValue"
+          @click:append-inner="searchInfo()"
+          @keyup.enter="searchInfo()"
+          autofocus
+      ></v-text-field>
     </v-card>
     <v-sheet class="notice-sheet" height="65">
       <v-container class="notice-container" style="width: 50%; height: 100%;">
@@ -55,37 +53,38 @@
     <!-- 하단  -->
     <v-container class="main-container">
       <v-row justify="space-between">
-        <v-col cols="3">
+        <v-col cols="3" v-for="item in rankInfo" :key="item">
           <v-card
-            class="rank-info-container1 mx-auto"
-            width="280"
+            class="rank-info-container mx-auto"
             variant="outlined"
             elevation="0"
-            
+            :style="{ border: '1px solid' + item.color }"
           >
             <template v-slot:title>
-              This is a title
+              <div :style="{ color: item.color, 'font-weight': 'bold', 'text-align': 'center', 'font-size': '16px' }">
+                {{ item.title }}
+              </div>
             </template>
             <v-divider/>
             <v-card-item> 
-              <v-row justify="center">
+              <v-row class="mt-2" justify="center">
                 <v-col cols="auto" class="d-flex align-center">
-                  <v-avatar color="white" size="160" style="border: 3px solid #fdbb2d;"></v-avatar>
+                  <v-avatar color="white" size="160" :style="{ border: '3px solid' + item.color }"></v-avatar>
                 </v-col>
               </v-row>
               <v-row justify="center" class="mb-1">
                 <v-col cols="auto" class="d-flex align-center">
                   <div style="text-align: center;">
                     <div class="text-h5" style="font-weight: 500;">
-                      80층
+                      {{ item.subtitle }}
                     </div>
-                    <div style="font-size: 15px; color: grey;">14분23초</div>
+                    <div style="font-size: 15px; color: grey;">{{ item.record }}</div>
                   </div>
                 </v-col>
               </v-row>
             </v-card-item>
-            <router-link to="/about" class="rank-detail-info-router">
-              <v-card-actions class="rank-detail-info-container1">
+            <router-link :to="item.url" class="rank-detail-info-router">
+              <v-card-actions class="rank-detail-info-container" :style="{ 'background-color': item.color }">
                 <v-row justify="center">
                   <v-col cols="auto" class="d-flex align-center">
                     <div class="rank-detail-info-text">
@@ -96,136 +95,245 @@
               </v-card-actions>
             </router-link>
           </v-card> 
-        </v-col>
-        <v-col cols="3">
-          <v-card
-            class="rank-info-container2 mx-auto"
-            width="280"
-            variant="outlined"
-            elevation="0"
-            
-          >
-            <template v-slot:title>
-              This is a title
-            </template>
-            <v-divider/>
-            <v-card-item> 
-              <v-row justify="center">
-                <v-col cols="auto" class="d-flex align-center">
-                  <v-avatar color="white" size="160" style="border: 3px solid #5CB85C;"></v-avatar>
-                </v-col>
-              </v-row>
-              <v-row justify="center" class="mb-1">
-                <v-col cols="auto" class="d-flex align-center">
-                  <div style="text-align: center;">
-                    <div class="text-h5" style="font-weight: 500;">
-                      80층
-                    </div>
-                    <div style="font-size: 15px; color: grey;">14분23초</div>
-                  </div>
-                </v-col>
-              </v-row>
-            </v-card-item>
-            <router-link to="/about" class="rank-detail-info-router">
-              <v-card-actions class="rank-detail-info-container2">
-                <v-row justify="center">
-                  <v-col cols="auto" class="d-flex align-center">
-                    <div class="rank-detail-info-text">
-                      상세보기
-                    </div>
-                  </v-col>
-                </v-row>
-              </v-card-actions>
-            </router-link>
-          </v-card> 
-        </v-col>
-        <v-col cols="3">
-          <v-card
-            class="rank-info-container3 mx-auto"
-            width="280"
-            variant="outlined"
-            elevation="0"
-            
-          >
-            <template v-slot:title>
-              This is a title
-            </template>
-            <v-divider/>
-            <v-card-item> 
-              <v-row justify="center">
-                <v-col cols="auto" class="d-flex align-center">
-                  <v-avatar color="white" size="160" style="border: 3px solid #5393CA;"></v-avatar>
-                </v-col>
-              </v-row>
-              <v-row justify="center" class="mb-1">
-                <v-col cols="auto" class="d-flex align-center">
-                  <div style="text-align: center;">
-                    <div class="text-h5" style="font-weight: 500;">
-                      80층
-                    </div>
-                    <div style="font-size: 15px; color: grey;">14분23초</div>
-                  </div>
-                </v-col>
-              </v-row>
-            </v-card-item>
-            <router-link to="/about" class="rank-detail-info-router">
-              <v-card-actions class="rank-detail-info-container3">
-                <v-row justify="center">
-                  <v-col cols="auto" class="d-flex align-center">
-                    <div class="rank-detail-info-text">
-                      상세보기
-                    </div>
-                  </v-col>
-                </v-row>
-              </v-card-actions>
-            </router-link>
-          </v-card> 
-        </v-col>
-        <v-col cols="3">
-          <v-card
-            class="rank-info-container4 mx-auto"
-            width="280"
-            variant="outlined"
-            elevation="0"
-            
-          >
-            <template v-slot:title>
-              This is a title
-            </template>
-            <v-divider/>
-            <v-card-item> 
-              <v-row justify="center">
-                <v-col cols="auto" class="d-flex align-center">
-                  <v-avatar color="white" size="160" style="border: 3px solid #6D62A1;"></v-avatar>
-                </v-col>
-              </v-row>
-              <v-row justify="center" class="mb-1">
-                <v-col cols="auto" class="d-flex align-center">
-                  <div style="text-align: center;">
-                    <div class="text-h5" style="font-weight: 500;">
-                      80층
-                    </div>
-                    <div style="font-size: 15px; color: grey;">14분23초</div>
-                  </div>
-                </v-col>
-              </v-row>
-            </v-card-item>
-            <router-link to="/about" class="rank-detail-info-router">
-              <v-card-actions class="rank-detail-info-container4">
-                <v-row justify="center">
-                  <v-col cols="auto" class="d-flex align-center">
-                    <div class="rank-detail-info-text">
-                      상세보기
-                    </div>
-                  </v-col>
-                </v-row>
-              </v-card-actions>
-            </router-link>
-          </v-card> 
-        </v-col>        
+        </v-col>   
       </v-row>
-      <v-row justify="start">
+      <v-row justify="space-between">
+        <v-col cols="6">
+          <v-card
+            class="list-container mx-auto"
+            height="300"
+            variant="outlined"
+            elevation="0"
+            style="border: 1px solid #eee; background-color: #fff;"
+          >
+            <v-card-item class="rank-card-title">
+              <v-row justify="space-between">
+                <v-col cols="auto">
+                  <span style="color: white;">12월 31일</span> 일반 월드 랭킹
+                </v-col>
+                <v-col cols="auto">
+                    <v-btn
+                      density="compact"
+                      class="text-none"
+                      color="white"
+                      min-width="80"
+                      rounded
+                      variant="outlined"
+                    >
+                      더보기
+                    </v-btn>
+                </v-col>
+              </v-row>
+            </v-card-item>
+            <v-list-item class="mx-auto">
+              <v-row justify="space-between">
+                <v-col cols="auto">
+                  테스트1
+                </v-col>
+                <v-col cols="auto">
+                  테스트1
+                </v-col>
+                <v-col cols="auto">
+                  테스트1
+                </v-col>
+                <v-col cols="auto">
+                  테스트1
+                </v-col>
+                <v-col cols="auto">
+                  테스트1
+                </v-col>
+                <v-col cols="auto">
+                  테스트1
+                </v-col>
+              </v-row>
+            </v-list-item>
+            <v-divider/>
+            <v-list-item class="mx-auto">
+              <v-row justify="space-between">
+                <v-col cols="auto">
+                  테스트1
+                </v-col>
+                <v-col cols="auto">
+                  테스트1
+                </v-col>
+                <v-col cols="auto">
+                  테스트1
+                </v-col>
+                <v-col cols="auto">
+                  테스트1
+                </v-col>
+                <v-col cols="auto">
+                  테스트1
+                </v-col>
+                <v-col cols="auto">
+                  테스트1
+                </v-col>
+              </v-row>
+            </v-list-item>
+            <v-divider/>
+            <v-list-item class="mx-auto">
+              <v-row justify="space-between">
+                <v-col cols="auto">
+                  테스트1
+                </v-col>
+                <v-col cols="auto">
+                  테스트1
+                </v-col>
+                <v-col cols="auto">
+                  테스트1
+                </v-col>
+                <v-col cols="auto">
+                  테스트1
+                </v-col>
+                <v-col cols="auto">
+                  테스트1
+                </v-col>
+                <v-col cols="auto">
+                  테스트1
+                </v-col>
+              </v-row>
+            </v-list-item>
+            <v-divider/>
+            <v-list-item class="mx-auto">
+              <v-row justify="space-between">
+                <v-col cols="auto">
+                  테스트1
+                </v-col>
+                <v-col cols="auto">
+                  테스트1
+                </v-col>
+                <v-col cols="auto">
+                  테스트1
+                </v-col>
+                <v-col cols="auto">
+                  테스트1
+                </v-col>
+                <v-col cols="auto">
+                  테스트1
+                </v-col>
+                <v-col cols="auto">
+                  테스트1
+                </v-col>
+              </v-row>
+            </v-list-item>
+            <v-divider/>
+            <v-list-item class="mx-auto">
+              <v-row justify="space-between">
+                <v-col cols="auto">
+                  테스트1
+                </v-col>
+                <v-col cols="auto">
+                  테스트1
+                </v-col>
+                <v-col cols="auto">
+                  테스트1
+                </v-col>
+                <v-col cols="auto">
+                  테스트1
+                </v-col>
+                <v-col cols="auto">
+                  테스트1
+                </v-col>
+                <v-col cols="auto">
+                  테스트1
+                </v-col>
+              </v-row>
+            </v-list-item>
+            <v-divider/>            
+          </v-card>
+        </v-col>
+        <v-col cols="6">
+          <v-card
+            class="list-container mx-auto"
+            height="300"
+            variant="outlined"
+            elevation="0"
+            style="border: 1px solid #eee; background-color: #fff;"
+          >
+            <v-card-item class="rank-card-title">
+              <v-row justify="space-between">
+                <v-col cols="auto">
+                  <span style="color: white;">12월 31일</span> 일반 월드 랭킹
+                </v-col>
+                <v-col cols="auto">
+                    <v-btn
+                      density="compact"
+                      class="text-none"
+                      color="white"
+                      min-width="80"
+                      rounded
+                      variant="outlined"
+                    >
+                      더보기
+                    </v-btn>
+                </v-col>
+              </v-row>
+            </v-card-item>
 
+          </v-card>
+        </v-col>
+      </v-row>
+      <v-row justify="space-between">
+        <v-col cols="6">
+          <v-card
+            class="list-container mx-auto"
+            height="300"
+            variant="outlined"
+            elevation="0"
+            style="border: 1px solid #eee; background-color: #fff;"
+          >
+            <v-card-item class="rank-card-title">
+              <v-row justify="space-between">
+                <v-col cols="auto">
+                  <span style="color: white;">12월 31일</span> 일반 월드 랭킹
+                </v-col>
+                <v-col cols="auto">
+                    <v-btn
+                      density="compact"
+                      class="text-none"
+                      color="white"
+                      min-width="80"
+                      rounded
+                      variant="outlined"
+                    >
+                      더보기
+                    </v-btn>
+                </v-col>
+              </v-row>
+            </v-card-item>
+
+          </v-card>
+        </v-col>
+        <v-col cols="6">
+          <v-card
+            class="list-container mx-auto"
+            height="300"
+            variant="outlined"
+            elevation="0"
+            style="border: 1px solid #eee; background-color: #fff;"
+          >
+            <v-card-item class="rank-card-title">
+              <v-row justify="space-between">
+                <v-col cols="auto">
+                  <span style="color: white;">12월 31일</span> 일반 월드 랭킹
+                </v-col>
+                <v-col cols="auto">
+                    <v-btn
+                      density="compact"
+                      class="text-none"
+                      color="white"
+                      min-width="80"
+                      rounded
+                      variant="outlined"
+                    >
+                      더보기
+                    </v-btn>
+                </v-col>
+              </v-row>
+            </v-card-item>
+
+          </v-card>
+        </v-col>
       </v-row>
     </v-container>
   </v-sheet>
@@ -273,12 +381,21 @@ export default {
     const resumeMarquee = () => {
       isPaused.value = false;
     };
+
+    const rankInfo = ref([
+      { title: '이번 주 무릉도장 1위', color: '#fdbb2d', subtitle: '80층', record: '14분 30초', url: '/about' },
+      { title: '이번 주 무릉도장 1위', color: '#5CB85C', subtitle: '80층', record: '14분 30초', url: '/about' },
+      { title: '이번 주 무릉도장 1위', color: '#5393CA', subtitle: '80층', record: '14분 30초', url: '/about' },
+      { title: '이번 주 무릉도장 1위', color: '#6D62A1', subtitle: '80층', record: '14분 30초', url: '/about' }
+    ]);
+
     return {
         searchInfoValue,
         searchInfo,
         isPaused,
         pauseMarquee,
-        resumeMarquee
+        resumeMarquee,
+        rankInfo
     }
   }
 }
@@ -340,59 +457,19 @@ export default {
     width: 50%;
   }
 
-  .rank-info-container1 {
+  .rank-info-container {
     border-radius: 10px;
     background-color: white;
-    border: 1px solid #fdbb2d;
-  }
-
-  .rank-info-container2 {
-    border-radius: 10px;
-    background-color: white;
-    border: 1px solid #5CB85C ;
-  }
-
-  .rank-info-container3 {
-    border-radius: 10px;
-    background-color: white;
-    border: 1px solid #5393CA ;
-  }
-
-  .rank-info-container4 {
-    border-radius: 10px;
-    background-color: white;
-    border: 1px solid #6D62A1 ;
   }
 
   .rank-detail-info-router {
     text-decoration: none;
   }
 
-  .rank-detail-info-container1 {
-    background-color: #fdbb2d;
-  }
-  .rank-detail-info-container1:hover {
-    filter: brightness(95%);
-  }
+  .rank-detail-info-container {
 
-  .rank-detail-info-container2 {
-    background-color: #5CB85C ;
   }
-  .rank-detail-info-container2:hover {
-    filter: brightness(95%);
-  }
-
-  .rank-detail-info-container3 {
-    background-color: #5393CA ;
-  }
-  .rank-detail-info-container3:hover {
-    filter: brightness(95%);
-  }
-
-  .rank-detail-info-container4 {
-    background-color: #6D62A1;
-  }
-  .rank-detail-info-container4:hover {
+  .rank-detail-info-container:hover {
     filter: brightness(95%);
   }
 
@@ -400,5 +477,14 @@ export default {
     color: white;
     font-size: 18px;
     font-weight: bold;
+  }
+
+  .list-container {
+    border-radius: 10px;
+  }
+
+  .rank-card-title {
+    background-color: #323337;
+    color: #fdbb2d;
   }
 </style>
