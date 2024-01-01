@@ -1,5 +1,5 @@
 <template>
-  <v-sheet width="100%" height="100%" color="#F4F7FA">
+  <v-sheet class="pb-15" width="100%" height="100%" color="#F4F7FA">
     <img src="@/assets/main/main-background.jpg"  cover height="500" style="position: relative; width: 100%"/>
     <div class="overlay-text">
       <div class="main-title">Maple.gg</div>
@@ -101,7 +101,7 @@
         <v-col cols="6">
           <v-card
             class="list-container mx-auto"
-            height="300"
+
             variant="outlined"
             elevation="0"
             style="border: 1px solid #eee; background-color: #fff;"
@@ -125,127 +125,41 @@
                 </v-col>
               </v-row>
             </v-card-item>
-            <v-list-item class="mx-auto">
-              <v-row justify="space-between">
-                <v-col cols="auto">
-                  테스트1
-                </v-col>
-                <v-col cols="auto">
-                  테스트1
-                </v-col>
-                <v-col cols="auto">
-                  테스트1
-                </v-col>
-                <v-col cols="auto">
-                  테스트1
-                </v-col>
-                <v-col cols="auto">
-                  테스트1
-                </v-col>
-                <v-col cols="auto">
-                  테스트1
-                </v-col>
-              </v-row>
-            </v-list-item>
-            <v-divider/>
-            <v-list-item class="mx-auto">
-              <v-row justify="space-between">
-                <v-col cols="auto">
-                  테스트1
-                </v-col>
-                <v-col cols="auto">
-                  테스트1
-                </v-col>
-                <v-col cols="auto">
-                  테스트1
-                </v-col>
-                <v-col cols="auto">
-                  테스트1
-                </v-col>
-                <v-col cols="auto">
-                  테스트1
-                </v-col>
-                <v-col cols="auto">
-                  테스트1
-                </v-col>
-              </v-row>
-            </v-list-item>
-            <v-divider/>
-            <v-list-item class="mx-auto">
-              <v-row justify="space-between">
-                <v-col cols="auto">
-                  테스트1
-                </v-col>
-                <v-col cols="auto">
-                  테스트1
-                </v-col>
-                <v-col cols="auto">
-                  테스트1
-                </v-col>
-                <v-col cols="auto">
-                  테스트1
-                </v-col>
-                <v-col cols="auto">
-                  테스트1
-                </v-col>
-                <v-col cols="auto">
-                  테스트1
-                </v-col>
-              </v-row>
-            </v-list-item>
-            <v-divider/>
-            <v-list-item class="mx-auto">
-              <v-row justify="space-between">
-                <v-col cols="auto">
-                  테스트1
-                </v-col>
-                <v-col cols="auto">
-                  테스트1
-                </v-col>
-                <v-col cols="auto">
-                  테스트1
-                </v-col>
-                <v-col cols="auto">
-                  테스트1
-                </v-col>
-                <v-col cols="auto">
-                  테스트1
-                </v-col>
-                <v-col cols="auto">
-                  테스트1
-                </v-col>
-              </v-row>
-            </v-list-item>
-            <v-divider/>
-            <v-list-item class="mx-auto">
-              <v-row justify="space-between">
-                <v-col cols="auto">
-                  테스트1
-                </v-col>
-                <v-col cols="auto">
-                  테스트1
-                </v-col>
-                <v-col cols="auto">
-                  테스트1
-                </v-col>
-                <v-col cols="auto">
-                  테스트1
-                </v-col>
-                <v-col cols="auto">
-                  테스트1
-                </v-col>
-                <v-col cols="auto">
-                  테스트1
-                </v-col>
-              </v-row>
-            </v-list-item>
-            <v-divider/>            
+            <v-table density="compact" hover style="border-radius: 0px;">
+              <thead style="background-color: #E6EAF3;">
+                <tr>
+                  <th class="text-center">
+                    순위
+                  </th>
+                  <th class="text-center">
+                    캐릭터 정보
+                  </th>
+                  <th class="text-center">
+                    레벨
+                  </th>
+                  <th class="text-center">
+                    인기도
+                  </th>
+                  <th class="text-center">
+                    길드
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="item in worldRankInfo" :key="item.rank">
+                  <td class="text-center">{{ item.rank }}</td>
+                  <td class="text-center">{{ item.characterInfo }}</td>
+                  <td class="text-center">{{ item.level }}</td>
+                  <td class="text-center">{{ item.popular }}</td>
+                  <td class="text-center">{{ item.guild }}</td>
+                </tr>
+              </tbody>
+            </v-table>
           </v-card>
         </v-col>
         <v-col cols="6">
           <v-card
             class="list-container mx-auto"
-            height="300"
             variant="outlined"
             elevation="0"
             style="border: 1px solid #eee; background-color: #fff;"
@@ -253,7 +167,7 @@
             <v-card-item class="rank-card-title">
               <v-row justify="space-between">
                 <v-col cols="auto">
-                  <span style="color: white;">12월 31일</span> 일반 월드 랭킹
+                  <span style="color: white;">12월 31일</span> 리부트 월드 랭킹
                 </v-col>
                 <v-col cols="auto">
                     <v-btn
@@ -269,7 +183,36 @@
                 </v-col>
               </v-row>
             </v-card-item>
-
+            <v-table density="compact" hover style="border-radius: 0px;">
+              <thead style="background-color: #E6EAF3;">
+                <tr>
+                  <th class="text-center">
+                    순위
+                  </th>
+                  <th class="text-center">
+                    캐릭터 정보
+                  </th>
+                  <th class="text-center">
+                    레벨
+                  </th>
+                  <th class="text-center">
+                    인기도
+                  </th>
+                  <th class="text-center">
+                    길드
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="item in worldRankInfo" :key="item.rank">
+                  <td class="text-center">{{ item.rank }}</td>
+                  <td class="text-center">{{ item.characterInfo }}</td>
+                  <td class="text-center">{{ item.level }}</td>
+                  <td class="text-center">{{ item.popular }}</td>
+                  <td class="text-center">{{ item.guild }}</td>
+                </tr>
+              </tbody>
+            </v-table>
           </v-card>
         </v-col>
       </v-row>
@@ -277,7 +220,6 @@
         <v-col cols="6">
           <v-card
             class="list-container mx-auto"
-            height="300"
             variant="outlined"
             elevation="0"
             style="border: 1px solid #eee; background-color: #fff;"
@@ -285,7 +227,7 @@
             <v-card-item class="rank-card-title">
               <v-row justify="space-between">
                 <v-col cols="auto">
-                  <span style="color: white;">12월 31일</span> 일반 월드 랭킹
+                  <span style="color: white;">12월 31일</span> 무릉도장 랭킹
                 </v-col>
                 <v-col cols="auto">
                     <v-btn
@@ -301,13 +243,41 @@
                 </v-col>
               </v-row>
             </v-card-item>
-
+            <v-table density="compact" hover style="border-radius: 0px;">
+              <thead style="background-color: #E6EAF3;">
+                <tr>
+                  <th class="text-center">
+                    순위
+                  </th>
+                  <th class="text-center">
+                    캐릭터 정보
+                  </th>
+                  <th class="text-center">
+                    레벨
+                  </th>
+                  <th class="text-center">
+                    인기도
+                  </th>
+                  <th class="text-center">
+                    길드
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="item in worldRankInfo" :key="item.rank">
+                  <td class="text-center">{{ item.rank }}</td>
+                  <td class="text-center">{{ item.characterInfo }}</td>
+                  <td class="text-center">{{ item.level }}</td>
+                  <td class="text-center">{{ item.popular }}</td>
+                  <td class="text-center">{{ item.guild }}</td>
+                </tr>
+              </tbody>
+            </v-table>
           </v-card>
         </v-col>
         <v-col cols="6">
           <v-card
             class="list-container mx-auto"
-            height="300"
             variant="outlined"
             elevation="0"
             style="border: 1px solid #eee; background-color: #fff;"
@@ -331,7 +301,36 @@
                 </v-col>
               </v-row>
             </v-card-item>
-
+            <v-table density="compact" hover style="border-radius: 0px;">
+              <thead style="background-color: #E6EAF3;">
+                <tr>
+                  <th class="text-center">
+                    순위
+                  </th>
+                  <th class="text-center">
+                    캐릭터 정보
+                  </th>
+                  <th class="text-center">
+                    레벨
+                  </th>
+                  <th class="text-center">
+                    인기도
+                  </th>
+                  <th class="text-center">
+                    길드
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="item in worldRankInfo" :key="item.rank">
+                  <td class="text-center">{{ item.rank }}</td>
+                  <td class="text-center">{{ item.characterInfo }}</td>
+                  <td class="text-center">{{ item.level }}</td>
+                  <td class="text-center">{{ item.popular }}</td>
+                  <td class="text-center">{{ item.guild }}</td>
+                </tr>
+              </tbody>
+            </v-table>
           </v-card>
         </v-col>
       </v-row>
@@ -346,7 +345,7 @@ import { VueMarqueeSlider } from 'vue3-marquee-slider';
 import '/node_modules/vue3-marquee-slider/dist/style.css';
 export default {
   mounted() {
-
+    this.test()
   },
   components: {
     VueMarqueeSlider
@@ -389,13 +388,27 @@ export default {
       { title: '이번 주 무릉도장 1위', color: '#6D62A1', subtitle: '80층', record: '14분 30초', url: '/about' }
     ]);
 
+    const worldRankInfo = ref([
+      { rank: 1, characterInfo: '번개의신(베라/신궁)', level: 285, popular: 1444, guild: '지존' },
+      { rank: 2, characterInfo: '번개의신(베라/신궁)', level: 285, popular: 1444, guild: '지존' },
+      { rank: 3, characterInfo: '번개의신(베라/신궁)', level: 285, popular: 1444, guild: '지존' },
+      { rank: 4, characterInfo: '번개의신(베라/신궁)', level: 285, popular: 1444, guild: '지존' },
+      { rank: 5, characterInfo: '번개의신(베라/신궁)', level: 285, popular: 1444, guild: '지존' },
+      { rank: 6, characterInfo: '번개의신(베라/신궁)', level: 285, popular: 1444, guild: '지존' },
+      { rank: 7, characterInfo: '번개의신(베라/신궁)', level: 285, popular: 1444, guild: '지존' },
+      { rank: 8, characterInfo: '번개의신(베라/신궁)', level: 285, popular: 1444, guild: '지존' },
+      { rank: 9, characterInfo: '번개의신(베라/신궁)', level: 285, popular: 1444, guild: '지존' },
+      { rank: 10, characterInfo: '번개의신(베라/신궁)', level: 285, popular: 1444, guild: '지존' },
+    ]);
+
     return {
         searchInfoValue,
         searchInfo,
         isPaused,
         pauseMarquee,
         resumeMarquee,
-        rankInfo
+        rankInfo,
+        worldRankInfo
     }
   }
 }

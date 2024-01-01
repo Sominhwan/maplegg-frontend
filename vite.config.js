@@ -46,8 +46,8 @@ export default defineConfig({
     port: 3000,
     proxy: {
       '/api/v1': {
-        // '/api/v1' 로 들어오면 포트 8090(스프링 서버)로 보낸다
-        target: 'http://localhost:8090',
+        // '/api/v1' 로 들어오면 포트 9000(스프링 서버)로 보낸다
+        target: 'http://localhost:9000',
         changeOrigin: true // cross origin 허용
       }
     }
