@@ -146,12 +146,22 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="item in worldRankInfo" :key="item.rank">
-                  <td class="text-center">{{ item.rank }}</td>
-                  <td class="text-center">{{ item.characterInfo }}</td>
-                  <td class="text-center">{{ item.level }}</td>
-                  <td class="text-center">{{ item.popular }}</td>
-                  <td class="text-center">{{ item.guild }}</td>
+                <tr v-for="item in baseRankings" :key="item.ranking">
+                  <td class="text-center">
+                    <span   
+                      :class="{
+                        'gold-bg': item.ranking === 1,
+                        'silver-bg': item.ranking === 2,
+                        'brown-bg': item.ranking === 3
+                      }"
+                    >
+                      {{ item.ranking }}
+                    </span>
+                  </td>
+                  <td class="text-center">{{ item.character_name }}</td>
+                  <td class="text-center">{{ item.character_level }}</td>
+                  <td class="text-center">{{ item.character_popularity }}</td>
+                  <td class="text-center">{{ item.character_guildname }}</td>
                 </tr>
               </tbody>
             </v-table>
@@ -204,12 +214,22 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="item in worldRankInfo" :key="item.rank">
-                  <td class="text-center">{{ item.rank }}</td>
-                  <td class="text-center">{{ item.characterInfo }}</td>
-                  <td class="text-center">{{ item.level }}</td>
-                  <td class="text-center">{{ item.popular }}</td>
-                  <td class="text-center">{{ item.guild }}</td>
+                <tr v-for="item in rebootRankings" :key="item.rank">
+                  <td class="text-center">
+                    <span   
+                      :class="{
+                        'gold-bg': item.ranking === 1,
+                        'silver-bg': item.ranking === 2,
+                        'brown-bg': item.ranking === 3
+                      }"
+                    >
+                      {{ item.ranking }}
+                    </span>
+                  </td>
+                  <td class="text-center">{{ item.character_name }}</td>
+                  <td class="text-center">{{ item.character_level }}</td>
+                  <td class="text-center">{{ item.character_popularity }}</td>
+                  <td class="text-center">{{ item.character_guildname }}</td>
                 </tr>
               </tbody>
             </v-table>
@@ -256,20 +276,30 @@
                     레벨
                   </th>
                   <th class="text-center">
-                    인기도
+                    층수
                   </th>
                   <th class="text-center">
-                    길드
+                    기록
                   </th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="item in worldRankInfo" :key="item.rank">
-                  <td class="text-center">{{ item.rank }}</td>
-                  <td class="text-center">{{ item.characterInfo }}</td>
-                  <td class="text-center">{{ item.level }}</td>
-                  <td class="text-center">{{ item.popular }}</td>
-                  <td class="text-center">{{ item.guild }}</td>
+                <tr v-for="item in dojangRankings" :key="item.rank">
+                  <td class="text-center">
+                    <span   
+                      :class="{
+                        'gold-bg': item.ranking === 1,
+                        'silver-bg': item.ranking === 2,
+                        'brown-bg': item.ranking === 3
+                      }"
+                    >
+                      {{ item.ranking }}
+                    </span>
+                  </td>
+                  <td class="text-center">{{ item.character_name }}</td>
+                  <td class="text-center">{{ item.character_level }}</td>
+                  <td class="text-center">{{ item.dojang_floor }}층</td>
+                  <td class="text-center">{{ parseInt((item.dojang_time_record%3600)/60) }}분{{ item.dojang_time_record%60 }}초</td>
                 </tr>
               </tbody>
             </v-table>
@@ -345,7 +375,7 @@ import { VueMarqueeSlider } from 'vue3-marquee-slider';
 import '/node_modules/vue3-marquee-slider/dist/style.css';
 export default {
   mounted() {
-    this.test()
+    this.top10RankingList()
   },
   components: {
     VueMarqueeSlider
@@ -368,6 +398,10 @@ export default {
   setup(props, context) {
     const searchInfoValue = ref('');
     const isPaused = ref(false);
+    // Top10 랭킹 리스트
+    let baseRankings = ref();
+    let rebootRankings = ref();
+    let dojangRankings = ref();
 
     const searchInfo = () => {
       console.log(searchInfoValue.value)
@@ -401,6 +435,22 @@ export default {
       { rank: 10, characterInfo: '번개의신(베라/신궁)', level: 285, popular: 1444, guild: '지존' },
     ]);
 
+    const top10RankingList = async () => {
+      try {
+        const response = await getText();
+
+        baseRankings.value = response.data.data.baseRankings;
+        rebootRankings.value = response.data.data.rebootRankings;
+        dojangRankings.value = response.data.data.dojangRankings;
+
+        console.log(baseRankings.value)
+        console.log(rebootRankings.value)
+        console.log(dojangRankings.value)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
     return {
         searchInfoValue,
         searchInfo,
@@ -408,7 +458,11 @@ export default {
         pauseMarquee,
         resumeMarquee,
         rankInfo,
-        worldRankInfo
+        worldRankInfo,
+        top10RankingList,
+        baseRankings,
+        rebootRankings,
+        dojangRankings
     }
   }
 }
@@ -499,5 +553,26 @@ export default {
   .rank-card-title {
     background-color: #323337;
     color: #fdbb2d;
+  }
+
+  .gold-bg {
+    background-color: gold;
+    border-radius: 3px;
+    padding: 2px 7px 2px 7px;
+    color: white;
+  }
+
+  .silver-bg {
+    background-color: silver;
+    border-radius: 3px;
+    padding: 2px 7px 2px 7px;
+    color: #666A7A;
+  }
+
+  .brown-bg {
+    background-color: brown;
+    border-radius: 3px;
+    padding: 2px 7px 2px 7px;
+    color: white;
   }
 </style>
