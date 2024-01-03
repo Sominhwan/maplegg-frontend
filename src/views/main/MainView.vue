@@ -27,7 +27,7 @@
       </v-card>
     </div>
     <v-sheet class="notice-sheet" height="65">
-      <v-container class="notice-container" style="width: 60%; height: 100%;">
+      <v-container class="notice-container" style="width: 50%; height: 100%;">
         <v-row no-gutters>
           <v-col cols="12" class="d-flex align-center">
             <i class="material-icons mr-5" style="font-size: 30px;">campaign</i>
@@ -55,38 +55,54 @@
     <!-- 하단  -->
     <v-container class="main-container">
       <v-row justify="space-between">
-        <v-col cols="3" v-for="item in rankInfo" :key="item">
+        <v-col cols="3">
           <v-card
             class="rank-info-container mx-auto"
             variant="outlined"
             elevation="0"
-            :style="{ border: '1px solid' + item.color }"
+            style="border: 1px solid #fdbb2d"
           >
             <template v-slot:title>
-              <div :style="{ color: item.color, 'font-weight': 'bold', 'text-align': 'center', 'font-size': '16px' }">
-                {{ item.title }}
+              <div style="color: #fdbb2d; font-weight: bold; text-align: center; font-size: 16px;">
+                이번 주 랭킹 1위
               </div>
             </template>
             <v-divider/>
             <v-card-item> 
-              <v-row class="mt-2" justify="center">
+              <v-row class="" justify="center">
                 <v-col cols="auto" class="d-flex align-center">
-                  <v-avatar color="white" size="160" :style="{ border: '3px solid' + item.color }"></v-avatar>
+                  <img :src="worldIcon(baseRankingInfo.worldName)"/>
+                  <span class="ml-1" style="font-family: 'Noto Sans KR', sans-serif;">
+                    {{ baseRankingInfo.characterName }}
+                  </span>
+                  <span class="ml-1" style="font-size: 14px; font-family: 'Noto Sans KR', sans-serif;">
+                    Lv.{{ baseRankingInfo.characterLevel }}
+                  </span>
+                  <span class="ml-1" style="font-size: 14px; color: #848999; font-family: 'Noto Sans KR', sans-serif;">
+                    {{ baseRankingInfo.characterClass }}
+                  </span>
+                </v-col>
+              </v-row>
+              <v-row class="mt-0" justify="center">
+                <v-col cols="auto" class="d-flex align-center">
+                  <v-avatar color="white" size="160" style="border: 3px solid #fdbb2d">
+                    <img :src="baseRankingInfo.characterImage"/>
+                  </v-avatar>
                 </v-col>
               </v-row>
               <v-row justify="center" class="mb-1">
                 <v-col cols="auto" class="d-flex align-center">
                   <div style="text-align: center;">
                     <div class="text-h5" style="font-weight: 500;">
-                      {{ item.subtitle }}
+                      Lv.{{ baseRankingInfo.characterLevel }}
                     </div>
-                    <div style="font-size: 15px; color: grey;">{{ item.record }}</div>
+                    <div style="font-size: 15px; color: grey;">Exp {{ Number(baseRankingInfo.characterExp).toLocaleString() }}</div>
                   </div>
                 </v-col>
               </v-row>
             </v-card-item>
-            <router-link :to="item.url" class="rank-detail-info-router">
-              <v-card-actions class="rank-detail-info-container" :style="{ 'background-color': item.color }">
+            <router-link to="/about" class="rank-detail-info-router">
+              <v-card-actions class="rank-detail-info-container" style="background-color: #fdbb2d;">
                 <v-row justify="center">
                   <v-col cols="auto" class="d-flex align-center">
                     <div class="rank-detail-info-text">
@@ -98,6 +114,183 @@
             </router-link>
           </v-card> 
         </v-col>   
+        <v-col cols="3">
+          <v-card
+            class="rank-info-container mx-auto"
+            variant="outlined"
+            elevation="0"
+            style="border: 1px solid #fdbb2d"
+          >
+            <template v-slot:title>
+              <div style="color: #fdbb2d; font-weight: bold; text-align: center; font-size: 16px;">
+                이번 주 랭킹 1위
+              </div>
+            </template>
+            <v-divider/>
+            <v-card-item> 
+              <v-row class="" justify="center">
+                <v-col cols="auto" class="d-flex align-center">
+                  <img :src="worldIcon(baseRankingInfo.worldName)"/>
+                  <span class="ml-1" style="font-family: 'Noto Sans KR', sans-serif;">
+                    {{ baseRankingInfo.characterName }}
+                  </span>
+                  <span class="ml-1" style="font-size: 14px; font-family: 'Noto Sans KR', sans-serif;">
+                    Lv.{{ baseRankingInfo.characterLevel }}
+                  </span>
+                  <span class="ml-1" style="font-size: 14px; color: #848999; font-family: 'Noto Sans KR', sans-serif;">
+                    {{ baseRankingInfo.characterClass }}
+                  </span>
+                </v-col>
+              </v-row>
+              <v-row class="mt-0" justify="center">
+                <v-col cols="auto" class="d-flex align-center">
+                  <v-avatar color="white" size="160" style="border: 3px solid #fdbb2d">
+                    <img :src="baseRankingInfo.characterImage"/>
+                  </v-avatar>
+                </v-col>
+              </v-row>
+              <v-row justify="center" class="mb-1">
+                <v-col cols="auto" class="d-flex align-center">
+                  <div style="text-align: center;">
+                    <div class="text-h5" style="font-weight: 500;">
+                      Lv.{{ baseRankingInfo.characterLevel }}
+                    </div>
+                    <div style="font-size: 15px; color: grey;">Exp {{ Number(baseRankingInfo.characterExp).toLocaleString() }}</div>
+                  </div>
+                </v-col>
+              </v-row>
+            </v-card-item>
+            <router-link to="/about" class="rank-detail-info-router">
+              <v-card-actions class="rank-detail-info-container" style="background-color: #fdbb2d;">
+                <v-row justify="center">
+                  <v-col cols="auto" class="d-flex align-center">
+                    <div class="rank-detail-info-text">
+                      상세보기
+                    </div>
+                  </v-col>
+                </v-row>
+              </v-card-actions>
+            </router-link>
+          </v-card> 
+        </v-col>   
+        <v-col cols="3">
+          <v-card
+            class="rank-info-container mx-auto"
+            variant="outlined"
+            elevation="0"
+            style="border: 1px solid #fdbb2d"
+          >
+            <template v-slot:title>
+              <div style="color: #fdbb2d; font-weight: bold; text-align: center; font-size: 16px;">
+                이번 주 랭킹 1위
+              </div>
+            </template>
+            <v-divider/>
+            <v-card-item> 
+              <v-row class="" justify="center">
+                <v-col cols="auto" class="d-flex align-center">
+                  <img :src="worldIcon(baseRankingInfo.worldName)"/>
+                  <span class="ml-1" style="font-family: 'Noto Sans KR', sans-serif;">
+                    {{ baseRankingInfo.characterName }}
+                  </span>
+                  <span class="ml-1" style="font-size: 14px; font-family: 'Noto Sans KR', sans-serif;">
+                    Lv.{{ baseRankingInfo.characterLevel }}
+                  </span>
+                  <span class="ml-1" style="font-size: 14px; color: #848999; font-family: 'Noto Sans KR', sans-serif;">
+                    {{ baseRankingInfo.characterClass }}
+                  </span>
+                </v-col>
+              </v-row>
+              <v-row class="mt-0" justify="center">
+                <v-col cols="auto" class="d-flex align-center">
+                  <v-avatar color="white" size="160" style="border: 3px solid #fdbb2d">
+                    <img :src="baseRankingInfo.characterImage"/>
+                  </v-avatar>
+                </v-col>
+              </v-row>
+              <v-row justify="center" class="mb-1">
+                <v-col cols="auto" class="d-flex align-center">
+                  <div style="text-align: center;">
+                    <div class="text-h5" style="font-weight: 500;">
+                      Lv.{{ baseRankingInfo.characterLevel }}
+                    </div>
+                    <div style="font-size: 15px; color: grey;">Exp {{ Number(baseRankingInfo.characterExp).toLocaleString() }}</div>
+                  </div>
+                </v-col>
+              </v-row>
+            </v-card-item>
+            <router-link to="/about" class="rank-detail-info-router">
+              <v-card-actions class="rank-detail-info-container" style="background-color: #fdbb2d;">
+                <v-row justify="center">
+                  <v-col cols="auto" class="d-flex align-center">
+                    <div class="rank-detail-info-text">
+                      상세보기
+                    </div>
+                  </v-col>
+                </v-row>
+              </v-card-actions>
+            </router-link>
+          </v-card> 
+        </v-col>   
+        <v-col cols="3">
+          <v-card
+            class="rank-info-container mx-auto"
+            variant="outlined"
+            elevation="0"
+            style="border: 1px solid #fdbb2d"
+          >
+            <template v-slot:title>
+              <div style="color: #fdbb2d; font-weight: bold; text-align: center; font-size: 16px;">
+                이번 주 랭킹 1위
+              </div>
+            </template>
+            <v-divider/>
+            <v-card-item> 
+              <v-row class="" justify="center">
+                <v-col cols="auto" class="d-flex align-center">
+                  <img :src="worldIcon(baseRankingInfo.worldName)"/>
+                  <span class="ml-1" style="font-family: 'Noto Sans KR', sans-serif;">
+                    {{ baseRankingInfo.characterName }}
+                  </span>
+                  <span class="ml-1" style="font-size: 14px; font-family: 'Noto Sans KR', sans-serif;">
+                    Lv.{{ baseRankingInfo.characterLevel }}
+                  </span>
+                  <span class="ml-1" style="font-size: 14px; color: #848999; font-family: 'Noto Sans KR', sans-serif;">
+                    {{ baseRankingInfo.characterClass }}
+                  </span>
+                </v-col>
+              </v-row>
+              <v-row class="mt-0" justify="center">
+                <v-col cols="auto" class="d-flex align-center">
+                  <v-avatar color="white" size="160" style="border: 3px solid #fdbb2d">
+                    <img :src="baseRankingInfo.characterImage"/>
+                  </v-avatar>
+                </v-col>
+              </v-row>
+              <v-row justify="center" class="mb-1">
+                <v-col cols="auto" class="d-flex align-center">
+                  <div style="text-align: center;">
+                    <div class="text-h5" style="font-weight: 500;">
+                      Lv.{{ baseRankingInfo.characterLevel }}
+                    </div>
+                    <div style="font-size: 15px; color: grey;">Exp {{ Number(baseRankingInfo.characterExp).toLocaleString() }}</div>
+                  </div>
+                </v-col>
+              </v-row>
+            </v-card-item>
+            <router-link to="/about" class="rank-detail-info-router">
+              <v-card-actions class="rank-detail-info-container" style="background-color: #fdbb2d;">
+                <v-row justify="center">
+                  <v-col cols="auto" class="d-flex align-center">
+                    <div class="rank-detail-info-text">
+                      상세보기
+                    </div>
+                  </v-col>
+                </v-row>
+              </v-card-actions>
+            </router-link>
+          </v-card> 
+        </v-col>           
       </v-row>
       <v-row justify="space-between">
         <v-col cols="6">
@@ -372,6 +565,7 @@
 
 <script>
 import { getText } from '@/api/main/main.js';
+import getWorldIcon from '@/common/worldIcon.js';
 import { reactive, ref } from 'vue';
 import { VueMarqueeSlider } from 'vue3-marquee-slider';
 import '/node_modules/vue3-marquee-slider/dist/style.css';
@@ -400,11 +594,13 @@ export default {
   setup(props, context) {
     const searchInfoValue = ref('');
     const isPaused = ref(false);
+    // Top1 일반월드 랭킹 정보
+    const baseRankingInfo = reactive({});
     // Top10 랭킹 리스트
     const baseRankings = reactive({});
     const rebootRankings = reactive({});
     const dojangRankings = reactive({});
-
+    
     const searchInfo = () => {
       console.log(searchInfoValue.value)
     };
@@ -440,18 +636,24 @@ export default {
     const top10RankingList = async () => {
       try {
         const response = await getText();
-
+        Object.assign(baseRankingInfo, response.data.data.top1LevelRanking);
         Object.assign(baseRankings, response.data.data.baseRankings);
         Object.assign(rebootRankings, response.data.data.rebootRankings);
         Object.assign(dojangRankings, response.data.data.dojangRankings);
 
-        console.log(baseRankings)
-        console.log(rebootRankings)
-        console.log(dojangRankings)
+        console.log(baseRankingInfo);
+        console.log(baseRankings);
+        console.log(rebootRankings);
+        console.log(dojangRankings);
+
       } catch (error) {
         console.log(error)
       }
-    }
+    };
+
+    const worldIcon = (worldName) => { 
+      return getWorldIcon(worldName);
+    };
 
     return {
         searchInfoValue,
@@ -464,7 +666,9 @@ export default {
         top10RankingList,
         baseRankings,
         rebootRankings,
-        dojangRankings
+        dojangRankings,
+        baseRankingInfo,
+        worldIcon
     }
   }
 }
@@ -516,7 +720,7 @@ export default {
     margin-top: 2px;
   }
   .main-container {
-    width: 60%;
+    width: 50%;
   }
   .rank-info-container {
     border-radius: 10px;

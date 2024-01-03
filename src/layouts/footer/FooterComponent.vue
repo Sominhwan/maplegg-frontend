@@ -3,7 +3,7 @@
       class=" text-center d-flex flex-column"
       color="#F5F7FA"
     >
-      <v-container style="width: 60%;">
+      <v-container style="width: 50%;">
         <v-row no-gutters>
           <v-btn
             v-for="link in links"
