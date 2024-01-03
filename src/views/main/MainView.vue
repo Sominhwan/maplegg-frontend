@@ -1,34 +1,36 @@
 <template>
-  <v-sheet class="pb-15" width="100%" height="100%" color="#F4F7FA">
-    <img src="@/assets/main/main-background.jpg"  cover height="500" style="position: relative; width: 100%"/>
-    <div class="overlay-text">
-      <div class="main-title">Maple.gg</div>
+  <v-sheet class="fill-height pb-15" color="#F4F7FA">
+    <div class="parent-container" style="position: relative;">
+      <img src="@/assets/main/main-background.jpg" cover height="500" style="position: relative; width: 100%"/>
+      <div class="overlay-text">
+        <div class="main-title">Maple.gg</div>
+      </div>
+      <v-card
+        class="main-search-input"
+        width="400"
+        style="background-color: rgba(0, 0, 0, 0.0);"
+      >
+        <v-text-field
+            variant="solo"
+            bg-color="#323337"
+            placeholder="캐릭터 또는 길드명을 입력하세요."
+            append-inner-icon="mdi-magnify"
+            rounded
+            single-line
+            hide-details
+            maxlength="30"
+            v-model="searchInfoValue"
+            @click:append-inner="searchInfo()"
+            @keyup.enter="searchInfo()"
+            autofocus
+        ></v-text-field>
+      </v-card>
     </div>
-    <v-card
-      class="main-search-input"
-      width="400"
-      style="background-color: rgba(0, 0, 0, 0.0);"
-    >
-      <v-text-field
-          variant="solo"
-          bg-color="#323337"
-          placeholder="캐릭터 또는 길드명을 입력하세요."
-          append-inner-icon="mdi-magnify"
-          rounded
-          single-line
-          hide-details
-          maxlength="30"
-          v-model="searchInfoValue"
-          @click:append-inner="searchInfo()"
-          @keyup.enter="searchInfo()"
-          autofocus
-      ></v-text-field>
-    </v-card>
     <v-sheet class="notice-sheet" height="65">
-      <v-container class="notice-container" style="width: 50%; height: 100%;">
+      <v-container class="notice-container" style="width: 60%; height: 100%;">
         <v-row no-gutters>
-          <i class="material-icons mr-5" style="font-size: 30px;">campaign</i>
-          <v-col cols="11" class="d-flex align-center">
+          <v-col cols="12" class="d-flex align-center">
+            <i class="material-icons mr-5" style="font-size: 30px;">campaign</i>
             <vue-marquee-slider
               id="marquee-slider-text"
               :space="150"
@@ -43,10 +45,10 @@
               <span class="flow-text">공지사항 테스트3</span>
               <span class="flow-text">공지사항 테스트4</span>
             </vue-marquee-slider>
+            <i class="menu-icon material-icons ml-5">
+              menu
+            </i>
           </v-col>
-          <i class="menu-icon material-icons ml-5">
-            menu
-          </i>
         </v-row>
       </v-container>
     </v-sheet>
@@ -370,7 +372,7 @@
 
 <script>
 import { getText } from '@/api/main/main.js';
-import { ref } from 'vue';
+import { reactive, ref } from 'vue';
 import { VueMarqueeSlider } from 'vue3-marquee-slider';
 import '/node_modules/vue3-marquee-slider/dist/style.css';
 export default {
@@ -399,9 +401,9 @@ export default {
     const searchInfoValue = ref('');
     const isPaused = ref(false);
     // Top10 랭킹 리스트
-    let baseRankings = ref();
-    let rebootRankings = ref();
-    let dojangRankings = ref();
+    const baseRankings = reactive({});
+    const rebootRankings = reactive({});
+    const dojangRankings = reactive({});
 
     const searchInfo = () => {
       console.log(searchInfoValue.value)
@@ -439,13 +441,13 @@ export default {
       try {
         const response = await getText();
 
-        baseRankings.value = response.data.data.baseRankings;
-        rebootRankings.value = response.data.data.rebootRankings;
-        dojangRankings.value = response.data.data.dojangRankings;
+        Object.assign(baseRankings, response.data.data.baseRankings);
+        Object.assign(rebootRankings, response.data.data.rebootRankings);
+        Object.assign(dojangRankings, response.data.data.dojangRankings);
 
-        console.log(baseRankings.value)
-        console.log(rebootRankings.value)
-        console.log(dojangRankings.value)
+        console.log(baseRankings)
+        console.log(rebootRankings)
+        console.log(dojangRankings)
       } catch (error) {
         console.log(error)
       }
@@ -475,7 +477,7 @@ export default {
   }
   .overlay-text {
     position: absolute;
-    top: 150px;
+    top: 100px;
     left: 50%;
     transform: translate(-50%, 0);
     color: white;
@@ -484,91 +486,75 @@ export default {
     text-align: center;
     z-index: 10;
   }
-
   .main-search-input {
     position: absolute;
-    top: 300px;
+    top: 250px;
     left: 50%;
     transform: translate(-50%, 0);
   }
-
   .notice-sheet {
     background: rgb(244,247,250);
     background: linear-gradient(0deg, rgba(244,247,250,1) 0%, rgba(253,187,45,1) 100%); 
     position: relative; 
     bottom: 6px;
   }
-
   .notice-container {
     overflow: hidden;
     white-space: nowrap;
   }
-
   .flow-text {
     font-weight: bold;
   }
-
   .flow-text:hover {
     animation-play-state: paused;
     text-decoration: underline;
     cursor: pointer;
     
   }
-
   .menu-icon {
     cursor: pointer;
     margin-top: 2px;
   }
-
   .main-container {
-    width: 50%;
+    width: 60%;
   }
-
   .rank-info-container {
     border-radius: 10px;
     background-color: white;
   }
-
   .rank-detail-info-router {
     text-decoration: none;
   }
-
   .rank-detail-info-container {
 
   }
   .rank-detail-info-container:hover {
     filter: brightness(95%);
   }
-
   .rank-detail-info-text {
     color: white;
     font-size: 18px;
     font-weight: bold;
   }
-
   .list-container {
     border-radius: 10px;
   }
-
   .rank-card-title {
     background-color: #323337;
     color: #fdbb2d;
   }
-
   .gold-bg {
     background-color: gold;
     border-radius: 3px;
     padding: 2px 7px 2px 7px;
     color: white;
   }
-
   .silver-bg {
     background-color: silver;
     border-radius: 3px;
     padding: 2px 7px 2px 7px;
     color: #666A7A;
   }
-
   .brown-bg {
     background-color: brown;
     border-radius: 3px;

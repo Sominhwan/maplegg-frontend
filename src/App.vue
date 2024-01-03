@@ -1,9 +1,9 @@
 <template>
   <v-app>
     <HeaderComponent v-if="!$route.meta.hideHeader"/>
-    <v-sheet class="fill-height">
+    <!-- <v-sheet class="fill-height"> -->
       <router-view />
-    </v-sheet>
+    <!-- </v-sheet> -->
     <FooterComponent v-if="!$route.meta.hideFooter"/>
   </v-app>
 </template>

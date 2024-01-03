@@ -17,13 +17,13 @@ const routes = [
   // },
   {
     path: '/',
-    name: 'homeView',
+    name: 'HomeView',
     meta: { hideHeader: false, hideFooter: false },
     component: MainView,
   },
   {
     path: '/about',
-    name: 'aboutView',
+    name: 'AboutView',
     meta: { hideHeader: false, hideFooter: false },
     component: AboutView
   }
@@ -32,6 +32,16 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+  scrollBehavior (to, from, savedPosition) {
+    if (savedPosition || to.name === 'HomeView' || to.name === 'AboutView') {
+      // 이전 스크롤 위치가 저장되어 있다면 해당 위치로 이동
+      console.log('위치 기억', savedPosition)
+      return { x: savedPosition.left, y: savedPosition.top};
+    } else {
+      // 이전 스크롤 위치가 없다면 페이지의 맨 위로 이동
+      return { x: 0, y: 0 };
+    }
+  }
 })
 
 export default router
