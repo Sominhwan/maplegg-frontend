@@ -3,22 +3,21 @@
       class=" text-center d-flex flex-column"
       color="#F5F7FA"
     >
-      <v-container style="width: 50%;">
+      <v-container style="width: 60%;">
         <v-row no-gutters>
-          <v-btn
-            v-for="link in links"
-            :key="link"
-            color="black"
-            variant="text"
-            class="mx-1"
-            rounded="xl"
-          >
-            {{ link }}
-          </v-btn>
+          <v-col cols="12" class="text-left">
+            <span
+              v-for="link in links"
+              :key="link"
+              class="footer-main-text mr-2 ml-1"
+            >
+              {{ link }}
+            </span>
+          </v-col>
         </v-row>
         <img class="footer-divider" src="https://cdn.dak.gg/maple/images/footer/icons/divider.svg" alt="divider">
         <v-row class="mt-2" no-gutters>
-          <v-col cols="10" class="text-left">
+          <v-col cols="12" class="text-left">
             <span
               v-for="link in links"
               :key="link"
@@ -30,10 +29,9 @@
             <span class="footer-sub-text mt-2 ml-1">
               © All Rights Reserved. Hosted by SMH Inc. Maple.GG is not associated with NEXON Korea.
             </span>
-          </v-col>
-          <v-col cols="2" class="text-right">
             <v-icon
               v-for="icon in icons"
+              size="18"
               :key="icon.icon"
               class="sns-icon mx-3"
               :icon="icon.icon"
@@ -41,6 +39,7 @@
               variant="text"
             ></v-icon>
           </v-col>
+
         </v-row>
       </v-container>
     </v-footer>
@@ -96,17 +95,18 @@ export default {
   .footer-divider {
     width: 100%;
   }
-
-  .footer-text {
-    color: #121214;
+  .footer-main-text {
     font-size: 14px;
+    color: #84868D;
   }
-
-  .footer-sub-text {
-    color: #121214;
+  .footer-text {
+    color: #848999;
     font-size: 12px;
   }
-
+  .footer-sub-text {
+    color: #848999;
+    font-size: 11px;
+  }
   .sns-icon {
     cursor: pointer;
   }
