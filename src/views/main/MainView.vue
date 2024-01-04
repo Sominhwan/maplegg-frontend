@@ -189,22 +189,22 @@
             <v-card-item> 
               <v-row justify="center" style="font-size: 13px">
                 <v-col cols="auto" class="d-flex align-center">
-                  <img :src="worldIcon(baseRankingInfo.worldName)"/>
+                  <img :src="worldIcon(acheivementRankingInfo.worldName)"/>
                   <span class="ml-1" style="font-family: 'Noto Sans KR', sans-serif;">
-                    {{ baseRankingInfo.characterName }}
+                    {{ acheivementRankingInfo.characterName }}
                   </span>
                   <span class="ml-1" style="font-family: 'Noto Sans KR', sans-serif;">
-                    Lv.{{ baseRankingInfo.characterLevel }}
+                    Lv.{{ acheivementRankingInfo.characterLevel }}
                   </span>
                   <span class="ml-1" style="color: #848999; font-family: 'Noto Sans KR', sans-serif;">
-                    {{ baseRankingInfo.characterClass }}
+                    {{ acheivementRankingInfo.characterClass }}
                   </span>
                 </v-col>
               </v-row>
               <v-row class="mt-0" justify="center">
                 <v-col cols="auto" class="d-flex align-center">
                   <v-avatar color="white" size="160" style="border: 2px solid #5393CA">
-                    <img :src="baseRankingInfo.characterImage"/>
+                    <img :src="acheivementRankingInfo.characterImage"/>
                   </v-avatar>
                 </v-col>
               </v-row>
@@ -212,9 +212,10 @@
                 <v-col cols="auto" class="d-flex align-center">
                   <div style="text-align: center;">
                     <div class="text-h5" style="font-weight: 500; font-size: 20px !important;">
-                      Lv.{{ baseRankingInfo.characterLevel }}
+                      <img :src="achievementIcon(acheivementRankingInfo.trophyGrade)" style="width: 18px;"/>
+                      {{ acheivementRankingInfo.trophyGrade }}
                     </div>
-                    <div style="font-size: 13px; color: grey;">Exp {{ Number(baseRankingInfo.characterExp).toLocaleString() }}</div>
+                    <div style="font-size: 13px; color: grey;">{{ Number(acheivementRankingInfo.trophyScore).toLocaleString() }}점</div>
                   </div>
                 </v-col>
               </v-row>
@@ -248,22 +249,22 @@
             <v-card-item> 
               <v-row justify="center" style="font-size: 13px">
                 <v-col cols="auto" class="d-flex align-center">
-                  <img :src="worldIcon(baseRankingInfo.worldName)"/>
+                  <img :src="worldIcon(unionRankingInfo.worldName)"/>
                   <span class="ml-1" style="font-family: 'Noto Sans KR', sans-serif;">
-                    {{ baseRankingInfo.characterName }}
+                    {{ unionRankingInfo.characterName }}
                   </span>
                   <span class="ml-1" style="font-family: 'Noto Sans KR', sans-serif;">
-                    Lv.{{ baseRankingInfo.characterLevel }}
+                    Lv.{{ unionRankingInfo.characterLevel }}
                   </span>
                   <span class="ml-1" style="color: #848999; font-family: 'Noto Sans KR', sans-serif;">
-                    {{ baseRankingInfo.characterClass }}
+                    {{ unionRankingInfo.characterClass }}
                   </span>
                 </v-col>
               </v-row>
               <v-row class="mt-0" justify="center">
                 <v-col cols="auto" class="d-flex align-center">
                   <v-avatar color="white" size="160" style="border: 2px solid #6D62A1">
-                    <img :src="baseRankingInfo.characterImage"/>
+                    <img :src="unionRankingInfo.characterImage"/>
                   </v-avatar>
                 </v-col>
               </v-row>
@@ -271,9 +272,9 @@
                 <v-col cols="auto" class="d-flex align-center">
                   <div style="text-align: center;">
                     <div class="text-h5" style="font-weight: 500; font-size: 20px !important;">
-                      Lv.{{ baseRankingInfo.characterLevel }}
+                      Lv.{{ unionRankingInfo.unionLevel }}
                     </div>
-                    <div style="font-size: 13px; color: grey;">Exp {{ Number(baseRankingInfo.characterExp).toLocaleString() }}</div>
+                    <div style="font-size: 13px; color: grey;">전투력 {{ Number(unionRankingInfo.unionPower).toLocaleString() }}</div>
                   </div>
                 </v-col>
               </v-row>
@@ -564,6 +565,7 @@
 
 <script>
 import { getCharacterOverall } from '@/api/main/main.js';
+import getAchievementIcon from '@/common/achievementIcon.js';
 import getWorldIcon from '@/common/worldIcon.js';
 import { computed, reactive, ref } from 'vue';
 import { VueMarqueeSlider } from 'vue3-marquee-slider';
@@ -581,6 +583,8 @@ export default {
     // Top1 일반월드 랭킹 정보
     const baseRankingInfo = reactive({});
     const dojangRankingInfo = reactive({});
+    const acheivementRankingInfo = reactive({});
+    const unionRankingInfo = reactive({});
     // Top10 랭킹 리스트
     const baseRankings = reactive({});
     const rebootRankings = reactive({});
@@ -635,12 +639,17 @@ export default {
         const response = await getCharacterOverall();
         Object.assign(baseRankingInfo, response.data.data.top1LevelRanking);
         Object.assign(dojangRankingInfo, response.data.data.top1DojangRanking);
+        Object.assign(acheivementRankingInfo, response.data.data.top1AchievementRanking);
+        Object.assign(unionRankingInfo, response.data.data.top1UnionRanking);
+
         Object.assign(baseRankings, response.data.data.baseRankings);
         Object.assign(rebootRankings, response.data.data.rebootRankings);
         Object.assign(dojangRankings, response.data.data.dojangRankings);
 
         console.log(baseRankingInfo);
         console.log(dojangRankingInfo);
+        console.log(acheivementRankingInfo);
+        console.log(unionRankingInfo);
         console.log(baseRankings);
         console.log(rebootRankings);
         console.log(dojangRankings);
@@ -652,6 +661,10 @@ export default {
     const worldIcon = (worldName) => { 
       return getWorldIcon(worldName);
     };
+
+    const achievementIcon = (trophyGrade) => {
+      return getAchievementIcon(trophyGrade);
+    }
 
     return {
         searchInfoValue,
@@ -667,7 +680,10 @@ export default {
         dojangRankings,
         baseRankingInfo,
         dojangRankingInfo,
+        acheivementRankingInfo,
+        unionRankingInfo,
         worldIcon,
+        achievementIcon,
         currentDate
     }
   }
