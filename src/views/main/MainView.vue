@@ -130,22 +130,22 @@
             <v-card-item> 
               <v-row justify="center" style="font-size: 13px">
                 <v-col cols="auto" class="d-flex align-center">
-                  <img :src="worldIcon(baseRankingInfo.worldName)"/>
+                  <img :src="worldIcon(dojangRankingInfo.worldName)"/>
                   <span class="ml-1" style="font-family: 'Noto Sans KR', sans-serif;">
-                    {{ baseRankingInfo.characterName }}
+                    {{ dojangRankingInfo.characterName }}
                   </span>
                   <span class="ml-1" style="font-family: 'Noto Sans KR', sans-serif;">
-                    Lv.{{ baseRankingInfo.characterLevel }}
+                    Lv.{{ dojangRankingInfo.characterLevel }}
                   </span>
                   <span class="ml-1" style="color: #848999; font-family: 'Noto Sans KR', sans-serif;">
-                    {{ baseRankingInfo.characterClass }}
+                    {{ dojangRankingInfo.characterClass }}
                   </span>
                 </v-col>
               </v-row>
               <v-row class="mt-0" justify="center">
                 <v-col cols="auto" class="d-flex align-center">
                   <v-avatar color="white" size="160" style="border: 2px solid #5CB85C">
-                    <img :src="baseRankingInfo.characterImage"/>
+                    <img :src="dojangRankingInfo.characterImage"/>
                   </v-avatar>
                 </v-col>
               </v-row>
@@ -153,9 +153,9 @@
                 <v-col cols="auto" class="d-flex align-center">
                   <div style="text-align: center;">
                     <div class="text-h5" style="font-weight: 500; font-size: 20px !important;">
-                      Lv.{{ baseRankingInfo.characterLevel }}
+                      {{ dojangRankingInfo.dojangFloor }}층
                     </div>
-                    <div style="font-size: 13px; color: grey;">Exp {{ Number(baseRankingInfo.characterExp).toLocaleString() }}</div>
+                    <div style="font-size: 13px; color: grey;">{{ parseInt((dojangRankingInfo.dojangTimeRecord%3600)/60) }}분{{ dojangRankingInfo.dojangTimeRecord%60 }}초</div>
                   </div>
                 </v-col>
               </v-row>
@@ -563,7 +563,7 @@
 </template>
 
 <script>
-import { getText } from '@/api/main/main.js';
+import { getCharacterOverall } from '@/api/main/main.js';
 import getWorldIcon from '@/common/worldIcon.js';
 import { computed, reactive, ref } from 'vue';
 import { VueMarqueeSlider } from 'vue3-marquee-slider';
@@ -575,26 +575,12 @@ export default {
   components: {
     VueMarqueeSlider
   },
-  methods: {
-    test() {
-      getText()
-        .then((res) => {
-          console.log(res.data)
-
-        })
-        .catch((error) => {
-          console.log(error)
-        })
-        .finally(() => {
-
-        })
-    }
-  },
   setup(props, context) {
     const searchInfoValue = ref('');
     const isPaused = ref(false);
     // Top1 일반월드 랭킹 정보
     const baseRankingInfo = reactive({});
+    const dojangRankingInfo = reactive({});
     // Top10 랭킹 리스트
     const baseRankings = reactive({});
     const rebootRankings = reactive({});
@@ -646,13 +632,15 @@ export default {
 
     const top10RankingList = async () => {
       try {
-        const response = await getText();
+        const response = await getCharacterOverall();
         Object.assign(baseRankingInfo, response.data.data.top1LevelRanking);
+        Object.assign(dojangRankingInfo, response.data.data.top1DojangRanking);
         Object.assign(baseRankings, response.data.data.baseRankings);
         Object.assign(rebootRankings, response.data.data.rebootRankings);
         Object.assign(dojangRankings, response.data.data.dojangRankings);
 
         console.log(baseRankingInfo);
+        console.log(dojangRankingInfo);
         console.log(baseRankings);
         console.log(rebootRankings);
         console.log(dojangRankings);
@@ -678,6 +666,7 @@ export default {
         rebootRankings,
         dojangRankings,
         baseRankingInfo,
+        dojangRankingInfo,
         worldIcon,
         currentDate
     }

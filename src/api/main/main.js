@@ -1,6 +1,6 @@
 import request from "@/utils/request"
 
-export function getText() {
+export function getCharacterOverall() {
     return request({
         url: `/api/v1/main/character/ranking/overall`,
         method: 'GET',
