@@ -1,5 +1,6 @@
 // Composables
 import AboutView from '@/views/about/AboutView.vue'
+import CharacterInfoView from '@/views/characterInfo/CharacterInfoView.vue'
 import MainView from '@/views/main/MainView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 const routes = [
@@ -26,6 +27,11 @@ const routes = [
     name: 'AboutView',
     meta: { hideHeader: false, hideFooter: false },
     component: AboutView
+  },
+  {
+    path: '/info/:name',
+    name: 'CharacterInfo',
+    component: CharacterInfoView
   }
 ]
 

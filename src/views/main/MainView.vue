@@ -102,7 +102,7 @@
                 </v-col>
               </v-row>
             </v-card-item>
-            <router-link to="/about" class="rank-detail-info-router">
+            <router-link v-if="baseRankingInfo.characterName" :to="{ name: 'CharacterInfo', params: { name: baseRankingInfo.characterName } }" class="rank-detail-info-router">
               <v-card-item class="rank-detail-info-container" style="background-color: #fdbb2d;">
                 <v-row justify="center">
                   <v-col cols="auto" class="d-flex align-center">
@@ -161,7 +161,7 @@
                 </v-col>
               </v-row>
             </v-card-item>
-            <router-link to="/about" class="rank-detail-info-router">
+            <router-link v-if="dojangRankingInfo.characterName" :to="{ name: 'CharacterInfo', params: { name: dojangRankingInfo.characterName } }" class="rank-detail-info-router">
               <v-card-item class="rank-detail-info-container" style="background-color: #5CB85C;">
                 <v-row justify="center">
                   <v-col cols="auto" class="d-flex align-center">
@@ -221,7 +221,7 @@
                 </v-col>
               </v-row>
             </v-card-item>
-            <router-link to="/about" class="rank-detail-info-router">
+            <router-link v-if="acheivementRankingInfo.characterName" :to="{ name: 'CharacterInfo', params: { name: acheivementRankingInfo.characterName } }" class="rank-detail-info-router">
               <v-card-item class="rank-detail-info-container" style="background-color: #5393CA;">
                 <v-row justify="center">
                   <v-col cols="auto" class="d-flex align-center">
@@ -280,7 +280,7 @@
                 </v-col>
               </v-row>
             </v-card-item>
-            <router-link to="/about" class="rank-detail-info-router">
+            <router-link v-if="unionRankingInfo.characterName" :to="{ name: 'CharacterInfo', params: { name: unionRankingInfo.characterName } }" class="rank-detail-info-router">
               <v-card-item class="rank-detail-info-container" style="background-color: #6D62A1;">
                 <v-row justify="center">
                   <v-col cols="auto" class="d-flex align-center">
@@ -357,7 +357,7 @@
                   <td class="text-left">
                     <div style="display: flex; align-items: center;">
                       <img :src="worldIcon(item.world_name)" class="mr-1"/>
-                      <span class="enable-click-text">
+                      <span class="enable-click-text" @click="moveToCharacterInfoPage(item.character_name)">
                         {{ item.character_name }}
                       </span>
                     </div>
@@ -432,7 +432,7 @@
                   <td class="text-left">
                     <div style="display: flex; align-items: center;">
                       <img :src="worldIcon(item.world_name)" class="mr-1"/>
-                      <span class="enable-click-text">
+                      <span class="enable-click-text" @click="moveToCharacterInfoPage(item.character_name)">
                         {{ item.character_name }}
                       </span>
                     </div>
@@ -509,7 +509,7 @@
                   <td class="text-left">
                     <div style="display: flex; align-items: center;">
                       <img :src="worldIcon(item.world_name)" class="mr-1"/>
-                      <span class="enable-click-text">
+                      <span class="enable-click-text" @click="moveToCharacterInfoPage(item.character_name)">
                         {{ item.character_name }}
                       </span>
                     </div>
@@ -580,7 +580,7 @@
                     </div>
                   </td>
                   <td class="text-center"><span>{{ item.guild_level }}</span></td>
-                  <td class="text-center"><span class="enable-click-text">{{ item.guild_master_name }}</span></td>
+                  <td class="text-center"><span class="enable-click-text" @click="moveToCharacterInfoPage(item.guild_master_name)">{{ item.guild_master_name }}</span></td>
                   <td class="text-center"><span>{{ Number(item.guild_point).toLocaleString() }}</span></td>
                 </tr>
               </tbody>
@@ -597,6 +597,7 @@ import { getCharacterOverall } from '@/api/main/main.js';
 import getAchievementIcon from '@/common/achievementIcon.js';
 import getWorldIcon from '@/common/worldIcon.js';
 import { computed, reactive, ref } from 'vue';
+import { useRouter } from 'vue-router';
 import { VueMarqueeSlider } from 'vue3-marquee-slider';
 import '/node_modules/vue3-marquee-slider/dist/style.css';
 export default {
@@ -619,7 +620,8 @@ export default {
     const rebootRankings = reactive({});
     const dojangRankings = reactive({}); 
     const guildRankings = reactive({});
-
+    // 라우터 
+    const router = useRouter();
     const searchInfo = () => {
       console.log(searchInfoValue.value)
     };
@@ -643,19 +645,6 @@ export default {
 
       return `${month} ${day}일`;
     });
-
-    const worldRankInfo = ref([
-      { rank: 1, characterInfo: '번개의신(베라/신궁)', level: 285, popular: 1444, guild: '지존' },
-      { rank: 2, characterInfo: '번개의신(베라/신궁)', level: 285, popular: 1444, guild: '지존' },
-      { rank: 3, characterInfo: '번개의신(베라/신궁)', level: 285, popular: 1444, guild: '지존' },
-      { rank: 4, characterInfo: '번개의신(베라/신궁)', level: 285, popular: 1444, guild: '지존' },
-      { rank: 5, characterInfo: '번개의신(베라/신궁)', level: 285, popular: 1444, guild: '지존' },
-      { rank: 6, characterInfo: '번개의신(베라/신궁)', level: 285, popular: 1444, guild: '지존' },
-      { rank: 7, characterInfo: '번개의신(베라/신궁)', level: 285, popular: 1444, guild: '지존' },
-      { rank: 8, characterInfo: '번개의신(베라/신궁)', level: 285, popular: 1444, guild: '지존' },
-      { rank: 9, characterInfo: '번개의신(베라/신궁)', level: 285, popular: 1444, guild: '지존' },
-      { rank: 10, characterInfo: '번개의신(베라/신궁)', level: 285, popular: 1444, guild: '지존' },
-    ]);
 
     const top10RankingList = async () => {
       try {
@@ -691,13 +680,21 @@ export default {
       return getAchievementIcon(trophyGrade);
     }
 
+    const moveToCharacterInfoPage = (characterName) => {
+      router.push({
+          name: 'CharacterInfo',
+          params: {
+            name: characterName
+          }
+      })
+    };
+
     return {
         searchInfoValue,
         searchInfo,
         isPaused,
         //pauseMarquee,
         //resumeMarquee,
-        worldRankInfo,
         top10RankingList,
         baseRankings,
         rebootRankings,
@@ -709,7 +706,8 @@ export default {
         unionRankingInfo,
         worldIcon,
         achievementIcon,
-        currentDate
+        currentDate,
+        moveToCharacterInfoPage
     }
   }
 }
