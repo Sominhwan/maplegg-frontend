@@ -37,9 +37,10 @@
               :speed="30000"
               :width="150"
               :paused="isPaused"
-              @mouseover="pauseMarquee"
-              @mouseleave="resumeMarquee"
+
             >
+              <!-- @mouseover="pauseMarquee"
+              @mouseleave="resumeMarquee" -->
               <span class="flow-text">공지사항 테스트</span>
               <span class="flow-text">공지사항 테스트2</span>
               <span class="flow-text">공지사항 테스트3</span>
@@ -326,7 +327,7 @@
                   <th class="text-center">
                     순위
                   </th>
-                  <th class="text-center">
+                  <th class="text-left">
                     캐릭터 정보
                   </th>
                   <th class="text-center">
@@ -353,10 +354,17 @@
                       {{ item.ranking }}
                     </span>
                   </td>
-                  <td class="text-center">{{ item.character_name }}</td>
-                  <td class="text-center">{{ item.character_level }}</td>
-                  <td class="text-center">{{ item.character_popularity }}</td>
-                  <td class="text-center">{{ item.character_guildname }}</td>
+                  <td class="text-left">
+                    <div style="display: flex; align-items: center;">
+                      <img :src="worldIcon(item.world_name)" class="mr-1"/>
+                      <span class="enable-click-text">
+                        {{ item.character_name }}
+                      </span>
+                    </div>
+                  </td>
+                  <td class="text-center"><span>{{ item.character_level }}</span></td>
+                  <td class="text-center"><span>{{ item.character_popularity }}</span></td>
+                  <td class="text-center"><span class="enable-click-text">{{ item.character_guildname }}</span></td>
                 </tr>
               </tbody>
             </v-table>
@@ -394,7 +402,7 @@
                   <th class="text-center">
                     순위
                   </th>
-                  <th class="text-center">
+                  <th class="text-left">
                     캐릭터 정보
                   </th>
                   <th class="text-center">
@@ -421,10 +429,17 @@
                       {{ item.ranking }}
                     </span>
                   </td>
-                  <td class="text-center">{{ item.character_name }}</td>
-                  <td class="text-center">{{ item.character_level }}</td>
-                  <td class="text-center">{{ item.character_popularity }}</td>
-                  <td class="text-center">{{ item.character_guildname }}</td>
+                  <td class="text-left">
+                    <div style="display: flex; align-items: center;">
+                      <img :src="worldIcon(item.world_name)" class="mr-1"/>
+                      <span class="enable-click-text">
+                        {{ item.character_name }}
+                      </span>
+                    </div>
+                  </td>
+                  <td class="text-center"><span>{{ item.character_level }}</span></td>
+                  <td class="text-center"><span>{{ item.character_popularity }}</span></td>
+                  <td class="text-center"><span class="enable-click-text">{{ item.character_guildname }}</span></td>
                 </tr>
               </tbody>
             </v-table>
@@ -464,7 +479,7 @@
                   <th class="text-center">
                     순위
                   </th>
-                  <th class="text-center">
+                  <th class="text-left">
                     캐릭터 정보
                   </th>
                   <th class="text-center">
@@ -491,10 +506,17 @@
                       {{ item.ranking }}
                     </span>
                   </td>
-                  <td class="text-center">{{ item.character_name }}</td>
-                  <td class="text-center">{{ item.character_level }}</td>
-                  <td class="text-center">{{ item.dojang_floor }}층</td>
-                  <td class="text-center">{{ parseInt((item.dojang_time_record%3600)/60) }}분{{ item.dojang_time_record%60 }}초</td>
+                  <td class="text-left">
+                    <div style="display: flex; align-items: center;">
+                      <img :src="worldIcon(item.world_name)" class="mr-1"/>
+                      <span class="enable-click-text">
+                        {{ item.character_name }}
+                      </span>
+                    </div>
+                  </td>
+                  <td class="text-center"><span>{{ item.character_level }}</span></td>
+                  <td class="text-center"><span>{{ item.dojang_floor }}층</span></td>
+                  <td class="text-center"><span>{{ parseInt((item.dojang_time_record%3600)/60) }}분{{ item.dojang_time_record%60 }}초</span></td>
                 </tr>
               </tbody>
             </v-table>
@@ -510,7 +532,7 @@
             <v-card-item class="rank-card-title">
               <v-row justify="space-between">
                 <v-col cols="auto">
-                  <span style="color: white; ">{{ currentDate }}</span> 일반 월드 랭킹
+                  <span style="color: white; ">{{ currentDate }}</span> 길드 지하 수로 랭킹
                 </v-col>
                 <v-col cols="auto">
                     <v-btn
@@ -532,27 +554,34 @@
                   <th class="text-center">
                     순위
                   </th>
-                  <th class="text-center">
-                    캐릭터 정보
+                  <th class="text-left">
+                    길드명
                   </th>
                   <th class="text-center">
-                    레벨
+                    길드레벨
                   </th>
                   <th class="text-center">
-                    인기도
+                    길드마스터
                   </th>
                   <th class="text-center">
-                    길드
+                    수로점수
                   </th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="item in worldRankInfo" :key="item.rank" style="font-size: 12px;">
-                  <td class="text-center">{{ item.rank }}</td>
-                  <td class="text-center">{{ item.characterInfo }}</td>
-                  <td class="text-center">{{ item.level }}</td>
-                  <td class="text-center">{{ item.popular }}</td>
-                  <td class="text-center">{{ item.guild }}</td>
+                <tr v-for="item in guildRankings" :key="item.rank" style="font-size: 12px;">
+                  <td class="text-center">{{ item.ranking }}</td>
+                  <td class="text-left">
+                    <div style="display: flex; align-items: center;">
+                      <img :src="worldIcon(item.world_name)" class="mr-1"/>
+                      <span class="enable-click-text">
+                        {{ item.guild_name }}
+                      </span>
+                    </div>
+                  </td>
+                  <td class="text-center"><span>{{ item.guild_level }}</span></td>
+                  <td class="text-center"><span class="enable-click-text">{{ item.guild_master_name }}</span></td>
+                  <td class="text-center"><span>{{ Number(item.guild_point).toLocaleString() }}</span></td>
                 </tr>
               </tbody>
             </v-table>
@@ -589,18 +618,19 @@ export default {
     const baseRankings = reactive({});
     const rebootRankings = reactive({});
     const dojangRankings = reactive({}); 
+    const guildRankings = reactive({});
 
     const searchInfo = () => {
       console.log(searchInfoValue.value)
     };
 
-    const pauseMarquee = () => {
-      isPaused.value = true;
-    };
+    // const pauseMarquee = () => {
+    //   isPaused.value = true;
+    // };
 
-    const resumeMarquee = () => {
-      isPaused.value = false;
-    };
+    // const resumeMarquee = () => {
+    //   isPaused.value = false;
+    // };
 
     const currentDate = computed(() => {
       const date = new Date();
@@ -613,13 +643,6 @@ export default {
 
       return `${month} ${day}일`;
     });
-
-    const rankInfo = ref([
-      { title: '이번 주 무릉도장 1위', color: '#fdbb2d', subtitle: '80층', record: '14분 30초', url: '/about' },
-      { title: '이번 주 무릉도장 1위', color: '#5CB85C', subtitle: '80층', record: '14분 30초', url: '/about' },
-      { title: '이번 주 무릉도장 1위', color: '#5393CA', subtitle: '80층', record: '14분 30초', url: '/about' },
-      { title: '이번 주 무릉도장 1위', color: '#6D62A1', subtitle: '80층', record: '14분 30초', url: '/about' }
-    ]);
 
     const worldRankInfo = ref([
       { rank: 1, characterInfo: '번개의신(베라/신궁)', level: 285, popular: 1444, guild: '지존' },
@@ -645,14 +668,16 @@ export default {
         Object.assign(baseRankings, response.data.data.baseRankings);
         Object.assign(rebootRankings, response.data.data.rebootRankings);
         Object.assign(dojangRankings, response.data.data.dojangRankings);
+        Object.assign(guildRankings, response.data.data.guildRankings);
 
-        console.log(baseRankingInfo);
-        console.log(dojangRankingInfo);
-        console.log(acheivementRankingInfo);
-        console.log(unionRankingInfo);
-        console.log(baseRankings);
-        console.log(rebootRankings);
-        console.log(dojangRankings);
+        // console.log(baseRankingInfo);
+        // console.log(dojangRankingInfo);
+        // console.log(acheivementRankingInfo);
+        // console.log(unionRankingInfo);
+        // console.log(baseRankings);
+        // console.log(rebootRankings);
+        // console.log(dojangRankings);
+        // console.log(guildRankings);
       } catch (error) {
         console.log(error)
       }
@@ -670,14 +695,14 @@ export default {
         searchInfoValue,
         searchInfo,
         isPaused,
-        pauseMarquee,
-        resumeMarquee,
-        rankInfo,
+        //pauseMarquee,
+        //resumeMarquee,
         worldRankInfo,
         top10RankingList,
         baseRankings,
         rebootRankings,
         dojangRankings,
+        guildRankings,
         baseRankingInfo,
         dojangRankingInfo,
         acheivementRankingInfo,
@@ -723,13 +748,13 @@ export default {
     white-space: nowrap;
   }
   .flow-text {
+    font-size: 14px;
     font-weight: bold;
   }
   .flow-text:hover {
     animation-play-state: paused;
     text-decoration: underline;
     cursor: pointer;
-    
   }
   .menu-icon {
     cursor: pointer;
@@ -780,5 +805,11 @@ export default {
     border-radius: 3px;
     padding: 2px 7px 2px 7px;
     color: white;
+  }
+  .enable-click-text {
+    cursor: pointer;
+  }
+  .enable-click-text:hover {
+    text-decoration: underline;
   }
 </style>
