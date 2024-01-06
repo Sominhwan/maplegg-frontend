@@ -1,5 +1,10 @@
 <template>
-    정보
+    <v-sheet class="fill-height pb-15" color="#F4F7FA">
+        <div>
+            캐릭터 정보
+        </div>
+    </v-sheet>
+
 </template>
 
 <script>

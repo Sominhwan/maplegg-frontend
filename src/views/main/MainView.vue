@@ -35,7 +35,7 @@
               id="marquee-slider-text"
               :space="150"
               :speed="30000"
-              :width="150"
+              :width="200"
               :paused="isPaused"
 
             >

@@ -5,17 +5,20 @@
       <router-view />
     <!-- </v-sheet> -->
     <FooterComponent v-if="!$route.meta.hideFooter"/>
+    <!-- 채팅 -->
+    <chat-view/>
   </v-app>
 </template>
 
 <script>
+import ChatView from '@/components/chat/ChatComponent.vue';
 import FooterComponent from '@/layouts/footer/FooterComponent.vue';
 import HeaderComponent from '@/layouts/header/HeaderComponent.vue';
-
 export default {
   components: {
     FooterComponent,
-    HeaderComponent
+    HeaderComponent,
+    ChatView
   },
   mounted() {
     console.log(this.$route.path)
