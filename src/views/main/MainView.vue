@@ -91,7 +91,8 @@
                   </v-avatar>
                 </v-col>
               </v-row>
-              <v-row justify="center" class="mt-0">
+              <v-skeleton-loader v-if="Object.keys(baseRankingInfo).length === 0" type="list-item"/>
+              <v-row v-else justify="center" class="mt-0">
                 <v-col cols="auto" class="d-flex align-center">
                   <div style="text-align: center;">
                     <div class="text-h5" style="font-weight: 500; font-size: 20px !important;">
@@ -150,7 +151,8 @@
                   </v-avatar>
                 </v-col>
               </v-row>
-              <v-row justify="center" class="mt-0">
+              <v-skeleton-loader v-if="Object.keys(dojangRankingInfo).length === 0" type="list-item"/>
+              <v-row v-else justify="center" class="mt-0">
                 <v-col cols="auto" class="d-flex align-center">
                   <div style="text-align: center;">
                     <div class="text-h5" style="font-weight: 500; font-size: 20px !important;">
@@ -209,7 +211,8 @@
                   </v-avatar>
                 </v-col>
               </v-row>
-              <v-row justify="center" class="mt-0">
+              <v-skeleton-loader v-if="Object.keys(acheivementRankingInfo).length === 0" type="list-item"/>
+              <v-row v-else justify="center" class="mt-0">
                 <v-col cols="auto" class="d-flex align-center">
                   <div style="text-align: center;">
                     <div class="text-h5" style="font-weight: 500; font-size: 20px !important;">
@@ -269,7 +272,8 @@
                   </v-avatar>
                 </v-col>
               </v-row>
-              <v-row justify="center" class="mt-0">
+              <v-skeleton-loader v-if="Object.keys(unionRankingInfo).length === 0" type="list-item"/>
+              <v-row v-else justify="center" class="mt-0">
                 <v-col cols="auto" class="d-flex align-center">
                   <div style="text-align: center;">
                     <div class="text-h5" style="font-weight: 500; font-size: 20px !important;">
@@ -341,7 +345,26 @@
                   </th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody v-if="Object.keys(baseRankings).length === 0">
+                <tr v-for="index in 10" :key="index">
+                  <td>
+                    <v-skeleton-loader type="list-item"/>
+                  </td>
+                  <td>
+                    <v-skeleton-loader class="mr-9" type="list-item"/>
+                  </td>
+                  <td>
+                    <v-skeleton-loader type="list-item"/>
+                  </td>
+                  <td>
+                    <v-skeleton-loader type="list-item"/>
+                  </td>
+                  <td>
+                    <v-skeleton-loader type="list-item"/>
+                  </td>
+                </tr>
+              </tbody>
+              <tbody v-else>
                 <tr v-for="item in baseRankings" :key="item.ranking" style="font-size: 12px;">
                   <td class="text-center">
                     <span   
@@ -416,7 +439,26 @@
                   </th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody v-if="Object.keys(rebootRankings).length === 0">
+                <tr v-for="index in 10" :key="index">
+                  <td>
+                    <v-skeleton-loader type="list-item"/>
+                  </td>
+                  <td>
+                    <v-skeleton-loader class="mr-9" type="list-item"/>
+                  </td>
+                  <td>
+                    <v-skeleton-loader type="list-item"/>
+                  </td>
+                  <td>
+                    <v-skeleton-loader type="list-item"/>
+                  </td>
+                  <td>
+                    <v-skeleton-loader type="list-item"/>
+                  </td>
+                </tr>
+              </tbody>
+              <tbody v-else>
                 <tr v-for="item in rebootRankings" :key="item.rank" style="font-size: 12px;">
                   <td class="text-center">
                     <span   
@@ -493,6 +535,25 @@
                   </th>
                 </tr>
               </thead>
+              <tbody v-if="Object.keys(dojangRankings).length === 0">
+                <tr v-for="index in 10" :key="index">
+                  <td>
+                    <v-skeleton-loader type="list-item"/>
+                  </td>
+                  <td>
+                    <v-skeleton-loader class="mr-9" type="list-item"/>
+                  </td>
+                  <td>
+                    <v-skeleton-loader type="list-item"/>
+                  </td>
+                  <td>
+                    <v-skeleton-loader type="list-item"/>
+                  </td>
+                  <td>
+                    <v-skeleton-loader type="list-item"/>
+                  </td>
+                </tr>
+              </tbody>
               <tbody>
                 <tr v-for="item in dojangRankings" :key="item.rank" style="font-size: 12px;">
                   <td class="text-center">
@@ -568,9 +629,38 @@
                   </th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody v-if="Object.keys(guildRankings).length === 0">
+                <tr v-for="index in 10" :key="index">
+                  <td>
+                    <v-skeleton-loader type="list-item"/>
+                  </td>
+                  <td>
+                    <v-skeleton-loader class="mr-9" type="list-item"/>
+                  </td>
+                  <td>
+                    <v-skeleton-loader type="list-item"/>
+                  </td>
+                  <td>
+                    <v-skeleton-loader type="list-item"/>
+                  </td>
+                  <td>
+                    <v-skeleton-loader type="list-item"/>
+                  </td>
+                </tr>
+              </tbody>
+              <tbody v-else>
                 <tr v-for="item in guildRankings" :key="item.rank" style="font-size: 12px;">
-                  <td class="text-center">{{ item.ranking }}</td>
+                  <td class="text-center">
+                    <span   
+                      :class="{
+                        'gold-bg': item.ranking === 1,
+                        'silver-bg': item.ranking === 2,
+                        'brown-bg': item.ranking === 3
+                      }"
+                    >
+                      {{ item.ranking }}
+                    </span>
+                  </td>
                   <td class="text-left">
                     <div style="display: flex; align-items: center;">
                       <img :src="worldIcon(item.world_name)" class="mr-1"/>
@@ -767,9 +857,6 @@ export default {
   }
   .rank-detail-info-router {
     text-decoration: none;
-  }
-  .rank-detail-info-container {
-
   }
   .rank-detail-info-container:hover {
     filter: brightness(95%);

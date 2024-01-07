@@ -31,27 +31,22 @@
             </v-row>
         </v-card-title>
         <v-divider/>
-        <v-sheet class="chat-content-sheet" style="height: 440px; overflow-y: auto;" color="#FEFEFE">
-            <div>테스트</div>
-            <div>테스트</div>
-            <div>테스트</div>
-            <div>테스트</div>
-            <div>테스트</div>
-            <div>테스트</div>
-            <div>테스트</div>
-            <div>테스트</div>
-            <div>테스트</div>
-            <div>테스트</div>
-            <div>테스트</div>
-            <div>테스트</div>
-            <div>테스트</div>
-            <div>테스트</div>
-            <div>테스트</div>
-            <div>테스트</div>
-            <div>테스트</div>
-            <div>테스트</div>
-            <div>테스트</div>
-            <div>테스트</div>
+        <v-sheet ref="chatContentSheet" class="chat-content-sheet" style="height: 440px; overflow-y: auto;" color="#FEFEFE">
+            <v-list>
+                <v-list-item
+                    v-for="chat in chatList"
+                    prepend-avatar="https://cdn.vuetifyjs.com/images/lists/2.jpg"
+                    :key="chat"
+                >
+                    <div class="user-info-container">
+                        <span class="user-nickname">홍길동</span>
+                        <span class="chat-time"><v-icon size="13" class="mr-1">mdi-clock-outline</v-icon>{{ chat.subtitle }}</span> 
+                    </div>
+                    <div class="chat-content-text">
+                        {{ chat.content }}
+                    </div>
+                </v-list-item>
+            </v-list>
         </v-sheet>
         <v-card-actions>
             <v-row justify="space-between">
@@ -62,8 +57,8 @@
                         placeholder="채팅을 입력하세요."
                         append-icon="mdi-chevron-right"
                         v-model="chattingContent"
-                        @click:append="searchInfo()"
-                        @keyup.enter="searchInfo()"
+                        @click:append="insertChat()"
+                        @keyup.enter="insertChat()"
                         rounded
                         density="compact"
                         single-line
@@ -79,25 +74,63 @@
 </template>
 
 <script>
-import { ref } from 'vue';
+import { reactive, ref, watchEffect } from 'vue';
 export default {
     setup() {
         const flag = ref(false);
         const chattingContent = ref('');
+        const chatContentSheet = ref(null);
+
+        const chatList = reactive([
+            {
+                subtitle: 'Jan 9, 2014',
+                content: '안녕1'
+            },
+            {
+                subtitle: 'Jan 17, 2014',
+                content: '안녕2'
+            },
+            {
+                subtitle: 'Jan 28, 2014',
+                content: '안녕3'
+            },
+            {
+                subtitle: 'Jan 28, 2014',
+                content: '안녕4'
+            },
+            {
+                subtitle: 'Jan 28, 2014',
+                content: '안녕5'
+            }
+        ]);
 
         const openChat = () => {
-            flag.value = !flag.value
+            flag.value = !flag.value;
+            chattingContent.value = '';
         };
 
-        const searchInfo = () => {
+        watchEffect(() => {
+            console.log('chatContentSheet:', chatContentSheet.value);
+        });
+
+        const insertChat = () => {
             console.log(chattingContent.value);
+            const newChatItem = {
+                subtitle: 'Jan 28, 2021', // You can replace this with the actual date logic
+                content: chattingContent.value,
+            };
+            chatList.push(newChatItem);
+            chattingContent.value = '';
+            console.log(chatContentSheet.value);
         };
 
         return {
             flag,
             openChat,
-            searchInfo,
-            chattingContent
+            insertChat,
+            chattingContent,
+            chatList,
+            chatContentSheet
         };
     }
 }
@@ -116,8 +149,7 @@ export default {
         right: 100px; 
     }
     .chat-content-sheet::-webkit-scrollbar {
-        width: 10px; /* 스크롤바의 너비 */
- 
+        width: 8px; /* 스크롤바의 너비 */
     }
     .chat-content-sheet::-webkit-scrollbar-thumb {
         background: #eeeeee; /* 스크롤바의 색상 */
@@ -126,5 +158,32 @@ export default {
     .chat-content-sheet::-webkit-scrollbar-track {
         background: #fff; /*스크롤바 뒷 배경 색상*/
     }
-
+    .user-info-container {
+        display: flex; 
+        justify-content: space-between;
+        padding-bottom: 0px;
+    }
+    .user-nickname {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 2px;
+    }
+    .chat-time {
+        color: grey;
+        font-size: 12px;
+        align-items: center;
+    }
+    .chat-content-text {
+        white-space: nowrap;
+        display: inline-block;
+        white-space: inherit;
+        max-width: 400px;
+        background-color: #0073E633;
+        padding: 6px 14px;
+        margin: 0px 0px ;
+        border-radius: 20px;
+        font-size: 15px;
+        flex-shrink: 0; /* 크기가 줄어들지 않도록 설정 */
+        word-break: break-all;
+    }
 </style>
