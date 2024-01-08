@@ -31,7 +31,7 @@
             </v-row>
         </v-card-title>
         <v-divider/>
-        <v-sheet ref="chatContentSheet" class="chat-content-sheet" style="height: 440px; overflow-y: auto;" color="#FEFEFE">
+        <v-sheet v-chat-scroll ref="chatContentSheet" class="chat-content-sheet" style="height: 440px; overflow-y: auto;" color="#FEFEFE">
             <v-list>
                 <v-list-item
                     v-for="chat in chatList"
@@ -74,13 +74,16 @@
 </template>
 
 <script>
-import { reactive, ref, watchEffect } from 'vue';
+import { nextTick, reactive, ref } from 'vue';
 export default {
     setup() {
         const flag = ref(false);
         const chattingContent = ref('');
         const chatContentSheet = ref(null);
-
+        const formatTime = () => {
+            const options = { hour: 'numeric', minute: 'numeric', hour12: true };
+            return new Intl.DateTimeFormat('kr', options).format(new Date());
+        };
         const chatList = reactive([
             {
                 subtitle: 'Jan 9, 2014',
@@ -101,7 +104,19 @@ export default {
             {
                 subtitle: 'Jan 28, 2014',
                 content: '안녕5'
-            }
+            },
+            {
+                subtitle: 'Jan 28, 2014',
+                content: '안녕5'
+            },
+            {
+                subtitle: 'Jan 28, 2014',
+                content: '안녕5'
+            },
+            {
+                subtitle: 'Jan 28, 2014',
+                content: '안녕5'
+            },
         ]);
 
         const openChat = () => {
@@ -109,18 +124,20 @@ export default {
             chattingContent.value = '';
         };
 
-        watchEffect(() => {
-            console.log('chatContentSheet:', chatContentSheet.value);
-        });
+   
 
-        const insertChat = () => {
+        const insertChat = async () => {
             console.log(chattingContent.value);
             const newChatItem = {
-                subtitle: 'Jan 28, 2021', // You can replace this with the actual date logic
+                subtitle: formatTime(), // You can replace this with the actual date logic
                 content: chattingContent.value,
             };
             chatList.push(newChatItem);
             chattingContent.value = '';
+
+            await nextTick();
+            let messages = document.querySelector('.chat-content-sheet');
+            messages.scrollTo({ top: messages.scrollHeight });
             console.log(chatContentSheet.value);
         };
 
@@ -137,6 +154,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+    @media (max-width: 960px) {
+        .chat-container {
+            width: 350px !important; // 화면 너비가 600px 이하일 때, 원하는 값으로 조정
+        }
+    }
     .chat-btn {
         position: fixed !important;
         bottom: 20px;
@@ -164,7 +186,7 @@ export default {
         padding-bottom: 0px;
     }
     .user-nickname {
-        font-size: 14px;
+        font-size: 13px;
         font-weight: 600;
         margin-bottom: 2px;
     }
@@ -182,7 +204,7 @@ export default {
         padding: 6px 14px;
         margin: 0px 0px ;
         border-radius: 20px;
-        font-size: 15px;
+        font-size: 14px;
         flex-shrink: 0; /* 크기가 줄어들지 않도록 설정 */
         word-break: break-all;
     }

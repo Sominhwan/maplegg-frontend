@@ -14,8 +14,12 @@
     "pinia": "^2.0.23",
     "roboto-fontface": "*",
     "vue": "^3.2.0",
+    "vue-chat-scroll": "^2.0.0-alpha.4",
     "vue-router": "^4.0.0",
-    "vue3-marquee-slider": "^1.0.5"
+    "vue3-chat-scroll": "^0.2.0",
+    "vue3-marquee-slider": "^1.0.5",
+    "vue3-virtual-scroller": "^0.2.3",
+    "vue3-websocket": "^1.0.11"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",

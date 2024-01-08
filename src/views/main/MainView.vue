@@ -56,7 +56,7 @@
     <!-- 하단  -->
     <v-container class="main-container">
       <v-row justify="space-between">
-        <v-col cols="3">
+        <v-col>
           <v-card
             class="rank-info-container mx-auto"
             variant="outlined"
@@ -116,7 +116,7 @@
             </router-link>
           </v-card> 
         </v-col>   
-        <v-col cols="3">
+        <v-col>
           <v-card
             class="rank-info-container mx-auto"
             variant="outlined"
@@ -176,7 +176,7 @@
             </router-link>
           </v-card> 
         </v-col>   
-        <v-col cols="3">
+        <v-col>
           <v-card
             class="rank-info-container mx-auto"
             variant="outlined"
@@ -237,7 +237,7 @@
             </router-link>
           </v-card> 
         </v-col>   
-        <v-col cols="3">
+        <v-col>
           <v-card
             class="rank-info-container mx-auto"
             variant="outlined"
@@ -299,7 +299,7 @@
         </v-col>           
       </v-row>
       <v-row justify="space-between">
-        <v-col cols="6">
+        <v-col>
           <v-card
             class="list-container mx-auto"
             variant="outlined"
@@ -393,7 +393,7 @@
             </v-table>
           </v-card>
         </v-col>
-        <v-col cols="6">
+        <v-col>
           <v-card
             class="list-container mx-auto"
             variant="outlined"
@@ -489,7 +489,7 @@
         </v-col>
       </v-row>
       <v-row justify="space-between">
-        <v-col cols="6">
+        <v-col>
           <v-card
             class="list-container mx-auto"
             variant="outlined"
@@ -583,7 +583,7 @@
             </v-table>
           </v-card>
         </v-col>
-        <v-col cols="6">
+        <v-col>
           <v-card
             class="list-container mx-auto"
             variant="outlined"
@@ -803,7 +803,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .main-title {
     font-family: 'Single Day', cursive;
     font-size: 80px;
