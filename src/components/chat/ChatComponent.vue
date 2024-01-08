@@ -39,11 +39,11 @@
                     :key="chat"
                 >
                     <div class="user-info-container">
-                        <span class="user-nickname">홍길동</span>
-                        <span class="chat-time"><v-icon size="13" class="mr-1">mdi-clock-outline</v-icon>{{ chat.subtitle }}</span> 
+                        <span class="user-nickname">{{ chat.sender }}</span>
+                        <span class="chat-time"><v-icon size="13" class="mr-1">mdi-clock-outline</v-icon>{{ chat.time }}</span> 
                     </div>
                     <div class="chat-content-text">
-                        {{ chat.content }}
+                        {{ chat.message }}
                     </div>
                 </v-list-item>
             </v-list>
@@ -74,54 +74,80 @@
 </template>
 
 <script>
-import { nextTick, reactive, ref } from 'vue';
+import { createChatRoom } from '@/api/chat/chat.js';
+import { inject, nextTick, reactive, ref } from 'vue';
+import { onClose, onError, onMessage, onOpen } from 'vue3-websocket';
 export default {
     setup() {
         const flag = ref(false);
         const chattingContent = ref('');
         const chatContentSheet = ref(null);
+        const responseMsg = ref('');
+        const socket = inject('socket');
+
+        const roomId = ref('');
+
+        onOpen((obj) => {
+            console.log(obj);
+            console.log('WS connection is stable! ~uWu~')
+        })
+
+        onMessage((message) => {
+            responseMsg.value = message.data;
+            console.log('Got a message from the WS: ', message)
+        })
+
+        onClose((obj) => {
+            console.log(obj);
+            console.log('No way, connection has been closed 😥')
+        })
+
+        onError((error) => {
+            console.error('Error: ', error)
+        })
+
         const formatTime = () => {
             const options = { hour: 'numeric', minute: 'numeric', hour12: true };
             return new Intl.DateTimeFormat('kr', options).format(new Date());
         };
         const chatList = reactive([
             {
-                subtitle: 'Jan 9, 2014',
-                content: '안녕1'
+                sender: '홍길동',
+                time: 'Jan 9, 2014',
+                message: '안녕1'
             },
             {
-                subtitle: 'Jan 17, 2014',
-                content: '안녕2'
+                sender: '홍길동',
+                time: 'Jan 17, 2014',
+                message: '안녕2'
             },
             {
-                subtitle: 'Jan 28, 2014',
-                content: '안녕3'
-            },
-            {
-                subtitle: 'Jan 28, 2014',
-                content: '안녕4'
-            },
-            {
-                subtitle: 'Jan 28, 2014',
-                content: '안녕5'
-            },
-            {
-                subtitle: 'Jan 28, 2014',
-                content: '안녕5'
-            },
-            {
-                subtitle: 'Jan 28, 2014',
-                content: '안녕5'
-            },
-            {
-                subtitle: 'Jan 28, 2014',
-                content: '안녕5'
-            },
+                sender: '홍길동',
+                time: 'Jan 28, 2014',
+                message: '안녕3'
+            }
         ]);
 
-        const openChat = () => {
+        const openChat = async () => {
             flag.value = !flag.value;
             chattingContent.value = '';
+            const data = { 'name': '민환'}
+            try {
+                const response = await createChatRoom(data);
+                console.log('결과 ', response.data);
+                const chatList = {
+                    type : 'ENTER',
+                    roomId : response.data.roomId,
+                    sender : "abc",
+                    message : ""
+                }
+                roomId.value = response.data.roomId;
+                
+                socket.value.send(JSON.stringify(chatList))
+            } catch (error) {
+                console.log(error)
+            }
+            
         };
 
    
@@ -129,16 +155,22 @@ export default {
         const insertChat = async () => {
             console.log(chattingContent.value);
             const newChatItem = {
-                subtitle: formatTime(), // You can replace this with the actual date logic
-                content: chattingContent.value,
+                type: 'TALK',
+                roomId: roomId.value,
+                sender: 'abc',
+                message: chattingContent.value,
+                time: formatTime(), // You can replace this with the actual date logic
             };
             chatList.push(newChatItem);
+            console.log(newChatItem);
+
+            socket.value.send(JSON.stringify(newChatItem))
+
             chattingContent.value = '';
 
             await nextTick();
             let messages = document.querySelector('.chat-content-sheet');
             messages.scrollTo({ top: messages.scrollHeight });
-            console.log(chatContentSheet.value);
         };
 
         return {
