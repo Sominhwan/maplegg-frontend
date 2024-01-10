@@ -2,6 +2,4 @@ npm i vue3-marquee-slider@latest
 공식사이트: https://vue-marquee.com/guide
 npm install vue3-chat-scroll
 공식사이트: https://snyk.io/advisor/npm-package/vue3-chat-scroll
-npm install socket.io-client
-npm install express
-npm install socket.io
+npm i vue3-websocket

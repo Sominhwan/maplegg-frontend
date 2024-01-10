@@ -75,36 +75,29 @@
 
 <script>
 import { createChatRoom } from '@/api/chat/chat.js';
-import { inject, nextTick, reactive, ref } from 'vue';
-import { onClose, onError, onMessage, onOpen } from 'vue3-websocket';
+import { nextTick, reactive, ref } from 'vue';
 export default {
     setup() {
         const flag = ref(false);
         const chattingContent = ref('');
         const chatContentSheet = ref(null);
-        const responseMsg = ref('');
-        const socket = inject('socket');
-
         const roomId = ref('');
 
-        onOpen((obj) => {
-            console.log(obj);
-            console.log('WS connection is stable! ~uWu~')
-        })
+        const connectSocket = new WebSocket("ws://localhost:9000/ws/chat");
 
-        onMessage((message) => {
-            responseMsg.value = message.data;
+        connectSocket.onopen = (obj) => {
+            // connectSocket.send(
+            //     JSON.stringify(chatList)
+            // );
+            console.log(obj);
+            console.log('WS connection is stable! zzz')
+        };
+
+        connectSocket.onmessage = (message) => {
+            console.log("Zz");
             console.log('Got a message from the WS: ', message)
-        })
+        };
 
-        onClose((obj) => {
-            console.log(obj);
-            console.log('No way, connection has been closed 😥')
-        })
-
-        onError((error) => {
-            console.error('Error: ', error)
-        })
 
         const formatTime = () => {
             const options = { hour: 'numeric', minute: 'numeric', hour12: true };
@@ -138,33 +131,33 @@ export default {
                 const chatList = {
                     type : 'ENTER',
                     roomId : response.data.roomId,
-                    sender : "abc",
+                    sender : new Date(),
                     message : ""
                 }
                 roomId.value = response.data.roomId;
-                
-                socket.value.send(JSON.stringify(chatList))
+                connectSocket.send(
+                    JSON.stringify(chatList)
+                );
             } catch (error) {
                 console.log(error)
             }
-            
         };
 
    
-
         const insertChat = async () => {
             console.log(chattingContent.value);
             const newChatItem = {
                 type: 'TALK',
                 roomId: roomId.value,
-                sender: 'abc',
+                sender: new Date(),
                 message: chattingContent.value,
                 time: formatTime(), // You can replace this with the actual date logic
             };
             chatList.push(newChatItem);
             console.log(newChatItem);
-
-            socket.value.send(JSON.stringify(newChatItem))
+            connectSocket.send(
+                JSON.stringify(newChatItem)
+            );
 
             chattingContent.value = '';
 
@@ -179,7 +172,7 @@ export default {
             insertChat,
             chattingContent,
             chatList,
-            chatContentSheet
+            chatContentSheet,
         };
     }
 }
