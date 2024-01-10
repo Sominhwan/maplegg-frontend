@@ -46,6 +46,9 @@
                         {{ chat.message }}
                     </div>
                 </v-list-item>
+                <div v-if="socketExitFlag" class="mt-5 mb-5" style="font-size: 12px;">
+                    --------------------- 서버와의 연결이 끊어졌습니다. --------------------
+                </div>
             </v-list>
         </v-sheet>
         <v-card-actions>
@@ -74,7 +77,7 @@
 </template>
 
 <script>
-import { createChatRoom } from '@/api/chat/chat.js';
+// import { createChatRoom } from '@/api/chat/chat.js';
 import { nextTick, reactive, ref } from 'vue';
 export default {
     setup() {
@@ -82,7 +85,7 @@ export default {
         const chattingContent = ref('');
         const chatContentSheet = ref(null);
         const roomId = ref('');
-
+        const socketExitFlag = ref(false);
         const connectSocket = new WebSocket("ws://localhost:9000/ws/chat");
 
         connectSocket.onopen = (obj) => {
@@ -93,9 +96,33 @@ export default {
             console.log('WS connection is stable! zzz')
         };
 
-        connectSocket.onmessage = (message) => {
+        connectSocket.onmessage = async (message) => {
             console.log("Zz");
-            console.log('Got a message from the WS: ', message)
+            console.log('Got a message from the WS: ', message.data)
+            try {
+                const data = JSON.parse(message.data);
+                // JSON 형식으로 성공적으로 파싱된 경우
+                console.log('메시지', data)
+                if(data.type === 'TALK') {
+                    const newChatItem = {
+                        sender: data.sender,
+                        time: data.time,
+                        message: data.message,
+                    };
+                    chatList.push(newChatItem);
+                }
+                if(data.type == 'EXIT') {
+                    console.log(data.type);
+                    socketExitFlag.value = true;
+                }
+
+                await nextTick();
+                let messages = document.querySelector('.chat-content-sheet');
+                messages.scrollTo({ top: messages.scrollHeight });
+            } catch (error) {
+                console.log('오류')
+            }
+
         };
 
 
@@ -124,23 +151,23 @@ export default {
         const openChat = async () => {
             flag.value = !flag.value;
             chattingContent.value = '';
-            const data = { 'name': '민환'}
-            try {
-                const response = await createChatRoom(data);
-                console.log('결과 ', response.data);
-                const chatList = {
-                    type : 'ENTER',
-                    roomId : response.data.roomId,
-                    sender : new Date(),
-                    message : ""
-                }
-                roomId.value = response.data.roomId;
-                connectSocket.send(
-                    JSON.stringify(chatList)
-                );
-            } catch (error) {
-                console.log(error)
-            }
+            // const data = { 'name': '민환'}
+            // try {
+            //     const response = await createChatRoom(data);
+            //     console.log('결과 ', response.data);
+            //     const chatList = {
+            //         type : 'ENTER',
+            //         roomId : response.data.roomId,
+            //         sender : new Date(),
+            //         message : ""
+            //     }
+            //     roomId.value = response.data.roomId;
+            //     connectSocket.send(
+            //         JSON.stringify(chatList)
+            //     );
+            // } catch (error) {
+            //     console.log(error)
+            // }
         };
 
    
@@ -160,7 +187,6 @@ export default {
             );
 
             chattingContent.value = '';
-
             await nextTick();
             let messages = document.querySelector('.chat-content-sheet');
             messages.scrollTo({ top: messages.scrollHeight });
@@ -173,6 +199,7 @@ export default {
             chattingContent,
             chatList,
             chatContentSheet,
+            socketExitFlag
         };
     }
 }
