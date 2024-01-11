@@ -46,9 +46,6 @@
                         {{ chat.message }}
                     </div>
                 </v-list-item>
-                <div v-if="socketExitFlag" class="mt-5 mb-5" style="font-size: 12px;">
-                    --------------------- 서버와의 연결이 끊어졌습니다. --------------------
-                </div>
             </v-list>
         </v-sheet>
         <v-card-actions>
@@ -78,75 +75,82 @@
 
 <script>
 // import { createChatRoom } from '@/api/chat/chat.js';
-import { nextTick, reactive, ref } from 'vue';
+import { nextTick, onBeforeUnmount, reactive, ref } from 'vue';
 export default {
     setup() {
         const flag = ref(false);
         const chattingContent = ref('');
         const chatContentSheet = ref(null);
         const roomId = ref('');
-        const socketExitFlag = ref(false);
         const connectSocket = new WebSocket("ws://localhost:9000/ws/chat");
+        const userName = 'User' + Math.floor(Math.random() * 1000);
+        // WebSocket 객체를 Vue 데이터로 선언
+        const socket = reactive({
+            instance: null,
+            isConnected: false,
+        });
 
-        connectSocket.onopen = (obj) => {
-            // connectSocket.send(
-            //     JSON.stringify(chatList)
-            // );
-            console.log(obj);
-            console.log('WS connection is stable! zzz')
+        const connectWebSocket = () => {
+            socket.instance = new WebSocket('ws://localhost:9000/ws/chat');
+
+            socket.instance.onopen = (event) => {
+                console.log(event);
+                socket.isConnected = true;
+                console.log('WebSocket connection');
+            };
+            // 소켓 메시지 처리
+            socket.instance.onmessage = async (message) => {
+                try {
+                    const data = JSON.parse(message.data);
+                    // JSON 형식으로 성공적으로 파싱된 경우
+                    if(data.type === 'TALK') {
+                        const newChatItem = {
+                            sender: data.sender,
+                            time: data.time,
+                            message: data.message,
+                        };
+                        chatList.push(newChatItem);
+                    }
+                    if(data.type == 'EXIT') {
+                        console.log(data.type);
+                    }
+
+                    await nextTick();
+                    let messages = document.querySelector('.chat-content-sheet');
+                    messages.scrollTo({ top: messages.scrollHeight });
+                } catch (error) {
+                    console.log('오류')
+                }
+            };
+            // 소켓 종료
+            socket.instance.onclose = (event) => {
+                if (event.wasClean) {
+                console.log(`WebSocket connection closed cleanly, code=${event.code}, reason=${event.reason}`);
+                } else {
+                console.error(`Connection died`);
+                }
+                socket.isConnected = false;
+            };
+            // 소켓
+            socket.instance.onerror = (error) => {
+                console.error('WebSocket error', error);
+            };
         };
-
-        connectSocket.onmessage = async (message) => {
-            console.log("Zz");
-            console.log('Got a message from the WS: ', message.data)
-            try {
-                const data = JSON.parse(message.data);
-                // JSON 형식으로 성공적으로 파싱된 경우
-                console.log('메시지', data)
-                if(data.type === 'TALK') {
-                    const newChatItem = {
-                        sender: data.sender,
-                        time: data.time,
-                        message: data.message,
-                    };
-                    chatList.push(newChatItem);
-                }
-                if(data.type == 'EXIT') {
-                    console.log(data.type);
-                    socketExitFlag.value = true;
-                }
-
-                await nextTick();
-                let messages = document.querySelector('.chat-content-sheet');
-                messages.scrollTo({ top: messages.scrollHeight });
-            } catch (error) {
-                console.log('오류')
+        // Vue 컴포넌트가 생성될 때 WebSocket 연결 시작
+        connectWebSocket();
+        // Vue 컴포넌트가 소멸되기 전에 WebSocket 연결 종료
+        onBeforeUnmount(() => {
+            if (socket.instance) {
+                socket.instance.close();
             }
-
-        };
+        });
 
 
         const formatTime = () => {
             const options = { hour: 'numeric', minute: 'numeric', hour12: true };
             return new Intl.DateTimeFormat('kr', options).format(new Date());
         };
-        const chatList = reactive([
-            {
-                sender: '홍길동',
-                time: 'Jan 9, 2014',
-                message: '안녕1'
-            },
-            {
-                sender: '홍길동',
-                time: 'Jan 17, 2014',
-                message: '안녕2'
-            },
-            {
-                sender: '홍길동',
-                time: 'Jan 28, 2014',
-                message: '안녕3'
-            }
-        ]);
+        const chatList = reactive([]);
 
         const openChat = async () => {
             flag.value = !flag.value;
@@ -176,11 +180,11 @@ export default {
             const newChatItem = {
                 type: 'TALK',
                 roomId: roomId.value,
-                sender: new Date(),
+                sender: userName,
                 message: chattingContent.value,
                 time: formatTime(), // You can replace this with the actual date logic
             };
-            chatList.push(newChatItem);
+            // chatList.push(newChatItem);
             console.log(newChatItem);
             connectSocket.send(
                 JSON.stringify(newChatItem)
@@ -199,7 +203,7 @@ export default {
             chattingContent,
             chatList,
             chatContentSheet,
-            socketExitFlag
+            socket
         };
     }
 }
