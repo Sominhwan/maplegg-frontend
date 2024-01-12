@@ -14,20 +14,21 @@
 import ChatView from '@/components/chat/ChatComponent.vue';
 import FooterComponent from '@/layouts/footer/FooterComponent.vue';
 import HeaderComponent from '@/layouts/header/HeaderComponent.vue';
+import { watch } from 'vue';
+import { useRoute } from 'vue-router';
+
 export default {
   components: {
     FooterComponent,
     HeaderComponent,
     ChatView
   },
-  mounted() {
-    console.log(this.$route.path)
-  },
-  watch: {
-
-  },
   setup(props, context) {
-  
+    const route = useRoute()
+    watch(route,() => {
+      console.log('변경')
+      console.log(route.name);
+    });
   }
 }
 </script>
