@@ -1,9 +1,7 @@
 <template>
   <v-app>
-    <HeaderComponent v-if="!$route.meta.hideHeader"/>
-    <!-- <v-sheet class="fill-height"> -->
+    <HeaderComponent v-if="!$route.meta.hideHeader" :headerContent="routeUrl"/>
       <router-view />
-    <!-- </v-sheet> -->
     <FooterComponent v-if="!$route.meta.hideFooter"/>
     <!-- 채팅 -->
     <chat-view/>
@@ -14,7 +12,7 @@
 import ChatView from '@/components/chat/ChatComponent.vue';
 import FooterComponent from '@/layouts/footer/FooterComponent.vue';
 import HeaderComponent from '@/layouts/header/HeaderComponent.vue';
-import { watch } from 'vue';
+import { ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
 export default {
@@ -24,11 +22,16 @@ export default {
     ChatView
   },
   setup(props, context) {
-    const route = useRoute()
+    const route = useRoute();
+    const routeUrl = ref('/');
+
     watch(route,() => {
-      console.log('변경')
-      console.log(route.name);
+      routeUrl.value = route.path
     });
+
+    return {
+      routeUrl
+    }
   }
 }
 </script>

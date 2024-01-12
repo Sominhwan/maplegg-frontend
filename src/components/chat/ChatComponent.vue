@@ -35,7 +35,7 @@
             <v-list>
                 <v-list-item
                     v-for="chat in chatList"
-                    prepend-avatar="https://cdn.vuetifyjs.com/images/lists/2.jpg"
+                    prepend-avatar="@/assets/chat/profile.png"
                     :key="chat"
                 >
                     <div class="user-info-container">
@@ -91,6 +91,7 @@ export default {
         });
 
         const connectWebSocket = () => {
+            // 소켓 오픈
             socket.instance = new WebSocket('ws://localhost:9000/ws/chat');
 
             socket.instance.onopen = (event) => {
@@ -125,13 +126,13 @@ export default {
             // 소켓 종료
             socket.instance.onclose = (event) => {
                 if (event.wasClean) {
-                console.log(`WebSocket connection closed cleanly, code=${event.code}, reason=${event.reason}`);
+                    console.log(`WebSocket connection closed cleanly, code=${event.code}, reason=${event.reason}`);
                 } else {
-                console.error(`Connection died`);
+                    console.error(`Connection died`);
                 }
                 socket.isConnected = false;
             };
-            // 소켓
+            // 소켓 에러
             socket.instance.onerror = (error) => {
                 console.error('WebSocket error', error);
             };
@@ -155,26 +156,8 @@ export default {
         const openChat = async () => {
             flag.value = !flag.value;
             chattingContent.value = '';
-            // const data = { 'name': '민환'}
-            // try {
-            //     const response = await createChatRoom(data);
-            //     console.log('결과 ', response.data);
-            //     const chatList = {
-            //         type : 'ENTER',
-            //         roomId : response.data.roomId,
-            //         sender : new Date(),
-            //         message : ""
-            //     }
-            //     roomId.value = response.data.roomId;
-            //     connectSocket.send(
-            //         JSON.stringify(chatList)
-            //     );
-            // } catch (error) {
-            //     console.log(error)
-            // }
         };
 
-   
         const insertChat = async () => {
             console.log(chattingContent.value);
             const newChatItem = {

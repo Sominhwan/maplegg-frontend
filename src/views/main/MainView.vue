@@ -748,15 +748,6 @@ export default {
         Object.assign(rebootRankings, response.data.data.rebootRankings);
         Object.assign(dojangRankings, response.data.data.dojangRankings);
         Object.assign(guildRankings, response.data.data.guildRankings);
-
-        // console.log(baseRankingInfo);
-        // console.log(dojangRankingInfo);
-        // console.log(acheivementRankingInfo);
-        // console.log(unionRankingInfo);
-        // console.log(baseRankings);
-        // console.log(rebootRankings);
-        // console.log(dojangRankings);
-        // console.log(guildRankings);
       } catch (error) {
         console.log(error)
       }

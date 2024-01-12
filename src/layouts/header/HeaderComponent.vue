@@ -4,7 +4,7 @@
         <ul>
             <li v-for="item in items" :key="item" class="header-list">
                 <router-link
-                    :class="{ 'header-color': item.name == '홈' }"
+                    :class="{ 'header-color': item.url == headerContent }"
                     id="header-text"
                     :to="item.url"
                     v-if="!item.children">
@@ -65,63 +65,72 @@
   </header>
 </template>
 <script>
-import { ref } from 'vue';
+import { reactive, ref } from 'vue';
 export default {
-  data: () => ({
-    isOpen: false,
-    items: [
-            {
-                url: '/',
-                name: '홈'
-            },
-            {
-                url: '/about',
-                name: '가이드'
-            },
-            {
-                url: '#service',
-                name: '서비스',
-                children: [
-                    {
-                        url: '#service1',
-                        name: 'Service1',
-                        id: 1
-                    },
-                    {
-                        url: '#service2',
-                        name: 'Service2',
-                        id: 2
-                    },
-                    {
-                        url: '#service3',
-                        name: 'Service3',
-                        id: 3
-                    },
-                ]
-            },
-            {
-                url: '#contact',
-                name: 'Contact'
-            }
-        ]    
-  }),
-  methods: {
-        mouseover: function () {
-            this.isOpen = true;
-        },
-        mouseleave: function () {
-            this.isOpen = false;
-        }
+  props: {
+    headerContent: {
+        type: String
+    }
   },
   setup(props, context) {
     const searchInfoValue = ref('');
+    const items = reactive([
+        {
+            url: '/',
+            name: '홈'
+        },
+        {
+            url: '/about',
+            name: '가이드'
+        },
+        {
+            url: '#service',
+            name: '서비스',
+            children: [
+                {
+                    url: '#service1',
+                    name: 'Service1',
+                    id: 1
+                },
+                {
+                    url: '#service2',
+                    name: 'Service2',
+                    id: 2
+                },
+                {
+                    url: '#service3',
+                    name: 'Service3',
+                    id: 3
+                },
+            ]
+        },
+        {
+            url: '#contact',
+            name: 'Contact'
+        }
+    ]);
+
+    const isOpen = ref(false);
+
+    const mouseover = () => {
+    isOpen.value = true;
+    };
+
+    const mouseleave = () => {
+    isOpen.value = false;
+    };
+
     const searchInfo = () => {
         console.log(searchInfoValue.value)
     };
 
     return {
         searchInfoValue,
-        searchInfo
+        searchInfo,
+        items,
+        mouseover,
+        mouseleave,
+        isOpen
     }
   }
 }
