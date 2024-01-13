@@ -1,25 +1,19 @@
-import { io } from "socket.io-client";
-import { ref } from "vue";
+const socket = new WebSocket('ws://localhost:9000/ws/chat');
 
-// 브로드캐스팅 받은 데이터 구분을 위한 id
-export const id = ref(Math.random().toString())
-// 받은 데이터를 수집
-export const chatMessages =ref([])
-// 연결 상태
-export const connected =ref(false)
+socket.onopen = (event) => {
+    console.log('WebSocket connection opened');
+};
 
-export const socket = io('http://localhost:3010')
+socket.onclose = (event) => {
+    if (event.wasClean) {
+        console.log(`WebSocket connection closed, code=${event.code}, reason=${event.reason}`);
+    } else {
+        console.error('Connection died');
+    }
+};
 
-socket.on("connect", () => {
-    connected.value = true;
-});
+socket.onerror = (error) => {
+    console.error('WebSocket error', error);
+};
 
-socket.on("disconnect", () => {
-    connected.value = false;
-});
-
-// 메시지를 받으면 채팅 메시지 데이터에 푸시
-socket.on('chat', (data) => {
-    console.log(data.message)
-    chatMessages.value.push(data)
-})
+export default socket;

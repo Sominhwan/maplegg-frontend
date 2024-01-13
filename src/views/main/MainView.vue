@@ -686,14 +686,11 @@
 import { getCharacterOverall } from '@/api/main/main.js';
 import getAchievementIcon from '@/common/achievementIcon.js';
 import getWorldIcon from '@/common/worldIcon.js';
-import { computed, reactive, ref } from 'vue';
+import { computed, onMounted, reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { VueMarqueeSlider } from 'vue3-marquee-slider';
 import '/node_modules/vue3-marquee-slider/dist/style.css';
 export default {
-  mounted() {
-    this.top10RankingList()
-  },
   components: {
     VueMarqueeSlider
   },
@@ -712,6 +709,10 @@ export default {
     const guildRankings = reactive({});
     // 라우터 
     const router = useRouter();
+    onMounted(() => {
+      top10RankingList()
+    });
+    // 검색
     const searchInfo = () => {
       console.log(searchInfoValue.value)
     };

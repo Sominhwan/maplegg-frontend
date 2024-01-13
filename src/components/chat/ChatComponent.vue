@@ -75,7 +75,7 @@
 
 <script>
 // import { createChatRoom } from '@/api/chat/chat.js';
-import { nextTick, onBeforeUnmount, reactive, ref } from 'vue';
+import { nextTick, onBeforeUnmount, onMounted, reactive, ref } from 'vue';
 export default {
     setup() {
         const flag = ref(false);
@@ -88,6 +88,16 @@ export default {
         const socket = reactive({
             instance: null,
             isConnected: false,
+        });
+
+        onMounted(() => {
+            connectWebSocket();
+        });
+        // Vue 컴포넌트가 소멸되기 전에 WebSocket 연결 종료
+        onBeforeUnmount(() => {
+            if (socket.instance) {
+                socket.instance.close();
+            }
         });
 
         const connectWebSocket = () => {
@@ -137,15 +147,6 @@ export default {
                 console.error('WebSocket error', error);
             };
         };
-        // Vue 컴포넌트가 생성될 때 WebSocket 연결 시작
-        connectWebSocket();
-        // Vue 컴포넌트가 소멸되기 전에 WebSocket 연결 종료
-        onBeforeUnmount(() => {
-            if (socket.instance) {
-                socket.instance.close();
-            }
-        });
-
 
         const formatTime = () => {
             const options = { hour: 'numeric', minute: 'numeric', hour12: true };
