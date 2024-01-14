@@ -3,23 +3,120 @@
         <div class="parent-container" style="position: relative;">
             <img src="https://cdn.dak.gg/maple/images/bg/guide-top-bg.jpg" cover height="500" style="position: relative; width: 100%"/>
             <v-container class="character-info-container">
-                <v-row class="mt-16">
-                    <v-col cols="auto">
+                <v-row class="mt-0">
+                    <v-col class="mt-16" cols="auto">
                         <img :src="testImage" style="width: 200px;"/>
                     </v-col>
-                    <v-col cols="auto">
+                    <v-col class="mt-16" cols="3">
                         <v-list-item class="mt-5">
-                            <div class="character-name">오지환</div>
+                            <div>
+                                <span class="character-name">오지환</span>
+                                <span class="world-name ml-3">스카니아</span>
+                            </div>
                             <div class="character-sub-info mt-2">
                                 <span>LV.280</span>
                                 <span class="divider"></span>
                                 <span>카데나</span>
                                 <span class="divider"></span>
                                 <span>인기도 1,296</span>
+                                <span class="divider"></span>
+                                <span>사랑</span>
+                            </div>
+                            <div class="btn-wrapper mt-5">
+                                <v-btn color="primary">최신 정보</v-btn>
+                                <v-btn class="ml-3" color="#323337"  prepend-icon="mdi-star-outline">즐겨찾기</v-btn>
                             </div>
                         </v-list-item>
                     </v-col>
-
+                    <v-col cols="6">
+                        <div class="character-info-wrapper mt-0">
+                            <div class="title">캐릭터 정보</div>
+                            <div class="character-info-content pr-3">
+                                <div class="row">
+                                    <div class="col">전투력</div>
+                                    <div class="col text-right">8510만</div>
+                                </div>
+                                <div class="row mt-4">
+                                    <div class="col">HP</div>
+                                    <div class="col text-right mr-6">50,656</div>
+                                    <div class="col">MP</div>
+                                    <div class="col text-right">10,000</div>
+                                </div>
+                                <div class="row mt-1">
+                                    <div class="col">STR</div>
+                                    <div class="col text-right mr-6">50,656</div>
+                                    <div class="col">DEX</div>
+                                    <div class="col text-right">10,000</div>
+                                </div>
+                                <div class="row mt-1">
+                                    <div class="col">INT</div>
+                                    <div class="col text-right mr-6">50,656</div>
+                                    <div class="col">LUK</div>
+                                    <div class="col text-right">10,000</div>
+                                </div>
+                                <div class="row mt-4">
+                                    <div class="col">스탯 공격력</div>
+                                    <div class="col text-right mr-6">50,656</div>
+                                    <div class="col">데미지</div>
+                                    <div class="col text-right">10,000</div>
+                                </div>
+                                <div class="row mt-1">
+                                    <div class="col">최종 데미지</div>
+                                    <div class="col text-right mr-6">50,656</div>
+                                    <div class="col">보스 몬스터 데미지</div>
+                                    <div class="col text-right">10,000</div>
+                                </div>
+                                <div class="row mt-1">
+                                    <div class="col">방어력 무시</div>
+                                    <div class="col text-right mr-6">50,656</div>
+                                    <div class="col">일반 몬스터 데미지</div>
+                                    <div class="col text-right">10,000</div>
+                                </div>
+                                <div class="row mt-1">
+                                    <div class="col">공격력</div>
+                                    <div class="col text-right mr-6">50,656</div>
+                                    <div class="col">크리티컬 확률</div>
+                                    <div class="col text-right">10,000</div>
+                                </div>
+                                <div class="row mt-1">
+                                    <div class="col">마력</div>
+                                    <div class="col text-right mr-6">50,656</div>
+                                    <div class="col">크리티컬 데미지</div>
+                                    <div class="col text-right">10,000</div>
+                                </div>
+                                <div class="row mt-1">
+                                    <div class="col">재사용 대기시간 감소</div>
+                                    <div class="col text-right mr-6">50,656</div>
+                                    <div class="col">버프 지속시간</div>
+                                    <div class="col text-right">10,000</div>
+                                </div>
+                                <div class="row mt-1">
+                                    <div class="col">재시용 대기시간 미적용</div>
+                                    <div class="col text-right mr-6">56</div>
+                                    <div class="col">속성내성 무시</div>
+                                    <div class="col text-right">10,000</div>
+                                </div>
+                                <div class="row mt-1">
+                                    <div class="col">상태이상 추가 데미지</div>
+                                    <div class="col text-right mr-6">50,656</div>
+                                    <div class="col">소환수 지속시간 증가</div>
+                                    <div class="col text-right">10,000</div>
+                                </div>
+                                <div class="row mt-4">
+                                    <div class="col">상태이상 추가 데미지</div>
+                                    <div class="col text-right mr-6">50,656</div>
+                                    <div class="col">소환수 지속시간 증가</div>
+                                    <div class="col text-right">10,000</div>
+                                </div>
+                                <div class="row mt-1">
+                                    <div class="col">상태이상 추가 데미지</div>
+                                    <div class="col text-right mr-6">50,656</div>
+                                    <div class="col">소환수 지속시간 증가</div>
+                                    <div class="col text-right">10,000</div>
+                                </div>
+                            </div>
+                        </div>
+                    </v-col>
                 </v-row>
             </v-container>
         </div>
@@ -59,6 +156,12 @@ export default {
         color: white;
         font-weight: bold;
     }
+    .world-name {
+        position: relative;
+        font-size: 16px;
+        bottom: 0px;
+        color: white;
+    }
     .character-sub-info {
         font-size: 16px;
         color: #E9EAED;
@@ -69,6 +172,47 @@ export default {
         width: 1px; /* 세로 선의 두께 */
         background-color: rgba(255, 255, 255, 0.5);
         margin: 0 8px; /* 세로 선과 다른 콘텐츠 사이의 간격 */
+    }
+    .character-info-wrapper {
+        margin: 20px auto;
+        height: 440px;
+        background-color: rgba(0, 0, 0, 0.44);
+        border-radius: 7px;
+        padding: 20px;
+        box-sizing: border-box;
+        color: white;
+    }
+    .character-info-content::-webkit-scrollbar {
+        width: 6px; /* 스크롤바의 너비 */
+    }
+    .character-info-content::-webkit-scrollbar-thumb {
+        background: rgba(185, 185, 185, 0.3); /* 스크롤바의 색상 */
+        border-radius: 50px;
+    }
+    .character-info-content {
+        height: 355px; 
+        overflow: hidden; 
+        overflow-y: auto;
+    }
+    .title {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+    .row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        font-size: 13px;
+    }
+    .row:last-child {
+        margin-bottom: 0;
+    }
+    .col {
+        flex: 1;
+    }
+    .text-right {
+        text-align: right;
     }
 </style>
 
