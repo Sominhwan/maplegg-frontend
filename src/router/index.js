@@ -1,6 +1,10 @@
 // Composables
 import AboutView from '@/views/about/AboutView.vue'
 import CharacterInfoView from '@/views/characterInfo/CharacterInfoView.vue'
+import SkillAndSymbolView from '@/views/characterInfo/category/SkillAndSymbolView.vue'
+import StatAndEquipView from '@/views/characterInfo/category/StatAndEquipView.vue'
+import SubCharacterView from '@/views/characterInfo/category/SubCharacterView.vue'
+import UnionView from '@/views/characterInfo/category/UnionView.vue'
 import MainView from '@/views/main/MainView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 const routes = [
@@ -31,7 +35,29 @@ const routes = [
   {
     path: '/info/:name',
     name: 'CharacterInfo',
-    component: CharacterInfoView
+    component: CharacterInfoView,
+    children: [
+      {
+        path: '/info/:name',
+        name: 'StatAndEquip',
+        component: StatAndEquipView
+      },
+      {
+        path: '/info/:name/union',
+        name: 'Union',
+        component: UnionView
+      },
+      {
+        path: '/info/:name/skill',
+        name: 'SkillAndSymbol',
+        component: SkillAndSymbolView
+      },
+      {
+        path: '/info/:name/character',
+        name: 'SubCharacter',
+        component: SubCharacterView
+      }
+    ]
   }
 ]
 

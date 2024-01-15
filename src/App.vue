@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <HeaderComponent v-if="!$route.meta.hideHeader" :headerContent="routeUrl"/>
-      <router-view />
+      <router-view/>
     <FooterComponent v-if="!$route.meta.hideFooter"/>
     <!-- 채팅 -->
     <chat-view/>

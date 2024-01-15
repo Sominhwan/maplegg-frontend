@@ -22,9 +22,9 @@
                                 <span class="divider"></span>
                                 <span>사랑</span>
                             </div>
-                            <div class="btn-wrapper mt-5">
+                            <div class="btn-wrapper mt-5" style="width: 300px;">
                                 <v-btn color="primary">최신 정보</v-btn>
-                                <v-btn class="ml-3" color="#323337"  prepend-icon="mdi-star-outline">즐겨찾기</v-btn>
+                                <v-btn class="ml-3" color="#323337" prepend-icon="mdi-star-outline">즐겨찾기</v-btn>
                             </div>
                         </v-list-item>
                     </v-col>
@@ -103,15 +103,39 @@
                                     <div class="col text-right">10,000</div>
                                 </div>
                                 <div class="row mt-4">
-                                    <div class="col">상태이상 추가 데미지</div>
+                                    <div class="col">메소 획득량</div>
                                     <div class="col text-right mr-6">50,656</div>
-                                    <div class="col">소환수 지속시간 증가</div>
+                                    <div class="col">스타포스</div>
                                     <div class="col text-right">10,000</div>
                                 </div>
                                 <div class="row mt-1">
-                                    <div class="col">상태이상 추가 데미지</div>
+                                    <div class="col">아이템 드롭률</div>
                                     <div class="col text-right mr-6">50,656</div>
-                                    <div class="col">소환수 지속시간 증가</div>
+                                    <div class="col">아케인포스</div>
+                                    <div class="col text-right">10,000</div>
+                                </div>
+                                <div class="row mt-1">
+                                    <div class="col">추가 경험치 획득</div>
+                                    <div class="col text-right mr-6">50,656</div>
+                                    <div class="col">어센틱포스</div>
+                                    <div class="col text-right">10,000</div>
+                                </div>
+                                <div class="row mt-4">
+                                    <div class="col">방어력</div>
+                                    <div class="col text-right mr-6">50,656</div>
+                                    <div class="col">상태이상 내성</div>
+                                    <div class="col text-right">10,000</div>
+                                </div>
+                                <div class="row mt-1">
+                                    <div class="col">이동속도</div>
+                                    <div class="col text-right mr-6">50,656</div>
+                                    <div class="col">점프력</div>
+                                    <div class="col text-right">10,000</div>
+                                </div>
+                                <div class="row mt-1">
+                                    <div class="col">스탠스</div>
+                                    <div class="col text-right mr-6">50,656</div>
+                                    <div class="col">공격 속도</div>
                                     <div class="col text-right">10,000</div>
                                 </div>
                             </div>
@@ -120,23 +144,68 @@
                 </v-row>
             </v-container>
         </div>
+        <!-- 하단 -->
+        <v-container class="character-info-content-container">
+            <v-card color="#F5F7FA" width="550" height="70" flat style="bottom: 80px; border-radius: 10px;">
+                <v-card-item>
+                    <div class="category-btn" :class="{'active-categeory-btn' : routeUrl == 'StatAndEquip'}" id="equip-btn" @click="changeRoute('StatAndEquip')">
+                        스탯/장비
+                    </div>
+                    <div class="category-btn" :class="{'active-categeory-btn' : routeUrl == 'Union'}" id="union-btn" @click="changeRoute('Union')">
+                        유니온
+                    </div>
+                    <div class="category-btn" :class="{'active-categeory-btn' : routeUrl == 'SkillAndSymbol'}" id="skill-btn" @click="changeRoute('SkillAndSymbol')">
+                        스킬 및 심볼
+                    </div>
+                    <div class="category-btn" :class="{'active-categeory-btn' : routeUrl == 'SubCharacter'}" id="sub-character-btn" @click="changeRoute('SubCharacter')">
+                        부캐
+                    </div>
+                </v-card-item>
+            </v-card>
+            <router-view/>
+        </v-container>
     </v-sheet>
 </template>
 
 <script>
-import { onMounted, ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { onMounted, ref, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 export default {
     setup() {
         const route = useRoute();
+        const router = useRouter();
         const characterName = route.params;
         const testImage = ref('https://open.api.nexon.com/static/maplestory/Character/BKEPBKIPAAIKJDODOLCDJJEEGDJILJFMBNGEDPKNJNLPLOMPFNHMFDIDMCEPLNLDPONIKIGNCIKJOBAOLPLOCLKDMNIDKLMJCPAFCMHALLKJMFCEBFKHMIHKKCEOEKINHOEBHJMJFALPLKMDDNLGBGBOKLJEJBLHEGCKHEGDCAPADDLBIMOOOKCEGIFJIOBNJMMOJKAICGHJAELNCGKMNMLOENMFCLBIOOFIPEHDMLGIBFHAIMIAHDDIFPICMDGJ.png');
+        const routeUrl = ref('');
         onMounted(() => {
-            console.log(characterName);
+            console.log(route.name);
+            routeUrl.value = route.name;
+            router.push({ 
+                name: route.name,
+                params: {
+                    name: characterName.name
+                } 
+            })
         });
+
+        watch(route,() => {
+            routeUrl.value = route.name
+        });
+
+        const changeRoute = (routeName) => {
+            router.push({ 
+                name: routeName,
+                params: {
+                    name: characterName.name
+                } 
+            })
+        };
+
         return {
             characterName,
-            testImage
+            testImage,
+            changeRoute,
+            routeUrl
         }
     }
 }
@@ -213,6 +282,46 @@ export default {
     }
     .text-right {
         text-align: right;
+    }
+    .character-info-content-container {
+        width: 60%;
+    }
+    .category-btn {
+        display: inline-block;
+        background-color: white; 
+        padding: 10px 33.8px 10px 33.8px;
+        cursor: pointer;
+        color: #666A7A;
+        font-weight: 600;
+    }
+    .active-categeory-btn {
+        background-color: #5393CA;
+        color: white;
+    }
+    .category-btn:hover {
+        filter: brightness(95%);
+    }
+    #equip-btn {
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        border: 1px solid #EEE;
+    }
+    #union-btn {
+        border-top: 1px solid #EEE;
+        border-bottom: 1px solid #EEE;
+        border-right: 1px solid #EEE;
+    }
+    #skill-btn {
+        border-top: 1px solid #EEE;
+        border-bottom: 1px solid #EEE;
+        border-right: 1px solid #EEE;
+    }
+    #sub-character-btn {
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        border-top: 1px solid #EEE;
+        border-bottom: 1px solid #EEE;
+        border-right: 1px solid #EEE;
     }
 </style>
 

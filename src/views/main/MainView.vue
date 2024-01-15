@@ -103,7 +103,7 @@
                 </v-col>
               </v-row>
             </v-card-item>
-            <router-link v-if="baseRankingInfo.characterName" :to="{ name: 'CharacterInfo', params: { name: baseRankingInfo.characterName } }" class="rank-detail-info-router">
+            <router-link v-if="baseRankingInfo.characterName" :to="{ name: 'StatAndEquip', params: { name: baseRankingInfo.characterName } }" class="rank-detail-info-router">
               <v-card-item class="rank-detail-info-container" style="background-color: #fdbb2d;">
                 <v-row justify="center">
                   <v-col cols="auto" class="d-flex align-center">
@@ -163,7 +163,7 @@
                 </v-col>
               </v-row>
             </v-card-item>
-            <router-link v-if="dojangRankingInfo.characterName" :to="{ name: 'CharacterInfo', params: { name: dojangRankingInfo.characterName } }" class="rank-detail-info-router">
+            <router-link v-if="dojangRankingInfo.characterName" :to="{ name: 'StatAndEquip', params: { name: dojangRankingInfo.characterName } }" class="rank-detail-info-router">
               <v-card-item class="rank-detail-info-container" style="background-color: #5CB85C;">
                 <v-row justify="center">
                   <v-col cols="auto" class="d-flex align-center">
@@ -224,7 +224,7 @@
                 </v-col>
               </v-row>
             </v-card-item>
-            <router-link v-if="acheivementRankingInfo.characterName" :to="{ name: 'CharacterInfo', params: { name: acheivementRankingInfo.characterName } }" class="rank-detail-info-router">
+            <router-link v-if="acheivementRankingInfo.characterName" :to="{ name: 'StatAndEquip', params: { name: acheivementRankingInfo.characterName } }" class="rank-detail-info-router">
               <v-card-item class="rank-detail-info-container" style="background-color: #5393CA;">
                 <v-row justify="center">
                   <v-col cols="auto" class="d-flex align-center">
@@ -284,7 +284,7 @@
                 </v-col>
               </v-row>
             </v-card-item>
-            <router-link v-if="unionRankingInfo.characterName" :to="{ name: 'CharacterInfo', params: { name: unionRankingInfo.characterName } }" class="rank-detail-info-router">
+            <router-link v-if="unionRankingInfo.characterName" :to="{ name: 'StatAndEquip', params: { name: unionRankingInfo.characterName } }" class="rank-detail-info-router">
               <v-card-item class="rank-detail-info-container" style="background-color: #6D62A1;">
                 <v-row justify="center">
                   <v-col cols="auto" class="d-flex align-center">
@@ -764,7 +764,7 @@ export default {
 
     const moveToCharacterInfoPage = (characterName) => {
       router.push({
-          name: 'CharacterInfo',
+          name: 'StatAndEquip',
           params: {
             name: characterName
           }
