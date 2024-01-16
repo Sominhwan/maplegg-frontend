@@ -178,7 +178,6 @@ export default {
         const testImage = ref('https://open.api.nexon.com/static/maplestory/Character/BKEPBKIPAAIKJDODOLCDJJEEGDJILJFMBNGEDPKNJNLPLOMPFNHMFDIDMCEPLNLDPONIKIGNCIKJOBAOLPLOCLKDMNIDKLMJCPAFCMHALLKJMFCEBFKHMIHKKCEOEKINHOEBHJMJFALPLKMDDNLGBGBOKLJEJBLHEGCKHEGDCAPADDLBIMOOOKCEGIFJIOBNJMMOJKAICGHJAELNCGKMNMLOENMFCLBIOOFIPEHDMLGIBFHAIMIAHDDIFPICMDGJ.png');
         const routeUrl = ref('');
         onMounted(() => {
-            console.log(route.name);
             routeUrl.value = route.name;
             router.push({ 
                 name: route.name,
