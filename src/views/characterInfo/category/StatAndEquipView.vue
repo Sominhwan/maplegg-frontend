@@ -1,10 +1,10 @@
 <template>
     <v-row>
         <v-col cols="auto">
-            <v-card flat style="bottom: 70px" width="410">
+            <v-card flat width="360">
                 <v-card-title style="font-size: 18px; font-weight: bold; color: #666A7A;">장비</v-card-title>
                 <v-card-item class="equip-container">
-                    <div class="ma-5" style="display: bottom;">        
+                    <div class="ma-5">        
                         <v-tooltip location="bottom" content-class='custom-tooltip' transition="false">
                             <template v-slot:activator="{ props }">
                                 <img class="equip" v-bind="props" src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCIAHJ.png"/>   
@@ -53,46 +53,46 @@
                                 </v-row>
                             </v-card>
                         </v-tooltip>                
-                        <img class="equip" src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCIAHJ.png" style="position: relative; left: 80px;"/>
-                        <img class="equip" src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCIAHJ.png" style="position: relative; left: 160px;"/>
-                    </div>
-                    <div class="ma-5" style="display: flex;">
-                        <img class="equip" src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCIAHJ.png"/>
-                        <img class="equip" src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCIAHJ.png" style="position: relative; left: 10px;"/>
-                        <img class="equip" src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCIAHJ.png" style="position: relative; left: 20px;"/>
-                        <img class="equip" src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCIAHJ.png" style="position: relative; left: 100px;"/>
-                    </div>
-                    <div class="ma-5" style="display: flex;">
-                        <img class="equip" src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCIAHJ.png"/>
-                        <img class="equip" src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCIAHJ.png" style="position: relative; left: 10px;"/>
-                        <img class="equip" src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCIAHJ.png" style="position: relative; left: 20px;"/>
-                        <img class="equip" src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCIAHJ.png" style="position: relative; left: 30px;"/>
-                        <img class="equip" src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCIAHJ.png" style="position: relative; left: 40px;"/>
-                    </div>
-                    <div class="ma-5" style="display: flex;">
-                        <img class="equip" src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCIAHJ.png"/>
-                        <img class="equip" src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCIAHJ.png" style="position: relative; left: 10px;"/>
-                        <img class="equip" src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCIAHJ.png" style="position: relative; left: 20px;"/>
-                        <img class="equip" src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCIAHJ.png" style="position: relative; left: 30px;"/>
-                        <img class="equip" src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCIAHJ.png" style="position: relative; left: 40px;"/>
-                    </div>
-                    <div class="ma-5" style="display: flex;">
-                        <img class="equip" src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCIAHJ.png"/>
-                        <img class="equip" src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCIAHJ.png" style="position: relative; left: 10px;"/>
-                        <img class="equip" src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCIAHJ.png" style="position: relative; left: 20px;"/>
-                        <img class="equip" src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCIAHJ.png" style="position: relative; left: 30px;"/>
-                        <img class="equip" src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCIAHJ.png" style="position: relative; left: 40px;"/>
-                    </div>
-                    <div class="ma-5" style="display: flex;">
+                        <img class="equip" src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCIAHJ.png" style="position: relative; left: 70px;"/>
                         <img class="equip" src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCIAHJ.png" style="position: relative; left: 140px;"/>
-                        <img class="equip" src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCIAHJ.png" style="position: relative; left: 150px;"/>
-                        <img class="equip" src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCIAHJ.png" style="position: relative; left: 160px;"/>
+                    </div>
+                    <div class="ma-5" style="display: flex;">
+                        <img class="equip" src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCIAHJ.png"/>
+                        <img class="equip" src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCIAHJ.png" style="position: relative; left: 10px;"/>
+                        <img class="equip" src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCIAHJ.png" style="position: relative; left: 20px;"/>
+                        <img class="equip" src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCIAHJ.png" style="position: relative; left: 90px;"/>
+                    </div>
+                    <div class="ma-5" style="display: flex;">
+                        <img class="equip" src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCIAHJ.png"/>
+                        <img class="equip" src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCIAHJ.png" style="position: relative; left: 10px;"/>
+                        <img class="equip" src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCIAHJ.png" style="position: relative; left: 20px;"/>
+                        <img class="equip" src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCIAHJ.png" style="position: relative; left: 30px;"/>
+                        <img class="equip" src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCIAHJ.png" style="position: relative; left: 40px;"/>
+                    </div>
+                    <div class="ma-5" style="display: flex;">
+                        <img class="equip" src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCIAHJ.png"/>
+                        <img class="equip" src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCIAHJ.png" style="position: relative; left: 10px;"/>
+                        <img class="equip" src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCIAHJ.png" style="position: relative; left: 20px;"/>
+                        <img class="equip" src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCIAHJ.png" style="position: relative; left: 30px;"/>
+                        <img class="equip" src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCIAHJ.png" style="position: relative; left: 40px;"/>
+                    </div>
+                    <div class="ma-5" style="display: flex;">
+                        <img class="equip" src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCIAHJ.png"/>
+                        <img class="equip" src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCIAHJ.png" style="position: relative; left: 10px;"/>
+                        <img class="equip" src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCIAHJ.png" style="position: relative; left: 20px;"/>
+                        <img class="equip" src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCIAHJ.png" style="position: relative; left: 30px;"/>
+                        <img class="equip" src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCIAHJ.png" style="position: relative; left: 40px;"/>
+                    </div>
+                    <div class="ma-5" style="display: flex;">
+                        <img class="equip" src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCIAHJ.png" style="position: relative; left: 120px;"/>
+                        <img class="equip" src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCIAHJ.png" style="position: relative; left: 130px;"/>
+                        <img class="equip" src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCIAHJ.png" style="position: relative; left: 140px;"/>
                     </div>
                 </v-card-item>
             </v-card>
         </v-col>
         <v-col cols="auto">
-            <v-card flat style="bottom: 70px">
+            <v-card flat>
                 스탯
             </v-card>
         </v-col>
@@ -114,8 +114,8 @@ export default {
     .equip {
         border: 1px solid #00FF00;
         background-color: rgba(0, 0, 0, 0.25);
-        height: 60px;
-        width: 60px;
+        height: 50px;
+        width: 50px;
         cursor: pointer;
     }
     .custom-tooltip {

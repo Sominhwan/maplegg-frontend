@@ -146,22 +146,20 @@
         </div>
         <!-- 하단 -->
         <v-container class="character-info-content-container">
-            <v-card color="#F5F7FA" width="550" height="70" flat style="bottom: 80px; border-radius: 10px;">
-                <v-card-item>
-                    <div class="category-btn" :class="{'active-categeory-btn' : routeUrl == 'StatAndEquip'}" id="equip-btn" @click="changeRoute('StatAndEquip')">
-                        스탯/장비
-                    </div>
-                    <div class="category-btn" :class="{'active-categeory-btn' : routeUrl == 'Union'}" id="union-btn" @click="changeRoute('Union')">
-                        유니온
-                    </div>
-                    <div class="category-btn" :class="{'active-categeory-btn' : routeUrl == 'SkillAndSymbol'}" id="skill-btn" @click="changeRoute('SkillAndSymbol')">
-                        스킬 및 심볼
-                    </div>
-                    <div class="category-btn" :class="{'active-categeory-btn' : routeUrl == 'SubCharacter'}" id="sub-character-btn" @click="changeRoute('SubCharacter')">
-                        부캐
-                    </div>
-                </v-card-item>
-            </v-card>
+            <div class="mb-6" style="width: 100%; background-color: white; border-radius: 5px; border: 1px solid #EEE;">
+                <div class="category-btn" :class="{'active-categeory-btn' : routeUrl == 'StatAndEquip'}" id="equip-btn" @click="changeRoute('StatAndEquip')">
+                    스탯/장비
+                </div>
+                <div class="category-btn" :class="{'active-categeory-btn' : routeUrl == 'Union'}" id="union-btn" @click="changeRoute('Union')">
+                    유니온
+                </div>
+                <div class="category-btn" :class="{'active-categeory-btn' : routeUrl == 'SkillAndSymbol'}" id="skill-btn" @click="changeRoute('SkillAndSymbol')">
+                    스킬 및 심볼
+                </div>
+                <div class="category-btn" :class="{'active-categeory-btn' : routeUrl == 'SubCharacter'}" id="sub-character-btn" @click="changeRoute('SubCharacter')">
+                    부캐
+                </div>
+            </div>
             <router-view/>
         </v-container>
     </v-sheet>
@@ -303,23 +301,15 @@ export default {
     #equip-btn {
         border-top-left-radius: 5px;
         border-bottom-left-radius: 5px;
-        border: 1px solid #EEE;
+        border-right: 1px solid #EEE;
     }
     #union-btn {
-        border-top: 1px solid #EEE;
-        border-bottom: 1px solid #EEE;
         border-right: 1px solid #EEE;
     }
     #skill-btn {
-        border-top: 1px solid #EEE;
-        border-bottom: 1px solid #EEE;
         border-right: 1px solid #EEE;
     }
     #sub-character-btn {
-        border-top-right-radius: 5px;
-        border-bottom-right-radius: 5px;
-        border-top: 1px solid #EEE;
-        border-bottom: 1px solid #EEE;
         border-right: 1px solid #EEE;
     }
 </style>
