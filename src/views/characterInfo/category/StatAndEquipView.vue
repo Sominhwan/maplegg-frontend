@@ -1,8 +1,8 @@
 <template>
     <v-row>
         <v-col cols="auto">
-            <v-card flat width="360">
-                <v-card-title style="font-size: 16px; font-weight: bold; color: #666A7A;">장비</v-card-title>
+            <v-card class="equip-card" flat width="360">
+                <v-card-title style="font-size: 16px; font-weight: bold; color: white; background-color: rgba(50, 51, 55, 0.975);">장비</v-card-title>
                 <v-card-item class="equip-container">
                     <div class="ma-5" style="display: flex;">        
                         <v-tooltip location="bottom" content-class='custom-tooltip' transition="false">
@@ -137,21 +137,28 @@
             </v-card>
         </v-col>
         <v-col cols="auto">
-            <v-card flat>
-                스탯
+            <v-card class="equip-card" flat>
+                <v-card-title class="cody-card" style="font-size: 16px; font-weight: bold; color: white; background-color: rgba(50, 51, 55, 0.975);">코디</v-card-title>
+                <v-card-item>
+
+                </v-card-item>
             </v-card>
         </v-col>
     </v-row>
-
 </template>
 
 <script>
 export default {
+    setup() {
 
+    }
 }
 </script>
 
 <style>
+    .equip-card {   
+        border: 1px solid rgba(50, 51, 55, 0.975) !important;   
+    }
     .equip-container {
         background-color: #5393CA23;
     }
@@ -181,8 +188,8 @@ export default {
         border: 1px solid #00BB88;
         padding: 5px;
         border-radius: 5px;
-background: rgb(244,247,250);
-background: linear-gradient(0deg, rgba(244,247,250,1) 0%, rgba(83,83,83,1) 100%);
+        background: rgb(244,247,250);
+        background: linear-gradient(0deg, rgba(244,247,250,1) 0%, rgba(83,83,83,1) 100%);
         height: 60px;
         width: 60px;
     }
@@ -201,6 +208,10 @@ background: linear-gradient(0deg, rgba(244,247,250,1) 0%, rgba(83,83,83,1) 100%)
     }
     .potential_option {
         border-bottom: 1px dashed rgba(128, 128, 128, 0.7);
+    }
+
+    .cody-card {
+        border: 1px solid rgba(50, 51, 55, 0.975) !important;   
     }
 </style>
 

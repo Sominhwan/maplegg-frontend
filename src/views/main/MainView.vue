@@ -276,7 +276,8 @@
               <v-row v-else justify="center" class="mt-0">
                 <v-col cols="auto" class="d-flex align-center">
                   <div style="text-align: center;">
-                    <div class="text-h5" style="font-weight: 500; font-size: 20px !important;">
+                    <div class="text-h5" style="font-weight: 500; font-size: 18px !important;">
+                      <img :src="unionIcon(unionRankingInfo.unionLevel)" style="width: 20px; position: relative; top: 3px;"/>
                       Lv.{{ unionRankingInfo.unionLevel }}
                     </div>
                     <div style="font-size: 13px; color: grey;">전투력 {{ Number(unionRankingInfo.unionPower).toLocaleString() }}</div>
@@ -685,6 +686,7 @@
 <script>
 import { getCharacterOverall } from '@/api/main/main.js';
 import getAchievementIcon from '@/common/achievementIcon.js';
+import getUnionIcon from '@/common/unionIcon.js';
 import getWorldIcon from '@/common/worldIcon.js';
 import { computed, onMounted, reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
@@ -762,6 +764,10 @@ export default {
       return getAchievementIcon(trophyGrade);
     }
 
+    const unionIcon = (unionLevel) => {
+      return getUnionIcon(unionLevel);
+    } 
+
     const moveToCharacterInfoPage = (characterName) => {
       router.push({
           name: 'StatAndEquip',
@@ -788,6 +794,7 @@ export default {
         unionRankingInfo,
         worldIcon,
         achievementIcon,
+        unionIcon,
         currentDate,
         moveToCharacterInfoPage
     }
