@@ -43,7 +43,7 @@
                                         </div>
                                     </v-col>
                                 </v-row>
-                                <v-row id="item-image-container" class="mt-2" justify="left" no-gutters>
+                                <v-row id="item-image-container" class="mt-2" no-gutters>
                                     <v-col cols="auto" class="ma-3">
                                         <div style="display: flex; align-items: center;">
                                             <img id="item-image" src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCIAHJ.png"/>
@@ -148,9 +148,13 @@
 </template>
 
 <script>
+import { onMounted } from 'vue';
+
 export default {
     setup() {
+        onMounted(() => {
 
+        });
     }
 }
 </script>
@@ -160,11 +164,11 @@ export default {
         border: 1px solid rgba(50, 51, 55, 0.975) !important;   
     }
     .equip-container {
-        background-color: #5393CA23;
+        background-color: #FFF;
     }
     .equip {
         border: 1px solid #00FF00;
-        background-color: rgba(0, 0, 0, 0.25);
+        background-color: rgba(136, 136, 136, 0.5);
         height: 50px;
         width: 50px;
         cursor: pointer;

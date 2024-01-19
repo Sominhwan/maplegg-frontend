@@ -166,8 +166,10 @@
 </template>
 
 <script>
+import { getCharacterStat } from '@/api/characterInfo/characterInfo.js';
 import { onMounted, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+
 export default {
     setup() {
         const route = useRoute();
@@ -175,6 +177,7 @@ export default {
         const characterName = route.params;
         const testImage = ref('https://open.api.nexon.com/static/maplestory/Character/BKEPBKIPAAIKJDODOLCDJJEEGDJILJFMBNGEDPKNJNLPLOMPFNHMFDIDMCEPLNLDPONIKIGNCIKJOBAOLPLOCLKDMNIDKLMJCPAFCMHALLKJMFCEBFKHMIHKKCEOEKINHOEBHJMJFALPLKMDDNLGBGBOKLJEJBLHEGCKHEGDCAPADDLBIMOOOKCEGIFJIOBNJMMOJKAICGHJAELNCGKMNMLOENMFCLBIOOFIPEHDMLGIBFHAIMIAHDDIFPICMDGJ.png');
         const routeUrl = ref('');
+
         onMounted(() => {
             routeUrl.value = route.name;
             router.push({ 
@@ -182,7 +185,8 @@ export default {
                 params: {
                     name: characterName.name
                 } 
-            })
+            });
+            getCharaterInfo();
         });
 
         watch(route,() => {
@@ -196,6 +200,16 @@ export default {
                     name: characterName.name
                 } 
             })
+        };
+
+        const getCharaterInfo = async () => {
+            const params = {'characterName': characterName.name};
+            try {
+                const response = await getCharacterStat(params);
+                console.log(response);
+            } catch(error) {
+                console.log(error);
+            }
         };
 
         return {
