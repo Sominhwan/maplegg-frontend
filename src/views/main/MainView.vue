@@ -20,8 +20,8 @@
             hide-details
             maxlength="30"
             v-model="searchInfoValue"
-            @click:append-inner="searchInfo()"
-            @keyup.enter="searchInfo()"
+            @click:append-inner="moveToCharacterInfoPage(searchInfoValue)"
+            @keyup.enter="moveToCharacterInfoPage(searchInfoValue)"
             autofocus
         ></v-text-field>
       </v-card>
@@ -387,7 +387,7 @@
                     </div>
                   </td>
                   <td class="text-center"><span>{{ item.character_level }}</span></td>
-                  <td class="text-center"><span>{{ item.character_popularity }}</span></td>
+                  <td class="text-center"><span>{{ Number(item.character_popularity).toLocaleString() }}</span></td>
                   <td class="text-center"><span class="enable-click-text">{{ item.character_guildname }}</span></td>
                 </tr>
               </tbody>
@@ -481,7 +481,7 @@
                     </div>
                   </td>
                   <td class="text-center"><span>{{ item.character_level }}</span></td>
-                  <td class="text-center"><span>{{ item.character_popularity }}</span></td>
+                  <td class="text-center"><span>{{ Number(item.character_popularity).toLocaleString() }}</span></td>
                   <td class="text-center"><span class="enable-click-text">{{ item.character_guildname }}</span></td>
                 </tr>
               </tbody>

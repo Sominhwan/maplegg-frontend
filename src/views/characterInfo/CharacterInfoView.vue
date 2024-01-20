@@ -3,24 +3,27 @@
         <div class="parent-container" style="position: relative;">
             <img src="https://cdn.dak.gg/maple/images/bg/guide-top-bg.jpg" cover height="500" style="position: relative; width: 100%"/>
             <v-container class="character-info-container">
-                <v-row class="mt-0">
+                <v-row v-if="loading" class="mt-0">
                     <v-col class="mt-16" cols="auto">
-                        <img :src="testImage" style="width: 200px;"/>
+                        <img :src="characterBasicInfo.character_image" style="width: 200px;"/>
                     </v-col>
                     <v-col class="mt-16" cols="3">
                         <v-list-item class="mt-5">
                             <div>
-                                <span class="character-name">오지환</span>
-                                <span class="world-name ml-3">스카니아</span>
+                                <span class="character-name">{{ characterBasicInfo.character_name }}</span>
+                                <span class="world-name ml-3">
+                                    <img class="ml-1" :src="worldIcon(characterBasicInfo.world_name)" style="height: 18px; position: relative; top: 4px;"/>
+                                    {{ characterBasicInfo.world_name }}
+                                </span>
                             </div>
                             <div class="character-sub-info mt-2">
-                                <span>LV.280</span>
+                                <span>LV.{{ characterBasicInfo.character_level }}</span>
                                 <span class="divider"></span>
-                                <span>카데나</span>
+                                <span>{{ characterBasicInfo.character_class }}</span>
                                 <span class="divider"></span>
-                                <span>인기도 1,296</span>
+                                <span>인기도 {{ Number(characterPopularityInfo.popularity).toLocaleString() }}</span>
                                 <span class="divider"></span>
-                                <span>사랑</span>
+                                <span>{{ characterBasicInfo.character_guild_name }}</span>
                             </div>
                             <div class="btn-wrapper mt-5" style="width: 300px;">
                                 <v-btn color="primary">최신 정보</v-btn>
@@ -34,109 +37,109 @@
                             <div class="character-info-content pr-3">
                                 <div class="row">
                                     <div class="col">전투력</div>
-                                    <div class="col text-right">8510만</div>
+                                    <div class="col text-right">{{ powerLevel(characterStatInfo[42].stat_value) }}</div>
                                 </div>
                                 <div class="row mt-4">
                                     <div class="col">HP</div>
-                                    <div class="col text-right mr-6">50,656</div>
+                                    <div class="col text-right mr-6">{{ Number(characterStatInfo[20].stat_value).toLocaleString() }}</div>
                                     <div class="col">MP</div>
-                                    <div class="col text-right">10,000</div>
+                                    <div class="col text-right">{{ Number(characterStatInfo[21].stat_value).toLocaleString() }}</div>
                                 </div>
                                 <div class="row mt-1">
                                     <div class="col">STR</div>
-                                    <div class="col text-right mr-6">50,656</div>
+                                    <div class="col text-right mr-6">{{ Number(characterStatInfo[16].stat_value).toLocaleString() }}</div>
                                     <div class="col">DEX</div>
-                                    <div class="col text-right">10,000</div>
+                                    <div class="col text-right">{{ Number(characterStatInfo[17].stat_value).toLocaleString() }}</div>
                                 </div>
                                 <div class="row mt-1">
                                     <div class="col">INT</div>
-                                    <div class="col text-right mr-6">50,656</div>
+                                    <div class="col text-right mr-6">{{ Number(characterStatInfo[18].stat_value).toLocaleString() }}</div>
                                     <div class="col">LUK</div>
-                                    <div class="col text-right">10,000</div>
+                                    <div class="col text-right">{{ Number(characterStatInfo[19].stat_value).toLocaleString() }}</div>
                                 </div>
                                 <div class="row mt-4">
                                     <div class="col">스탯 공격력</div>
-                                    <div class="col text-right mr-6">50,656</div>
+                                    <div class="col text-right mr-6">{{ Number(characterStatInfo[1].stat_value).toLocaleString() }}</div>
                                     <div class="col">데미지</div>
-                                    <div class="col text-right">10,000</div>
+                                    <div class="col text-right">{{ characterStatInfo[2].stat_value }}%</div>
                                 </div>
                                 <div class="row mt-1">
                                     <div class="col">최종 데미지</div>
-                                    <div class="col text-right mr-6">50,656</div>
+                                    <div class="col text-right mr-6">{{ characterStatInfo[4].stat_value }}%</div>
                                     <div class="col">보스 몬스터 데미지</div>
-                                    <div class="col text-right">10,000</div>
+                                    <div class="col text-right">{{ characterStatInfo[3].stat_value }}%</div>
                                 </div>
                                 <div class="row mt-1">
                                     <div class="col">방어력 무시</div>
-                                    <div class="col text-right mr-6">50,656</div>
+                                    <div class="col text-right mr-6">{{ characterStatInfo[5].stat_value }}%</div>
                                     <div class="col">일반 몬스터 데미지</div>
-                                    <div class="col text-right">10,000</div>
+                                    <div class="col text-right">{{ characterStatInfo[32].stat_value }}%</div>
                                 </div>
                                 <div class="row mt-1">
                                     <div class="col">공격력</div>
-                                    <div class="col text-right mr-6">50,656</div>
+                                    <div class="col text-right mr-6">{{ Number(characterStatInfo[40].stat_value).toLocaleString() }}</div>
                                     <div class="col">크리티컬 확률</div>
-                                    <div class="col text-right">10,000</div>
+                                    <div class="col text-right">{{ characterStatInfo[6].stat_value }}%</div>
                                 </div>
                                 <div class="row mt-1">
                                     <div class="col">마력</div>
-                                    <div class="col text-right mr-6">50,656</div>
+                                    <div class="col text-right mr-6">{{ Number(characterStatInfo[41].stat_value).toLocaleString() }}</div>
                                     <div class="col">크리티컬 데미지</div>
-                                    <div class="col text-right">10,000</div>
+                                    <div class="col text-right">{{ characterStatInfo[7].stat_value }}%</div>
                                 </div>
                                 <div class="row mt-1">
                                     <div class="col">재사용 대기시간 감소</div>
-                                    <div class="col text-right mr-6">50,656</div>
+                                    <div class="col text-right mr-6">{{ characterStatInfo[33].stat_value }}초 / {{ characterStatInfo[34].stat_value }}%</div>
                                     <div class="col">버프 지속시간</div>
-                                    <div class="col text-right">10,000</div>
+                                    <div class="col text-right">{{ characterStatInfo[30].stat_value }}%</div>
                                 </div>
                                 <div class="row mt-1">
                                     <div class="col">재시용 대기시간 미적용</div>
-                                    <div class="col text-right mr-6">56</div>
+                                    <div class="col text-right mr-6">{{ characterStatInfo[35].stat_value }}%</div>
                                     <div class="col">속성내성 무시</div>
-                                    <div class="col text-right">10,000</div>
+                                    <div class="col text-right">{{ characterStatInfo[36].stat_value }}%</div>
                                 </div>
                                 <div class="row mt-1">
                                     <div class="col">상태이상 추가 데미지</div>
-                                    <div class="col text-right mr-6">50,656</div>
+                                    <div class="col text-right mr-6">{{ characterStatInfo[37].stat_value }}%</div>
                                     <div class="col">소환수 지속시간 증가</div>
-                                    <div class="col text-right">10,000</div>
+                                    <div class="col text-right">{{ characterStatInfo[43].stat_value }}%</div>
                                 </div>
                                 <div class="row mt-4">
                                     <div class="col">메소 획득량</div>
-                                    <div class="col text-right mr-6">50,656</div>
+                                    <div  class="col text-right mr-6">{{ characterStatInfo[29].stat_value }}%</div>
                                     <div class="col">스타포스</div>
-                                    <div class="col text-right">10,000</div>
+                                    <div class="col text-right">{{ characterStatInfo[13].stat_value }}</div>
                                 </div>
                                 <div class="row mt-1">
                                     <div class="col">아이템 드롭률</div>
-                                    <div class="col text-right mr-6">50,656</div>
+                                    <div class="col text-right mr-6">{{ characterStatInfo[28].stat_value }}%</div>
                                     <div class="col">아케인포스</div>
-                                    <div class="col text-right">10,000</div>
+                                    <div class="col text-right">{{ Number(characterStatInfo[14].stat_value).toLocaleString() }}</div>
                                 </div>
                                 <div class="row mt-1">
                                     <div class="col">추가 경험치 획득</div>
-                                    <div class="col text-right mr-6">50,656</div>
+                                    <div class="col text-right mr-6">{{ characterStatInfo[39].stat_value }}%</div>
                                     <div class="col">어센틱포스</div>
-                                    <div class="col text-right">10,000</div>
+                                    <div class="col text-right">{{ characterStatInfo[15].stat_value }}</div>
                                 </div>
                                 <div class="row mt-4">
                                     <div class="col">방어력</div>
-                                    <div class="col text-right mr-6">50,656</div>
+                                    <div class="col text-right mr-6">{{ Number(characterStatInfo[10].stat_value).toLocaleString() }}</div>
                                     <div class="col">상태이상 내성</div>
-                                    <div class="col text-right">10,000</div>
+                                    <div class="col text-right">{{ characterStatInfo[8].stat_value }}</div>
                                 </div>
                                 <div class="row mt-1">
                                     <div class="col">이동속도</div>
-                                    <div class="col text-right mr-6">50,656</div>
+                                    <div class="col text-right mr-6">{{ characterStatInfo[11].stat_value }}%</div>
                                     <div class="col">점프력</div>
-                                    <div class="col text-right">10,000</div>
+                                    <div class="col text-right">{{ characterStatInfo[12].stat_value }}%</div>
                                 </div>
                                 <div class="row mt-1">
                                     <div class="col">스탠스</div>
-                                    <div class="col text-right mr-6">50,656</div>
+                                    <div class="col text-right mr-6">{{ characterStatInfo[9].stat_value }}%</div>
                                     <div class="col">공격 속도</div>
-                                    <div class="col text-right">10,000</div>
+                                    <div class="col text-right">{{ characterStatInfo[31].stat_value }}단계</div>
                                 </div>
                             </div>
                         </div>
@@ -167,7 +170,9 @@
 
 <script>
 import { getCharacterStat } from '@/api/characterInfo/characterInfo.js';
-import { onMounted, ref, watch } from 'vue';
+import getNumberFormat from '@/common/numberFormat.js';
+import getWorldIcon from '@/common/worldIcon.js';
+import { onMounted, reactive, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 export default {
@@ -177,6 +182,14 @@ export default {
         const characterName = route.params;
         const testImage = ref('https://open.api.nexon.com/static/maplestory/Character/BKEPBKIPAAIKJDODOLCDJJEEGDJILJFMBNGEDPKNJNLPLOMPFNHMFDIDMCEPLNLDPONIKIGNCIKJOBAOLPLOCLKDMNIDKLMJCPAFCMHALLKJMFCEBFKHMIHKKCEOEKINHOEBHJMJFALPLKMDDNLGBGBOKLJEJBLHEGCKHEGDCAPADDLBIMOOOKCEGIFJIOBNJMMOJKAICGHJAELNCGKMNMLOENMFCLBIOOFIPEHDMLGIBFHAIMIAHDDIFPICMDGJ.png');
         const routeUrl = ref('');
+        // 캐릭터 기본 정보
+        const characterBasicInfo = reactive({});
+        // 캐릭터 인기도 정보
+        const characterPopularityInfo = reactive({});
+        // 캐릭터 증합 능력 정보
+        const characterStatInfo = reactive({});
+
+        const loading = ref(false);
 
         onMounted(() => {
             routeUrl.value = route.name;
@@ -202,13 +215,26 @@ export default {
             })
         };
 
+        const worldIcon = (worldName) => { 
+            return getWorldIcon(worldName);
+        };
+
+        const powerLevel = (number) => {
+            return getNumberFormat(number);
+        }
+
         const getCharaterInfo = async () => {
             const params = {'characterName': characterName.name};
             try {
                 const response = await getCharacterStat(params);
-                console.log(response);
+                console.log(response.data.data);
+                Object.assign(characterBasicInfo, response.data.data.characterBasicInfo);
+                Object.assign(characterPopularityInfo, response.data.data.characterPopularityInfo);
+                Object.assign(characterStatInfo, response.data.data.characterStatInfo.final_stat); 
             } catch(error) {
                 console.log(error);
+            } finally {
+                loading.value = true;
             }
         };
 
@@ -216,7 +242,13 @@ export default {
             characterName,
             testImage,
             changeRoute,
-            routeUrl
+            routeUrl,
+            characterBasicInfo,
+            characterPopularityInfo,
+            characterStatInfo,
+            worldIcon,
+            powerLevel,
+            loading
         }
     }
 }
