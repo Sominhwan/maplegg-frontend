@@ -227,7 +227,7 @@ export default {
             const params = {'characterName': characterName.name};
             try {
                 const response = await getCharacterStat(params);
-                console.log(response.data.data);
+
                 Object.assign(characterBasicInfo, response.data.data.characterBasicInfo);
                 Object.assign(characterPopularityInfo, response.data.data.characterPopularityInfo);
                 Object.assign(characterStatInfo, response.data.data.characterStatInfo.final_stat); 
