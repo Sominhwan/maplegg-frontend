@@ -17,26 +17,38 @@
                                 <v-row justify="center" no-gutters>
                                     <v-col cols="auto" class="mt-1 text-center">
                                         <div>
-                                            <span v-for="index in 5" :key="index">
-                                                <v-icon size="12" color="#F7D300">mdi-star</v-icon>
+                                            <span class="mr-2">
+                                                <span v-for="index in 5" :key="index">
+                                                    <v-icon v-if="parseInt(item.starforce) > index - 1" size="12" color="#F7D300">mdi-star</v-icon>
+                                                    <v-icon v-else size="12" color="#778087">mdi-star</v-icon>
+                                                </span>
                                             </span>
-                                            <span class="mr-2"></span>
-                                            <span v-for="index in 5" :key="index">
-                                                <v-icon size="12" color="#F7D300">mdi-star</v-icon>
+                                            <span class="mr-2">
+                                                <span v-for="index in 5" :key="index">
+                                                    <v-icon v-if="parseInt(item.starforce) > index + 4" size="12" color="#F7D300">mdi-star</v-icon>
+                                                    <v-icon v-else size="12" color="#778087">mdi-star</v-icon>
+                                                </span>
                                             </span>
-                                            <span class="mr-2"></span>
-                                            <span v-for="index in 5" :key="index">
-                                                <v-icon size="12" color="#F7D300">mdi-star</v-icon>
+                                            <span>
+                                                <span v-for="index in 5" :key="index">
+                                                    <v-icon v-if="parseInt(item.starforce) > index + 9" size="12" color="#F7D300">mdi-star</v-icon>
+                                                    <v-icon v-else size="12" color="#778087">mdi-star</v-icon>
+                                                </span>
                                             </span>
                                         </div>
                                         <div style="position: relative; bottom: 5px;">
-                                            <span v-for="index in 5" :key="index">
-                                                <v-icon size="12" color="#F7D300">mdi-star</v-icon>
+                                            <span class="mr-2">
+                                                <span v-for="index in 5" :key="index">
+                                                    <v-icon v-if="parseInt(item.starforce) > index + 14" size="12" color="#F7D300">mdi-star</v-icon>
+                                                    <v-icon v-else size="12" color="#778087">mdi-star</v-icon>
+                                                </span>
                                             </span>
-                                            <span class="mr-2"></span>
-                                            <span v-for="index in 5" :key="index">
-                                                <v-icon size="12" color="#F7D300">mdi-star</v-icon>
-                                            </span>                                 
+                                            <span>
+                                                <span v-for="index in 5" :key="index">
+                                                    <v-icon v-if="parseInt(item.starforce) > index + 19" size="12" color="#F7D300">mdi-star</v-icon>
+                                                    <v-icon v-else size="12" color="#778087">mdi-star</v-icon>
+                                                </span>
+                                            </span>
                                         </div>
                                     </v-col>
                                 </v-row>
@@ -120,21 +132,36 @@
                                     <v-col cols="auto" class="mt-1 text-center">
                                         <div>
                                             <span class="mr-2">
-                                            <v-icon size="12" color="#F7D300" v-for="index in 5" :key="index">mdi-star</v-icon>
+                                                <span v-for="index in 5" :key="index">
+                                                    <v-icon v-if="parseInt(item.starforce) > index - 1" size="12" color="#F7D300">mdi-star</v-icon>
+                                                    <v-icon v-else size="12" color="#778087">mdi-star</v-icon>
+                                                </span>
                                             </span>
                                             <span class="mr-2">
-                                            <v-icon size="12" color="#F7D300" v-for="index in 5" :key="index">mdi-star</v-icon>
+                                                <span v-for="index in 5" :key="index">
+                                                    <v-icon v-if="parseInt(item.starforce) > index + 4" size="12" color="#F7D300">mdi-star</v-icon>
+                                                    <v-icon v-else size="12" color="#778087">mdi-star</v-icon>
+                                                </span>
                                             </span>
                                             <span>
-                                            <v-icon size="12" color="#F7D300" v-for="index in 5" :key="index">mdi-star</v-icon>
+                                                <span v-for="index in 5" :key="index">
+                                                    <v-icon v-if="parseInt(item.starforce) > index + 9" size="12" color="#F7D300">mdi-star</v-icon>
+                                                    <v-icon v-else size="12" color="#778087">mdi-star</v-icon>
+                                                </span>
                                             </span>
                                         </div>
                                         <div style="position: relative; bottom: 5px;">
                                             <span class="mr-2">
-                                            <v-icon size="12" color="#F7D300" v-for="index in 5" :key="index">mdi-star</v-icon>
+                                                <span v-for="index in 5" :key="index">
+                                                    <v-icon v-if="parseInt(item.starforce) > index + 14" size="12" color="#F7D300">mdi-star</v-icon>
+                                                    <v-icon v-else size="12" color="#778087">mdi-star</v-icon>
+                                                </span>
                                             </span>
                                             <span>
-                                            <v-icon size="12" color="#F7D300" v-for="index in 5" :key="index">mdi-star</v-icon>
+                                                <span v-for="index in 5" :key="index">
+                                                    <v-icon v-if="parseInt(item.starforce) > index + 19" size="12" color="#F7D300">mdi-star</v-icon>
+                                                    <v-icon v-else size="12" color="#778087">mdi-star</v-icon>
+                                                </span>
                                             </span>
                                         </div>
                                     </v-col>
@@ -219,21 +246,36 @@
                                     <v-col cols="auto" class="mt-1 text-center">
                                         <div>
                                             <span class="mr-2">
-                                            <v-icon size="12" color="#F7D300" v-for="index in 5" :key="index">mdi-star</v-icon>
+                                                <span v-for="index in 5" :key="index">
+                                                    <v-icon v-if="parseInt(item.starforce) > index - 1" size="12" color="#F7D300">mdi-star</v-icon>
+                                                    <v-icon v-else size="12" color="#778087">mdi-star</v-icon>
+                                                </span>
                                             </span>
                                             <span class="mr-2">
-                                            <v-icon size="12" color="#F7D300" v-for="index in 5" :key="index">mdi-star</v-icon>
+                                                <span v-for="index in 5" :key="index">
+                                                    <v-icon v-if="parseInt(item.starforce) > index + 4" size="12" color="#F7D300">mdi-star</v-icon>
+                                                    <v-icon v-else size="12" color="#778087">mdi-star</v-icon>
+                                                </span>
                                             </span>
                                             <span>
-                                            <v-icon size="12" color="#F7D300" v-for="index in 5" :key="index">mdi-star</v-icon>
+                                                <span v-for="index in 5" :key="index">
+                                                    <v-icon v-if="parseInt(item.starforce) > index + 9" size="12" color="#F7D300">mdi-star</v-icon>
+                                                    <v-icon v-else size="12" color="#778087">mdi-star</v-icon>
+                                                </span>
                                             </span>
                                         </div>
                                         <div style="position: relative; bottom: 5px;">
                                             <span class="mr-2">
-                                            <v-icon size="12" color="#F7D300" v-for="index in 5" :key="index">mdi-star</v-icon>
+                                                <span v-for="index in 5" :key="index">
+                                                    <v-icon v-if="parseInt(item.starforce) > index + 14" size="12" color="#F7D300">mdi-star</v-icon>
+                                                    <v-icon v-else size="12" color="#778087">mdi-star</v-icon>
+                                                </span>
                                             </span>
                                             <span>
-                                            <v-icon size="12" color="#F7D300" v-for="index in 5" :key="index">mdi-star</v-icon>
+                                                <span v-for="index in 5" :key="index">
+                                                    <v-icon v-if="parseInt(item.starforce) > index + 19" size="12" color="#F7D300">mdi-star</v-icon>
+                                                    <v-icon v-else size="12" color="#778087">mdi-star</v-icon>
+                                                </span>
                                             </span>
                                         </div>
                                     </v-col>
@@ -318,21 +360,36 @@
                                     <v-col cols="auto" class="mt-1 text-center">
                                         <div>
                                             <span class="mr-2">
-                                            <v-icon size="12" color="#F7D300" v-for="index in 5" :key="index">mdi-star</v-icon>
+                                                <span v-for="index in 5" :key="index">
+                                                    <v-icon v-if="parseInt(item.starforce) > index - 1" size="12" color="#F7D300">mdi-star</v-icon>
+                                                    <v-icon v-else size="12" color="#778087">mdi-star</v-icon>
+                                                </span>
                                             </span>
                                             <span class="mr-2">
-                                            <v-icon size="12" color="#F7D300" v-for="index in 5" :key="index">mdi-star</v-icon>
+                                                <span v-for="index in 5" :key="index">
+                                                    <v-icon v-if="parseInt(item.starforce) > index + 4" size="12" color="#F7D300">mdi-star</v-icon>
+                                                    <v-icon v-else size="12" color="#778087">mdi-star</v-icon>
+                                                </span>
                                             </span>
                                             <span>
-                                            <v-icon size="12" color="#F7D300" v-for="index in 5" :key="index">mdi-star</v-icon>
+                                                <span v-for="index in 5" :key="index">
+                                                    <v-icon v-if="parseInt(item.starforce) > index + 9" size="12" color="#F7D300">mdi-star</v-icon>
+                                                    <v-icon v-else size="12" color="#778087">mdi-star</v-icon>
+                                                </span>
                                             </span>
                                         </div>
                                         <div style="position: relative; bottom: 5px;">
                                             <span class="mr-2">
-                                            <v-icon size="12" color="#F7D300" v-for="index in 5" :key="index">mdi-star</v-icon>
+                                                <span v-for="index in 5" :key="index">
+                                                    <v-icon v-if="parseInt(item.starforce) > index + 14" size="12" color="#F7D300">mdi-star</v-icon>
+                                                    <v-icon v-else size="12" color="#778087">mdi-star</v-icon>
+                                                </span>
                                             </span>
                                             <span>
-                                            <v-icon size="12" color="#F7D300" v-for="index in 5" :key="index">mdi-star</v-icon>
+                                                <span v-for="index in 5" :key="index">
+                                                    <v-icon v-if="parseInt(item.starforce) > index + 19" size="12" color="#F7D300">mdi-star</v-icon>
+                                                    <v-icon v-else size="12" color="#778087">mdi-star</v-icon>
+                                                </span>
                                             </span>
                                         </div>
                                     </v-col>
@@ -417,21 +474,36 @@
                                     <v-col cols="auto" class="mt-1 text-center">
                                         <div>
                                             <span class="mr-2">
-                                            <v-icon size="12" color="#F7D300" v-for="index in 5" :key="index">mdi-star</v-icon>
+                                                <span v-for="index in 5" :key="index">
+                                                    <v-icon v-if="parseInt(item.starforce) > index - 1" size="12" color="#F7D300">mdi-star</v-icon>
+                                                    <v-icon v-else size="12" color="#778087">mdi-star</v-icon>
+                                                </span>
                                             </span>
                                             <span class="mr-2">
-                                            <v-icon size="12" color="#F7D300" v-for="index in 5" :key="index">mdi-star</v-icon>
+                                                <span v-for="index in 5" :key="index">
+                                                    <v-icon v-if="parseInt(item.starforce) > index + 4" size="12" color="#F7D300">mdi-star</v-icon>
+                                                    <v-icon v-else size="12" color="#778087">mdi-star</v-icon>
+                                                </span>
                                             </span>
                                             <span>
-                                            <v-icon size="12" color="#F7D300" v-for="index in 5" :key="index">mdi-star</v-icon>
+                                                <span v-for="index in 5" :key="index">
+                                                    <v-icon v-if="parseInt(item.starforce) > index + 9" size="12" color="#F7D300">mdi-star</v-icon>
+                                                    <v-icon v-else size="12" color="#778087">mdi-star</v-icon>
+                                                </span>
                                             </span>
                                         </div>
                                         <div style="position: relative; bottom: 5px;">
                                             <span class="mr-2">
-                                            <v-icon size="12" color="#F7D300" v-for="index in 5" :key="index">mdi-star</v-icon>
+                                                <span v-for="index in 5" :key="index">
+                                                    <v-icon v-if="parseInt(item.starforce) > index + 14" size="12" color="#F7D300">mdi-star</v-icon>
+                                                    <v-icon v-else size="12" color="#778087">mdi-star</v-icon>
+                                                </span>
                                             </span>
                                             <span>
-                                            <v-icon size="12" color="#F7D300" v-for="index in 5" :key="index">mdi-star</v-icon>
+                                                <span v-for="index in 5" :key="index">
+                                                    <v-icon v-if="parseInt(item.starforce) > index + 19" size="12" color="#F7D300">mdi-star</v-icon>
+                                                    <v-icon v-else size="12" color="#778087">mdi-star</v-icon>
+                                                </span>
                                             </span>
                                         </div>
                                     </v-col>
@@ -516,21 +588,36 @@
                                     <v-col cols="auto" class="mt-1 text-center">
                                         <div>
                                             <span class="mr-2">
-                                            <v-icon size="12" color="#F7D300" v-for="index in 5" :key="index">mdi-star</v-icon>
+                                                <span v-for="index in 5" :key="index">
+                                                    <v-icon v-if="parseInt(item.starforce) > index - 1" size="12" color="#F7D300">mdi-star</v-icon>
+                                                    <v-icon v-else size="12" color="#778087">mdi-star</v-icon>
+                                                </span>
                                             </span>
                                             <span class="mr-2">
-                                            <v-icon size="12" color="#F7D300" v-for="index in 5" :key="index">mdi-star</v-icon>
+                                                <span v-for="index in 5" :key="index">
+                                                    <v-icon v-if="parseInt(item.starforce) > index + 4" size="12" color="#F7D300">mdi-star</v-icon>
+                                                    <v-icon v-else size="12" color="#778087">mdi-star</v-icon>
+                                                </span>
                                             </span>
                                             <span>
-                                            <v-icon size="12" color="#F7D300" v-for="index in 5" :key="index">mdi-star</v-icon>
+                                                <span v-for="index in 5" :key="index">
+                                                    <v-icon v-if="parseInt(item.starforce) > index + 9" size="12" color="#F7D300">mdi-star</v-icon>
+                                                    <v-icon v-else size="12" color="#778087">mdi-star</v-icon>
+                                                </span>
                                             </span>
                                         </div>
                                         <div style="position: relative; bottom: 5px;">
                                             <span class="mr-2">
-                                            <v-icon size="12" color="#F7D300" v-for="index in 5" :key="index">mdi-star</v-icon>
+                                                <span v-for="index in 5" :key="index">
+                                                    <v-icon v-if="parseInt(item.starforce) > index + 14" size="12" color="#F7D300">mdi-star</v-icon>
+                                                    <v-icon v-else size="12" color="#778087">mdi-star</v-icon>
+                                                </span>
                                             </span>
                                             <span>
-                                            <v-icon size="12" color="#F7D300" v-for="index in 5" :key="index">mdi-star</v-icon>
+                                                <span v-for="index in 5" :key="index">
+                                                    <v-icon v-if="parseInt(item.starforce) > index + 19" size="12" color="#F7D300">mdi-star</v-icon>
+                                                    <v-icon v-else size="12" color="#778087">mdi-star</v-icon>
+                                                </span>
                                             </span>
                                         </div>
                                     </v-col>
