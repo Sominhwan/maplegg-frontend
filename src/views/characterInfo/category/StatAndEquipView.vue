@@ -46,7 +46,7 @@
                                             <span>
                                                 <span v-for="index in 5" :key="index">
                                                     <v-icon v-if="parseInt(item.starforce) > index + 19" size="12" color="#F7D300">mdi-star</v-icon>
-                                                    <v-icon v-else size="12" color="#778087">mdi-star</v-icon>
+                                                    <v-icon v-else size="12" color="#778087">mdi-star</v-icon>      
                                                 </span>
                                             </span>
                                         </div>
@@ -80,11 +80,35 @@
                                 </v-row>
                                 <v-row class="equip-option" no-gutters>
                                     <v-col class="ml-3 mt-1 mb-1" style="font-size: 12px; color:white">
-                                        <div>장비분류 : 눈장식</div>
-                                        <div>STR : +82 (7 + 75)</div>
-                                        <div>DEX : +82 (7 + 75)</div>
-                                        <div>INT : +82 (7 + 75)</div>
-                                        <div>LUK : +82 (7 + 75)</div>
+                                        <div>장비분류 : {{ item.item_equipment_part }}</div>
+                                        <div v-if="item.item_total_option.str !== '0'">
+                                            STR : +{{ item.item_total_option.str }} 
+                                            (<span v-if="item.item_base_option.str !== '0'">{{ item.item_base_option.str }}</span>
+                                             <span v-if="item.item_add_option.str !== '0'"> +{{ item.item_add_option.str }}</span>
+                                             <span v-if="item.item_etc_option.str !== '0'"> +{{ item.item_etc_option.str }}</span>
+                                             <span v-if="item.item_starforce_option.str !== '0'"> +{{ item.item_starforce_option.str }}</span>)
+                                        </div>
+                                        <div v-if="item.item_total_option.dex !== '0'">
+                                            DEX : +{{ item.item_total_option.dex }} 
+                                            (<span v-if="item.item_base_option.dex !== '0'">{{ item.item_base_option.dex }}</span>
+                                             <span v-if="item.item_add_option.dex !== '0'"> +{{ item.item_add_option.dex }}</span>
+                                             <span v-if="item.item_etc_option.dex !== '0'"> +{{ item.item_etc_option.dex }}</span>
+                                             <span v-if="item.item_starforce_option.dex !== '0'"> +{{ item.item_starforce_option.dex }}</span>)
+                                        </div>
+                                        <div v-if="item.item_total_option.int !== '0'">
+                                            INT : +{{ item.item_total_option.int }} 
+                                            (<span v-if="item.item_base_option.int !== '0'">{{ item.item_base_option.int }}</span>
+                                             <span v-if="item.item_add_option.int !== '0'"> +{{ item.item_add_option.int }}</span>
+                                             <span v-if="item.item_etc_option.int !== '0'"> +{{ item.item_etc_option.int }}</span>
+                                             <span v-if="item.item_starforce_option.int !== '0'"> +{{ item.item_starforce_option.int }}</span>)
+                                        </div>
+                                        <div v-if="item.item_total_option.luk !== '0'">
+                                            LUK : +{{ item.item_total_option.luk }} 
+                                            (<span v-if="item.item_base_option.luk !== '0'">{{ item.item_base_option.luk }}</span>
+                                             <span v-if="item.item_add_option.luk !== '0'"> +{{ item.item_add_option.luk }}</span>
+                                             <span v-if="item.item_etc_option.luk !== '0'"> +{{ item.item_etc_option.luk }}</span>
+                                             <span v-if="item.item_starforce_option.luk !== '0'"> +{{ item.item_starforce_option.luk }}</span>)
+                                        </div>
                                         <div>공격력 : +82 (7 + 75)</div>
                                         <div>마력 : +82 (7 + 75)</div>
                                         <div>방어력 : +82 (7 + 75)</div>
@@ -194,11 +218,35 @@
                                 </v-row>
                                 <v-row class="equip-option" no-gutters>
                                     <v-col class="ml-3 mt-1 mb-1" style="font-size: 12px; color:white">
-                                        <div>장비분류 : 눈장식</div>
-                                        <div>STR : +82 (7 + 75)</div>
-                                        <div>DEX : +82 (7 + 75)</div>
-                                        <div>INT : +82 (7 + 75)</div>
-                                        <div>LUK : +82 (7 + 75)</div>
+                                        <div>장비분류 : {{ item.item_equipment_part }}</div>
+                                        <div v-if="item.item_total_option.str !== '0'">
+                                            STR : +{{ item.item_total_option.str }} 
+                                            (<span v-if="item.item_base_option.str !== '0'">{{ item.item_base_option.str }}</span>
+                                             <span v-if="item.item_add_option.str !== '0'"> +{{ item.item_add_option.str }}</span>
+                                             <span v-if="item.item_etc_option.str !== '0'"> +{{ item.item_etc_option.str }}</span>
+                                             <span v-if="item.item_starforce_option.str !== '0'"> +{{ item.item_starforce_option.str }}</span>)
+                                        </div>
+                                        <div v-if="item.item_total_option.dex !== '0'">
+                                            DEX : +{{ item.item_total_option.dex }} 
+                                            (<span v-if="item.item_base_option.dex !== '0'">{{ item.item_base_option.dex }}</span>
+                                             <span v-if="item.item_add_option.dex !== '0'"> +{{ item.item_add_option.dex }}</span>
+                                             <span v-if="item.item_etc_option.dex !== '0'"> +{{ item.item_etc_option.dex }}</span>
+                                             <span v-if="item.item_starforce_option.dex !== '0'"> +{{ item.item_starforce_option.dex }}</span>)
+                                        </div>
+                                        <div v-if="item.item_total_option.int !== '0'">
+                                            INT : +{{ item.item_total_option.int }} 
+                                            (<span v-if="item.item_base_option.int !== '0'">{{ item.item_base_option.int }}</span>
+                                             <span v-if="item.item_add_option.int !== '0'"> +{{ item.item_add_option.int }}</span>
+                                             <span v-if="item.item_etc_option.int !== '0'"> +{{ item.item_etc_option.int }}</span>
+                                             <span v-if="item.item_starforce_option.int !== '0'"> +{{ item.item_starforce_option.int }}</span>)
+                                        </div>
+                                        <div v-if="item.item_total_option.luk !== '0'">
+                                            LUK : +{{ item.item_total_option.luk }} 
+                                            (<span v-if="item.item_base_option.luk !== '0'">{{ item.item_base_option.luk }}</span>
+                                             <span v-if="item.item_add_option.luk !== '0'"> +{{ item.item_add_option.luk }}</span>
+                                             <span v-if="item.item_etc_option.luk !== '0'"> +{{ item.item_etc_option.luk }}</span>
+                                             <span v-if="item.item_starforce_option.luk !== '0'"> +{{ item.item_starforce_option.luk }}</span>)
+                                        </div>
                                         <div>공격력 : +82 (7 + 75)</div>
                                         <div>마력 : +82 (7 + 75)</div>
                                         <div>방어력 : +82 (7 + 75)</div>
@@ -308,11 +356,35 @@
                                 </v-row>
                                 <v-row class="equip-option" no-gutters>
                                     <v-col class="ml-3 mt-1 mb-1" style="font-size: 12px; color:white">
-                                        <div>장비분류 : 눈장식</div>
-                                        <div>STR : +82 (7 + 75)</div>
-                                        <div>DEX : +82 (7 + 75)</div>
-                                        <div>INT : +82 (7 + 75)</div>
-                                        <div>LUK : +82 (7 + 75)</div>
+                                        <div>장비분류 : {{ item.item_equipment_part }}</div>
+                                        <div v-if="item.item_total_option.str !== '0'">
+                                            STR : +{{ item.item_total_option.str }} 
+                                            (<span v-if="item.item_base_option.str !== '0'">{{ item.item_base_option.str }}</span>
+                                             <span v-if="item.item_add_option.str !== '0'"> +{{ item.item_add_option.str }}</span>
+                                             <span v-if="item.item_etc_option.str !== '0'"> +{{ item.item_etc_option.str }}</span>
+                                             <span v-if="item.item_starforce_option.str !== '0'"> +{{ item.item_starforce_option.str }}</span>)
+                                        </div>
+                                        <div v-if="item.item_total_option.dex !== '0'">
+                                            DEX : +{{ item.item_total_option.dex }} 
+                                            (<span v-if="item.item_base_option.dex !== '0'">{{ item.item_base_option.dex }}</span>
+                                             <span v-if="item.item_add_option.dex !== '0'"> +{{ item.item_add_option.dex }}</span>
+                                             <span v-if="item.item_etc_option.dex !== '0'"> +{{ item.item_etc_option.dex }}</span>
+                                             <span v-if="item.item_starforce_option.dex !== '0'"> +{{ item.item_starforce_option.dex }}</span>)
+                                        </div>
+                                        <div v-if="item.item_total_option.int !== '0'">
+                                            INT : +{{ item.item_total_option.int }} 
+                                            (<span v-if="item.item_base_option.int !== '0'">{{ item.item_base_option.int }}</span>
+                                             <span v-if="item.item_add_option.int !== '0'"> +{{ item.item_add_option.int }}</span>
+                                             <span v-if="item.item_etc_option.int !== '0'"> +{{ item.item_etc_option.int }}</span>
+                                             <span v-if="item.item_starforce_option.int !== '0'"> +{{ item.item_starforce_option.int }}</span>)
+                                        </div>
+                                        <div v-if="item.item_total_option.luk !== '0'">
+                                            LUK : +{{ item.item_total_option.luk }} 
+                                            (<span v-if="item.item_base_option.luk !== '0'">{{ item.item_base_option.luk }}</span>
+                                             <span v-if="item.item_add_option.luk !== '0'"> +{{ item.item_add_option.luk }}</span>
+                                             <span v-if="item.item_etc_option.luk !== '0'"> +{{ item.item_etc_option.luk }}</span>
+                                             <span v-if="item.item_starforce_option.luk !== '0'"> +{{ item.item_starforce_option.luk }}</span>)
+                                        </div>
                                         <div>공격력 : +82 (7 + 75)</div>
                                         <div>마력 : +82 (7 + 75)</div>
                                         <div>방어력 : +82 (7 + 75)</div>
@@ -422,11 +494,35 @@
                                 </v-row>
                                 <v-row class="equip-option" no-gutters>
                                     <v-col class="ml-3 mt-1 mb-1" style="font-size: 12px; color:white">
-                                        <div>장비분류 : 눈장식</div>
-                                        <div>STR : +82 (7 + 75)</div>
-                                        <div>DEX : +82 (7 + 75)</div>
-                                        <div>INT : +82 (7 + 75)</div>
-                                        <div>LUK : +82 (7 + 75)</div>
+                                        <div>장비분류 : {{ item.item_equipment_part }}</div>
+                                        <div v-if="item.item_total_option.str !== '0'">
+                                            STR : +{{ item.item_total_option.str }} 
+                                            (<span v-if="item.item_base_option.str !== '0'">{{ item.item_base_option.str }}</span>
+                                             <span v-if="item.item_add_option.str !== '0'"> +{{ item.item_add_option.str }}</span>
+                                             <span v-if="item.item_etc_option.str !== '0'"> +{{ item.item_etc_option.str }}</span>
+                                             <span v-if="item.item_starforce_option.str !== '0'"> +{{ item.item_starforce_option.str }}</span>)
+                                        </div>
+                                        <div v-if="item.item_total_option.dex !== '0'">
+                                            DEX : +{{ item.item_total_option.dex }} 
+                                            (<span v-if="item.item_base_option.dex !== '0'">{{ item.item_base_option.dex }}</span>
+                                             <span v-if="item.item_add_option.dex !== '0'"> +{{ item.item_add_option.dex }}</span>
+                                             <span v-if="item.item_etc_option.dex !== '0'"> +{{ item.item_etc_option.dex }}</span>
+                                             <span v-if="item.item_starforce_option.dex !== '0'"> +{{ item.item_starforce_option.dex }}</span>)
+                                        </div>
+                                        <div v-if="item.item_total_option.int !== '0'">
+                                            INT : +{{ item.item_total_option.int }} 
+                                            (<span v-if="item.item_base_option.int !== '0'">{{ item.item_base_option.int }}</span>
+                                             <span v-if="item.item_add_option.int !== '0'"> +{{ item.item_add_option.int }}</span>
+                                             <span v-if="item.item_etc_option.int !== '0'"> +{{ item.item_etc_option.int }}</span>
+                                             <span v-if="item.item_starforce_option.int !== '0'"> +{{ item.item_starforce_option.int }}</span>)
+                                        </div>
+                                        <div v-if="item.item_total_option.luk !== '0'">
+                                            LUK : +{{ item.item_total_option.luk }} 
+                                            (<span v-if="item.item_base_option.luk !== '0'">{{ item.item_base_option.luk }}</span>
+                                             <span v-if="item.item_add_option.luk !== '0'"> +{{ item.item_add_option.luk }}</span>
+                                             <span v-if="item.item_etc_option.luk !== '0'"> +{{ item.item_etc_option.luk }}</span>
+                                             <span v-if="item.item_starforce_option.luk !== '0'"> +{{ item.item_starforce_option.luk }}</span>)
+                                        </div>
                                         <div>공격력 : +82 (7 + 75)</div>
                                         <div>마력 : +82 (7 + 75)</div>
                                         <div>방어력 : +82 (7 + 75)</div>
@@ -536,11 +632,35 @@
                                 </v-row>
                                 <v-row class="equip-option" no-gutters>
                                     <v-col class="ml-3 mt-1 mb-1" style="font-size: 12px; color:white">
-                                        <div>장비분류 : 눈장식</div>
-                                        <div>STR : +82 (7 + 75)</div>
-                                        <div>DEX : +82 (7 + 75)</div>
-                                        <div>INT : +82 (7 + 75)</div>
-                                        <div>LUK : +82 (7 + 75)</div>
+                                        <div>장비분류 : {{ item.item_equipment_part }}</div>
+                                        <div v-if="item.item_total_option.str !== '0'">
+                                            STR : +{{ item.item_total_option.str }} 
+                                            (<span v-if="item.item_base_option.str !== '0'">{{ item.item_base_option.str }}</span>
+                                             <span v-if="item.item_add_option.str !== '0'"> +{{ item.item_add_option.str }}</span>
+                                             <span v-if="item.item_etc_option.str !== '0'"> +{{ item.item_etc_option.str }}</span>
+                                             <span v-if="item.item_starforce_option.str !== '0'"> +{{ item.item_starforce_option.str }}</span>)
+                                        </div>
+                                        <div v-if="item.item_total_option.dex !== '0'">
+                                            DEX : +{{ item.item_total_option.dex }} 
+                                            (<span v-if="item.item_base_option.dex !== '0'">{{ item.item_base_option.dex }}</span>
+                                             <span v-if="item.item_add_option.dex !== '0'"> +{{ item.item_add_option.dex }}</span>
+                                             <span v-if="item.item_etc_option.dex !== '0'"> +{{ item.item_etc_option.dex }}</span>
+                                             <span v-if="item.item_starforce_option.dex !== '0'"> +{{ item.item_starforce_option.dex }}</span>)
+                                        </div>
+                                        <div v-if="item.item_total_option.int !== '0'">
+                                            INT : +{{ item.item_total_option.int }} 
+                                            (<span v-if="item.item_base_option.int !== '0'">{{ item.item_base_option.int }}</span>
+                                             <span v-if="item.item_add_option.int !== '0'"> +{{ item.item_add_option.int }}</span>
+                                             <span v-if="item.item_etc_option.int !== '0'"> +{{ item.item_etc_option.int }}</span>
+                                             <span v-if="item.item_starforce_option.int !== '0'"> +{{ item.item_starforce_option.int }}</span>)
+                                        </div>
+                                        <div v-if="item.item_total_option.luk !== '0'">
+                                            LUK : +{{ item.item_total_option.luk }} 
+                                            (<span v-if="item.item_base_option.luk !== '0'">{{ item.item_base_option.luk }}</span>
+                                             <span v-if="item.item_add_option.luk !== '0'"> +{{ item.item_add_option.luk }}</span>
+                                             <span v-if="item.item_etc_option.luk !== '0'"> +{{ item.item_etc_option.luk }}</span>
+                                             <span v-if="item.item_starforce_option.luk !== '0'"> +{{ item.item_starforce_option.luk }}</span>)
+                                        </div>
                                         <div>공격력 : +82 (7 + 75)</div>
                                         <div>마력 : +82 (7 + 75)</div>
                                         <div>방어력 : +82 (7 + 75)</div>
@@ -650,11 +770,35 @@
                                 </v-row>
                                 <v-row class="equip-option" no-gutters>
                                     <v-col class="ml-3 mt-1 mb-1" style="font-size: 12px; color:white">
-                                        <div>장비분류 : 눈장식</div>
-                                        <div>STR : +82 (7 + 75)</div>
-                                        <div>DEX : +82 (7 + 75)</div>
-                                        <div>INT : +82 (7 + 75)</div>
-                                        <div>LUK : +82 (7 + 75)</div>
+                                        <div>장비분류 : {{ item.item_equipment_part }}</div>
+                                        <div v-if="item.item_total_option.str !== '0'">
+                                            STR : +{{ item.item_total_option.str }} 
+                                            (<span v-if="item.item_base_option.str !== '0'">{{ item.item_base_option.str }}</span>
+                                             <span v-if="item.item_add_option.str !== '0'"> +{{ item.item_add_option.str }}</span>
+                                             <span v-if="item.item_etc_option.str !== '0'"> +{{ item.item_etc_option.str }}</span>
+                                             <span v-if="item.item_starforce_option.str !== '0'"> +{{ item.item_starforce_option.str }}</span>)
+                                        </div>
+                                        <div v-if="item.item_total_option.dex !== '0'">
+                                            DEX : +{{ item.item_total_option.dex }} 
+                                            (<span v-if="item.item_base_option.dex !== '0'">{{ item.item_base_option.dex }}</span>
+                                             <span v-if="item.item_add_option.dex !== '0'"> +{{ item.item_add_option.dex }}</span>
+                                             <span v-if="item.item_etc_option.dex !== '0'"> +{{ item.item_etc_option.dex }}</span>
+                                             <span v-if="item.item_starforce_option.dex !== '0'"> +{{ item.item_starforce_option.dex }}</span>)
+                                        </div>
+                                        <div v-if="item.item_total_option.int !== '0'">
+                                            INT : +{{ item.item_total_option.int }} 
+                                            (<span v-if="item.item_base_option.int !== '0'">{{ item.item_base_option.int }}</span>
+                                             <span v-if="item.item_add_option.int !== '0'"> +{{ item.item_add_option.int }}</span>
+                                             <span v-if="item.item_etc_option.int !== '0'"> +{{ item.item_etc_option.int }}</span>
+                                             <span v-if="item.item_starforce_option.int !== '0'"> +{{ item.item_starforce_option.int }}</span>)
+                                        </div>
+                                        <div v-if="item.item_total_option.luk !== '0'">
+                                            LUK : +{{ item.item_total_option.luk }} 
+                                            (<span v-if="item.item_base_option.luk !== '0'">{{ item.item_base_option.luk }}</span>
+                                             <span v-if="item.item_add_option.luk !== '0'"> +{{ item.item_add_option.luk }}</span>
+                                             <span v-if="item.item_etc_option.luk !== '0'"> +{{ item.item_etc_option.luk }}</span>
+                                             <span v-if="item.item_starforce_option.luk !== '0'"> +{{ item.item_starforce_option.luk }}</span>)
+                                        </div>
                                         <div>공격력 : +82 (7 + 75)</div>
                                         <div>마력 : +82 (7 + 75)</div>
                                         <div>방어력 : +82 (7 + 75)</div>
@@ -705,6 +849,7 @@
 <script>
 import { getCharacterEquipment } from '@/api/characterInfo/statAndEquip.js';
 import getPotentialOptionGradeColor from '@/common/potentialOptionGradeColor.js';
+import getStarforceMaxEnhancement from '@/common/starforceMaxEnhancement.js';
 import { onMounted, reactive, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
@@ -729,7 +874,11 @@ export default {
         });
 
         const potentialOptionGradeColor = (grade) => {
-            return getPotentialOptionGradeColor(grade)
+            return getPotentialOptionGradeColor(grade);
+        };
+
+        const starforceMaxEnhancement = (baseEquipmentLevel, kind) => {
+            return getStarforceMaxEnhancement(baseEquipmentLevel, kind);
         };
 
         const characterEquipment = async () => {
@@ -787,7 +936,8 @@ export default {
             item6,
             item2Location,
             item6Location,
-            potentialOptionGradeColor
+            potentialOptionGradeColor,
+            starforceMaxEnhancement
         }
     }
 }
