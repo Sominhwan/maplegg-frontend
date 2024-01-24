@@ -4,11 +4,11 @@
             <img src="https://cdn.dak.gg/maple/images/bg/guide-top-bg.jpg" cover height="500" style="position: relative; width: 100%"/>
             <v-container class="character-info-container">
                 <v-row v-if="loading" class="mt-0">
-                    <v-col class="mt-16" cols="auto">
-                        <img :src="characterBasicInfo.character_image" style="width: 200px;"/>
-                    </v-col>
-                    <v-col class="mt-16" cols="3">
+                    <v-col class="mt-16" cols="6">
                         <v-list-item class="mt-5">
+                            <template v-slot:prepend>
+                                <img :src="characterBasicInfo.character_image" style="width: 200px;"/>
+                            </template>
                             <div>
                                 <span class="character-name">{{ characterBasicInfo.character_name }}</span>
                                 <span class="world-name ml-3">

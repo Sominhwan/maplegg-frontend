@@ -136,7 +136,16 @@
                                 </v-row>
                                 <v-row v-if="item.potential_option_1 && item.potential_option_2 && item.potential_option_3 !== null" class="potential_option" no-gutters>
                                     <v-col class="mt-1 mb-1" style="font-size: 12px; color: white;">
-                                        <div class="ml-3" :style="{ color: `${potentialOptionGradeColor(item.potential_option_grade)}` }">잠재옵션</div>
+                                        <div class="ml-3" style="display: flex; align-items: center;">
+                                            <div class="item-grade-container mr-1">
+                                                <div class="item-grade-octagon">
+                                                </div>
+                                                <div class="item-grade-small-octagon">
+                                                <div class="item-grade-text">z</div>
+                                                </div>
+                                            </div>
+                                            <span :style="{ color: `${potentialOptionGradeColor(item.potential_option_grade)}` }">잠재옵션</span>
+                                        </div>
                                         <div v-if="item.potential_option_1 !== null" class="ml-3">{{ item.potential_option_1 }}</div>
                                         <div v-if="item.potential_option_2 !== null" class="ml-3">{{ item.potential_option_2 }}</div>
                                         <div v-if="item.potential_option_3 !== null" class="ml-3">{{ item.potential_option_3 }}</div>
@@ -1103,6 +1112,35 @@ export default {
     }
     .item-starforce-option {
         color: #F4C402;
+    }
+    .item-grade-container {
+      position: relative;
+      display: flex; 
+      align-items: center;
+    }
+    .item-grade-octagon {
+      width: 14px;
+      height: 14px;
+      background-color: #FFF;
+      position: relative;
+      clip-path: polygon(29% 0%, 71% 0%, 100% 29%, 100% 71%, 71% 100%, 29% 100%, 0% 71%, 0% 29%);
+    }
+    .item-grade-small-octagon {
+      position: absolute;
+      background: black;
+      width: 11px;
+      height: 11px;
+      left: 1.2px;
+      top: 1px;
+      clip-path: polygon(29% 0%, 71% 0%, 100% 29%, 100% 71%, 71% 100%, 29% 100%, 0% 71%, 0% 29%);
+    }
+    .item-grade-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #fff;
+      font-size: 4px;
     }
     .cody-card {
         border: 1px solid rgba(50, 51, 55, 0.975) !important;   
