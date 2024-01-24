@@ -10,7 +10,7 @@
                                 <img class="equip" 
                                     v-bind="props" 
                                     :src="item.item_icon" 
-                                    :style="{ position: 'relative', left: `${index *70}px`, border: `1px solid ${potentialOptionGradeColor(item.potential_option_grade)}` }"
+                                    :style="{ position: 'relative', left: `${index *70}px`, border: `1px solid ${potentialImageOptionGradeColor(item.potential_option_grade)}` }"
                                 />   
                             </template>
                             <v-card id="item-container" width="300" flat>
@@ -65,7 +65,7 @@
                                 <v-row id="item-image-container" class="mt-2" no-gutters>
                                     <v-col cols="auto" class="ma-3">
                                         <div style="display: flex; align-items: center;">
-                                            <img id="item-image" :src="item.item_icon" :style="{ border: `1px solid ${potentialOptionGradeColor(item.potential_option_grade)}` }"/>
+                                            <img id="item-image" :src="item.item_icon" :style="{ border: `1px solid ${potentialImageOptionGradeColor(item.potential_option_grade)}` }"/>
                                             <span class="ml-2" style="color:#F7D300; font-size: 11px;">· REQ LEV : {{ item.item_base_option.base_equipment_level }}</span>                                          
                                         </div>
                                         <div class="equip-class mt-3 pa-1">
@@ -125,9 +125,67 @@
                                              <span class="item-starforce-option" v-if="item.item_starforce_option.luk !== '0'"> +{{ item.item_starforce_option.luk }}</span>)
                                             </span>
                                         </div>
-                                        <div>공격력 : +82 (7 + 75)</div>
-                                        <div>마력 : +82 (7 + 75)</div>
-                                        <div>방어력 : +82 (7 + 75)</div>
+                                        <div v-if="item.item_total_option.max_hp !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.max_hp) + parseInt(item.item_etc_option.max_hp) + parseInt(item.item_starforce_option.max_hp) !== 0 }">
+                                                최대 HP : +{{ item.item_total_option.max_hp }} 
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.max_hp) + parseInt(item.item_etc_option.max_hp) + parseInt(item.item_starforce_option.max_hp) !== 0">
+                                            (<span>{{ item.item_base_option.max_hp }}</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.max_hp !== '0'"> +{{ item.item_add_option.max_hp }}</span>
+                                             <span class="item-etc-option" v-if="item.item_etc_option.max_hp !== '0'"> +{{ item.item_etc_option.max_hp }}</span>
+                                             <span class="item-starforce-option" v-if="item.item_starforce_option.max_hp !== '0'"> +{{ item.item_starforce_option.max_hp }}</span>)
+                                            </span>
+                                        </div>
+                                        <div v-if="item.item_total_option.max_mp !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.max_mp) + parseInt(item.item_etc_option.max_mp) + parseInt(item.item_starforce_option.max_mp) !== 0 }">
+                                                최대 MP : +{{ item.item_total_option.max_mp }} 
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.max_mp) + parseInt(item.item_etc_option.max_mp) + parseInt(item.item_starforce_option.max_mp) !== 0">
+                                            (<span>{{ item.item_base_option.max_mp }}</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.max_mp !== '0'"> +{{ item.item_add_option.max_mp }}</span>
+                                             <span class="item-etc-option" v-if="item.item_etc_option.max_mp !== '0'"> +{{ item.item_etc_option.max_mp }}</span>
+                                             <span class="item-starforce-option" v-if="item.item_starforce_option.max_mp !== '0'"> +{{ item.item_starforce_option.max_mp }}</span>)
+                                            </span>
+                                        </div>
+                                        <div v-if="item.item_total_option.max_hp_rate !== '0'">
+                                            최대 HP : +{{ item.item_total_option.max_hp_rate }}%
+                                        </div>
+                                        <div v-if="item.item_total_option.max_mp_rate !== '0'">
+                                            최대 MP : +{{ item.item_total_option.max_mp_rate }}%
+                                        </div>
+                                        <div v-if="item.item_total_option.attack_power !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.attack_power) + parseInt(item.item_etc_option.attack_power) + parseInt(item.item_starforce_option.attack_power) !== 0 }">
+                                                공격력 : +{{ item.item_total_option.attack_power }} 
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.attack_power) + parseInt(item.item_etc_option.attack_power) + parseInt(item.item_starforce_option.attack_power) !== 0">
+                                            (<span>{{ item.item_base_option.attack_power }}</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.attack_power !== '0'"> +{{ item.item_add_option.attack_power }}</span>
+                                             <span class="item-etc-option" v-if="item.item_etc_option.attack_power !== '0'"> +{{ item.item_etc_option.attack_power }}</span>
+                                             <span class="item-starforce-option" v-if="item.item_starforce_option.attack_power !== '0'"> +{{ item.item_starforce_option.attack_power }}</span>)
+                                            </span>
+                                        </div>
+                                        <div v-if="item.item_total_option.magic_power !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.magic_power) + parseInt(item.item_etc_option.magic_power) + parseInt(item.item_starforce_option.magic_power) !== 0 }">
+                                                마력 : +{{ item.item_total_option.magic_power }} 
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.magic_power) + parseInt(item.item_etc_option.magic_power) + parseInt(item.item_starforce_option.magic_power) !== 0">
+                                            (<span>{{ item.item_base_option.magic_power }}</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.magic_power !== '0'"> +{{ item.item_add_option.magic_power }}</span>
+                                             <span class="item-etc-option" v-if="item.item_etc_option.magic_power !== '0'"> +{{ item.item_etc_option.magic_power }}</span>
+                                             <span class="item-starforce-option" v-if="item.item_starforce_option.magic_power !== '0'"> +{{ item.item_starforce_option.magic_power }}</span>)
+                                            </span>
+                                        </div>
+                                        <div v-if="item.item_total_option.armor !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.armor) + parseInt(item.item_etc_option.armor) + parseInt(item.item_starforce_option.armor) !== 0 }">
+                                                방어력 : +{{ item.item_total_option.armor }} 
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.armor) + parseInt(item.item_etc_option.armor) + parseInt(item.item_starforce_option.armor) !== 0">
+                                            (<span>{{ item.item_base_option.armor }}</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.armor !== '0'"> +{{ item.item_add_option.armor }}</span>
+                                             <span class="item-etc-option" v-if="item.item_etc_option.armor !== '0'"> +{{ item.item_etc_option.armor }}</span>
+                                             <span class="item-starforce-option" v-if="item.item_starforce_option.armor !== '0'"> +{{ item.item_starforce_option.armor }}</span>)
+                                            </span>
+                                        </div>
                                         <div>올스탯 : +5% (0% + 5%)</div>
                                         <div>업그레이드 가능 횟수 : 0 (복구 가능 횟수: 0)</div>
                                         <div v-if="item.golden_hammer_flag === '적용'">황금망치 제련 적용</div>
@@ -138,10 +196,9 @@
                                     <v-col class="mt-1 mb-1" style="font-size: 12px; color: white;">
                                         <div class="ml-3" style="display: flex; align-items: center;">
                                             <div class="item-grade-container mr-1">
-                                                <div class="item-grade-octagon">
-                                                </div>
-                                                <div class="item-grade-small-octagon">
-                                                <div class="item-grade-text">z</div>
+                                                <div class="item-grade-octagon"></div>
+                                                <div class="item-grade-small-octagon" :style="{ 'background-color': `${potentialImageOptionGradeColor(item.potential_option_grade)}`}">
+                                                    <div class="item-grade-text">{{ potentialImageOptionGradeText(item.potential_option_grade) }}</div>
                                                 </div>
                                             </div>
                                             <span :style="{ color: `${potentialOptionGradeColor(item.potential_option_grade)}` }">잠재옵션</span>
@@ -153,7 +210,15 @@
                                 </v-row>
                                 <v-row v-if="item.additional_potential_option_1 && item.additional_potential_option_2 && item.additional_potential_option_3 !== null" class="potential_option" no-gutters>
                                     <v-col class="mt-1 mb-1" style="font-size: 12px; color: white;">
-                                        <div class="ml-3" :style="{ color: `${potentialOptionGradeColor(item.additional_potential_option_grade)}` }">에디셔널 잠재옵션</div>
+                                        <div class="ml-3" style="display: flex; align-items: center;">
+                                            <div class="item-grade-container mr-1">
+                                                <div class="item-grade-octagon"></div>
+                                                <div class="item-grade-small-octagon" :style="{ 'background-color': `${potentialImageOptionGradeColor(item.additional_potential_option_grade)}`}">
+                                                    <div class="item-grade-text">{{ potentialImageOptionGradeText(item.additional_potential_option_grade) }}</div>
+                                                </div>
+                                            </div>
+                                            <span :style="{ color: `${potentialOptionGradeColor(item.additional_potential_option_grade)}` }">에디셔널 잠재옵션</span>
+                                        </div>
                                         <div v-if="item.additional_potential_option_1 !== null" class="ml-3">{{ item.additional_potential_option_1 }}</div>
                                         <div v-if="item.additional_potential_option_2 !== null" class="ml-3">{{ item.additional_potential_option_2 }}</div>
                                         <div v-if="item.additional_potential_option_3 !== null" class="ml-3">{{ item.additional_potential_option_3 }}</div>
@@ -173,7 +238,7 @@
                                 <img class="equip" 
                                     v-bind="props" 
                                     :src="item.item_icon" 
-                                    :style="{ position: 'relative', left: `${item2Location[index]}px`, border: `1px solid ${potentialOptionGradeColor(item.potential_option_grade)}` }"
+                                    :style="{ position: 'relative', left: `${item2Location[index]}px`, border: `1px solid ${potentialImageOptionGradeColor(item.potential_option_grade)}` }"
                                 />   
                             </template>
                             <v-card id="item-container" width="300" flat>
@@ -228,7 +293,7 @@
                                 <v-row id="item-image-container" class="mt-2" no-gutters>
                                     <v-col cols="auto" class="ma-3">
                                         <div style="display: flex; align-items: center;">
-                                            <img id="item-image" :src="item.item_icon" :style="{ border: `1px solid ${potentialOptionGradeColor(item.potential_option_grade)}` }"/>
+                                            <img id="item-image" :src="item.item_icon" :style="{ border: `1px solid ${potentialImageOptionGradeColor(item.potential_option_grade)}` }"/>
                                             <span class="ml-2" style="color:#F7D300; font-size: 11px;">· REQ LEV : {{ item.item_base_option.base_equipment_level }}</span>                                          
                                         </div>
                                         <div class="equip-class mt-3 pa-1">
@@ -288,9 +353,67 @@
                                              <span class="item-starforce-option" v-if="item.item_starforce_option.luk !== '0'"> +{{ item.item_starforce_option.luk }}</span>)
                                             </span>
                                         </div>
-                                        <div>공격력 : +82 (7 + 75)</div>
-                                        <div>마력 : +82 (7 + 75)</div>
-                                        <div>방어력 : +82 (7 + 75)</div>
+                                        <div v-if="item.item_total_option.max_hp !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.max_hp) + parseInt(item.item_etc_option.max_hp) + parseInt(item.item_starforce_option.max_hp) !== 0 }">
+                                                최대 HP : +{{ item.item_total_option.max_hp }} 
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.max_hp) + parseInt(item.item_etc_option.max_hp) + parseInt(item.item_starforce_option.max_hp) !== 0">
+                                            (<span>{{ item.item_base_option.max_hp }}</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.max_hp !== '0'"> +{{ item.item_add_option.max_hp }}</span>
+                                             <span class="item-etc-option" v-if="item.item_etc_option.max_hp !== '0'"> +{{ item.item_etc_option.max_hp }}</span>
+                                             <span class="item-starforce-option" v-if="item.item_starforce_option.max_hp !== '0'"> +{{ item.item_starforce_option.max_hp }}</span>)
+                                            </span>
+                                        </div>
+                                        <div v-if="item.item_total_option.max_mp !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.max_mp) + parseInt(item.item_etc_option.max_mp) + parseInt(item.item_starforce_option.max_mp) !== 0 }">
+                                                최대 MP : +{{ item.item_total_option.max_mp }} 
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.max_mp) + parseInt(item.item_etc_option.max_mp) + parseInt(item.item_starforce_option.max_mp) !== 0">
+                                            (<span>{{ item.item_base_option.max_mp }}</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.max_mp !== '0'"> +{{ item.item_add_option.max_mp }}</span>
+                                             <span class="item-etc-option" v-if="item.item_etc_option.max_mp !== '0'"> +{{ item.item_etc_option.max_mp }}</span>
+                                             <span class="item-starforce-option" v-if="item.item_starforce_option.max_mp !== '0'"> +{{ item.item_starforce_option.max_mp }}</span>)
+                                            </span>
+                                        </div>
+                                        <div v-if="item.item_total_option.max_hp_rate !== '0'">
+                                            최대 HP : +{{ item.item_total_option.max_hp_rate }}%
+                                        </div>
+                                        <div v-if="item.item_total_option.max_mp_rate !== '0'">
+                                            최대 MP : +{{ item.item_total_option.max_mp_rate }}%
+                                        </div>
+                                        <div v-if="item.item_total_option.attack_power !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.attack_power) + parseInt(item.item_etc_option.attack_power) + parseInt(item.item_starforce_option.attack_power) !== 0 }">
+                                                공격력 : +{{ item.item_total_option.attack_power }} 
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.attack_power) + parseInt(item.item_etc_option.attack_power) + parseInt(item.item_starforce_option.attack_power) !== 0">
+                                            (<span>{{ item.item_base_option.attack_power }}</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.attack_power !== '0'"> +{{ item.item_add_option.attack_power }}</span>
+                                             <span class="item-etc-option" v-if="item.item_etc_option.attack_power !== '0'"> +{{ item.item_etc_option.attack_power }}</span>
+                                             <span class="item-starforce-option" v-if="item.item_starforce_option.attack_power !== '0'"> +{{ item.item_starforce_option.attack_power }}</span>)
+                                            </span>
+                                        </div>
+                                        <div v-if="item.item_total_option.magic_power !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.magic_power) + parseInt(item.item_etc_option.magic_power) + parseInt(item.item_starforce_option.magic_power) !== 0 }">
+                                                마력 : +{{ item.item_total_option.magic_power }} 
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.magic_power) + parseInt(item.item_etc_option.magic_power) + parseInt(item.item_starforce_option.magic_power) !== 0">
+                                            (<span>{{ item.item_base_option.magic_power }}</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.magic_power !== '0'"> +{{ item.item_add_option.magic_power }}</span>
+                                             <span class="item-etc-option" v-if="item.item_etc_option.magic_power !== '0'"> +{{ item.item_etc_option.magic_power }}</span>
+                                             <span class="item-starforce-option" v-if="item.item_starforce_option.magic_power !== '0'"> +{{ item.item_starforce_option.magic_power }}</span>)
+                                            </span>
+                                        </div>
+                                        <div v-if="item.item_total_option.armor !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.armor) + parseInt(item.item_etc_option.armor) + parseInt(item.item_starforce_option.armor) !== 0 }">
+                                                방어력 : +{{ item.item_total_option.armor }} 
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.armor) + parseInt(item.item_etc_option.armor) + parseInt(item.item_starforce_option.armor) !== 0">
+                                            (<span>{{ item.item_base_option.armor }}</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.armor !== '0'"> +{{ item.item_add_option.armor }}</span>
+                                             <span class="item-etc-option" v-if="item.item_etc_option.armor !== '0'"> +{{ item.item_etc_option.armor }}</span>
+                                             <span class="item-starforce-option" v-if="item.item_starforce_option.armor !== '0'"> +{{ item.item_starforce_option.armor }}</span>)
+                                            </span>
+                                        </div>
                                         <div>올스탯 : +5% (0% + 5%)</div>
                                         <div>업그레이드 가능 횟수 : 0 (복구 가능 횟수: 0)</div>
                                         <div v-if="item.golden_hammer_flag === '적용'">황금망치 제련 적용</div>
@@ -299,7 +422,15 @@
                                 </v-row>
                                 <v-row v-if="item.potential_option_1 && item.potential_option_2 && item.potential_option_3 !== null" class="potential_option" no-gutters>
                                     <v-col class="mt-1 mb-1" style="font-size: 12px; color: white;">
-                                        <div class="ml-3" :style="{ color: `${potentialOptionGradeColor(item.potential_option_grade)}` }">잠재옵션</div>
+                                        <div class="ml-3" style="display: flex; align-items: center;">
+                                            <div class="item-grade-container mr-1">
+                                                <div class="item-grade-octagon"></div>
+                                                <div class="item-grade-small-octagon" :style="{ 'background-color': `${potentialImageOptionGradeColor(item.potential_option_grade)}`}">
+                                                    <div class="item-grade-text">{{ potentialImageOptionGradeText(item.potential_option_grade) }}</div>
+                                                </div>
+                                            </div>
+                                            <span :style="{ color: `${potentialOptionGradeColor(item.potential_option_grade)}` }">잠재옵션</span>
+                                        </div>
                                         <div v-if="item.potential_option_1 !== null" class="ml-3">{{ item.potential_option_1 }}</div>
                                         <div v-if="item.potential_option_2 !== null" class="ml-3">{{ item.potential_option_2 }}</div>
                                         <div v-if="item.potential_option_3 !== null" class="ml-3">{{ item.potential_option_3 }}</div>
@@ -307,7 +438,15 @@
                                 </v-row>
                                 <v-row v-if="item.additional_potential_option_1 && item.additional_potential_option_2 && item.additional_potential_option_3 !== null" class="potential_option" no-gutters>
                                     <v-col class="mt-1 mb-1" style="font-size: 12px; color: white;">
-                                        <div class="ml-3" :style="{ color: `${potentialOptionGradeColor(item.additional_potential_option_grade)}` }">에디셔널 잠재옵션</div>
+                                        <div class="ml-3" style="display: flex; align-items: center;">
+                                            <div class="item-grade-container mr-1">
+                                                <div class="item-grade-octagon"></div>
+                                                <div class="item-grade-small-octagon" :style="{ 'background-color': `${potentialImageOptionGradeColor(item.additional_potential_option_grade)}`}">
+                                                    <div class="item-grade-text">{{ potentialImageOptionGradeText(item.additional_potential_option_grade) }}</div>
+                                                </div>
+                                            </div>
+                                            <span :style="{ color: `${potentialOptionGradeColor(item.additional_potential_option_grade)}` }">에디셔널 잠재옵션</span>
+                                        </div>
                                         <div v-if="item.additional_potential_option_1 !== null" class="ml-3">{{ item.additional_potential_option_1 }}</div>
                                         <div v-if="item.additional_potential_option_2 !== null" class="ml-3">{{ item.additional_potential_option_2 }}</div>
                                         <div v-if="item.additional_potential_option_3 !== null" class="ml-3">{{ item.additional_potential_option_3 }}</div>
@@ -327,7 +466,7 @@
                                 <img class="equip" 
                                     v-bind="props" 
                                     :src="item.item_icon" 
-                                    :style="{ position: 'relative', left: `${index *10}px`, border: `1px solid ${potentialOptionGradeColor(item.potential_option_grade)}` }"
+                                    :style="{ position: 'relative', left: `${index *10}px`, border: `1px solid ${potentialImageOptionGradeColor(item.potential_option_grade)}` }"
                                 />   
                             </template>
                             <v-card id="item-container" width="300" flat>
@@ -382,7 +521,7 @@
                                 <v-row id="item-image-container" class="mt-2" no-gutters>
                                     <v-col cols="auto" class="ma-3">
                                         <div style="display: flex; align-items: center;">
-                                            <img id="item-image" :src="item.item_icon" :style="{ border: `1px solid ${potentialOptionGradeColor(item.potential_option_grade)}` }"/>
+                                            <img id="item-image" :src="item.item_icon" :style="{ border: `1px solid ${potentialImageOptionGradeColor(item.potential_option_grade)}` }"/>
                                             <span class="ml-2" style="color:#F7D300; font-size: 11px;">· REQ LEV : {{ item.item_base_option.base_equipment_level }}</span>                                          
                                         </div>
                                         <div class="equip-class mt-3 pa-1">
@@ -442,9 +581,67 @@
                                              <span class="item-starforce-option" v-if="item.item_starforce_option.luk !== '0'"> +{{ item.item_starforce_option.luk }}</span>)
                                             </span>
                                         </div>
-                                        <div>공격력 : +82 (7 + 75)</div>
-                                        <div>마력 : +82 (7 + 75)</div>
-                                        <div>방어력 : +82 (7 + 75)</div>
+                                        <div v-if="item.item_total_option.max_hp !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.max_hp) + parseInt(item.item_etc_option.max_hp) + parseInt(item.item_starforce_option.max_hp) !== 0 }">
+                                                최대 HP : +{{ item.item_total_option.max_hp }} 
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.max_hp) + parseInt(item.item_etc_option.max_hp) + parseInt(item.item_starforce_option.max_hp) !== 0">
+                                            (<span>{{ item.item_base_option.max_hp }}</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.max_hp !== '0'"> +{{ item.item_add_option.max_hp }}</span>
+                                             <span class="item-etc-option" v-if="item.item_etc_option.max_hp !== '0'"> +{{ item.item_etc_option.max_hp }}</span>
+                                             <span class="item-starforce-option" v-if="item.item_starforce_option.max_hp !== '0'"> +{{ item.item_starforce_option.max_hp }}</span>)
+                                            </span>
+                                        </div>
+                                        <div v-if="item.item_total_option.max_mp !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.max_mp) + parseInt(item.item_etc_option.max_mp) + parseInt(item.item_starforce_option.max_mp) !== 0 }">
+                                                최대 MP : +{{ item.item_total_option.max_mp }} 
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.max_mp) + parseInt(item.item_etc_option.max_mp) + parseInt(item.item_starforce_option.max_mp) !== 0">
+                                            (<span>{{ item.item_base_option.max_mp }}</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.max_mp !== '0'"> +{{ item.item_add_option.max_mp }}</span>
+                                             <span class="item-etc-option" v-if="item.item_etc_option.max_mp !== '0'"> +{{ item.item_etc_option.max_mp }}</span>
+                                             <span class="item-starforce-option" v-if="item.item_starforce_option.max_mp !== '0'"> +{{ item.item_starforce_option.max_mp }}</span>)
+                                            </span>
+                                        </div>
+                                        <div v-if="item.item_total_option.max_hp_rate !== '0'">
+                                            최대 HP : +{{ item.item_total_option.max_hp_rate }}%
+                                        </div>
+                                        <div v-if="item.item_total_option.max_mp_rate !== '0'">
+                                            최대 MP : +{{ item.item_total_option.max_mp_rate }}%
+                                        </div>
+                                        <div v-if="item.item_total_option.attack_power !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.attack_power) + parseInt(item.item_etc_option.attack_power) + parseInt(item.item_starforce_option.attack_power) !== 0 }">
+                                                공격력 : +{{ item.item_total_option.attack_power }} 
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.attack_power) + parseInt(item.item_etc_option.attack_power) + parseInt(item.item_starforce_option.attack_power) !== 0">
+                                            (<span>{{ item.item_base_option.attack_power }}</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.attack_power !== '0'"> +{{ item.item_add_option.attack_power }}</span>
+                                             <span class="item-etc-option" v-if="item.item_etc_option.attack_power !== '0'"> +{{ item.item_etc_option.attack_power }}</span>
+                                             <span class="item-starforce-option" v-if="item.item_starforce_option.attack_power !== '0'"> +{{ item.item_starforce_option.attack_power }}</span>)
+                                            </span>
+                                        </div>
+                                        <div v-if="item.item_total_option.magic_power !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.magic_power) + parseInt(item.item_etc_option.magic_power) + parseInt(item.item_starforce_option.magic_power) !== 0 }">
+                                                마력 : +{{ item.item_total_option.magic_power }} 
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.magic_power) + parseInt(item.item_etc_option.magic_power) + parseInt(item.item_starforce_option.magic_power) !== 0">
+                                            (<span>{{ item.item_base_option.magic_power }}</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.magic_power !== '0'"> +{{ item.item_add_option.magic_power }}</span>
+                                             <span class="item-etc-option" v-if="item.item_etc_option.magic_power !== '0'"> +{{ item.item_etc_option.magic_power }}</span>
+                                             <span class="item-starforce-option" v-if="item.item_starforce_option.magic_power !== '0'"> +{{ item.item_starforce_option.magic_power }}</span>)
+                                            </span>
+                                        </div>
+                                        <div v-if="item.item_total_option.armor !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.armor) + parseInt(item.item_etc_option.armor) + parseInt(item.item_starforce_option.armor) !== 0 }">
+                                                방어력 : +{{ item.item_total_option.armor }} 
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.armor) + parseInt(item.item_etc_option.armor) + parseInt(item.item_starforce_option.armor) !== 0">
+                                            (<span>{{ item.item_base_option.armor }}</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.armor !== '0'"> +{{ item.item_add_option.armor }}</span>
+                                             <span class="item-etc-option" v-if="item.item_etc_option.armor !== '0'"> +{{ item.item_etc_option.armor }}</span>
+                                             <span class="item-starforce-option" v-if="item.item_starforce_option.armor !== '0'"> +{{ item.item_starforce_option.armor }}</span>)
+                                            </span>
+                                        </div>
                                         <div>올스탯 : +5% (0% + 5%)</div>
                                         <div>업그레이드 가능 횟수 : 0 (복구 가능 횟수: 0)</div>
                                         <div v-if="item.golden_hammer_flag === '적용'">황금망치 제련 적용</div>
@@ -453,7 +650,15 @@
                                 </v-row>
                                 <v-row v-if="item.potential_option_1 && item.potential_option_2 && item.potential_option_3 !== null" class="potential_option" no-gutters>
                                     <v-col class="mt-1 mb-1" style="font-size: 12px; color: white;">
-                                        <div class="ml-3" :style="{ color: `${potentialOptionGradeColor(item.potential_option_grade)}` }">잠재옵션</div>
+                                        <div class="ml-3" style="display: flex; align-items: center;">
+                                            <div class="item-grade-container mr-1">
+                                                <div class="item-grade-octagon"></div>
+                                                <div class="item-grade-small-octagon" :style="{ 'background-color': `${potentialImageOptionGradeColor(item.potential_option_grade)}`}">
+                                                    <div class="item-grade-text">{{ potentialImageOptionGradeText(item.potential_option_grade) }}</div>
+                                                </div>
+                                            </div>
+                                            <span :style="{ color: `${potentialOptionGradeColor(item.potential_option_grade)}` }">잠재옵션</span>
+                                        </div>
                                         <div v-if="item.potential_option_1 !== null" class="ml-3">{{ item.potential_option_1 }}</div>
                                         <div v-if="item.potential_option_2 !== null" class="ml-3">{{ item.potential_option_2 }}</div>
                                         <div v-if="item.potential_option_3 !== null" class="ml-3">{{ item.potential_option_3 }}</div>
@@ -461,7 +666,15 @@
                                 </v-row>
                                 <v-row v-if="item.additional_potential_option_1 && item.additional_potential_option_2 && item.additional_potential_option_3 !== null" class="potential_option" no-gutters>
                                     <v-col class="mt-1 mb-1" style="font-size: 12px; color: white;">
-                                        <div class="ml-3" :style="{ color: `${potentialOptionGradeColor(item.additional_potential_option_grade)}` }">에디셔널 잠재옵션</div>
+                                        <div class="ml-3" style="display: flex; align-items: center;">
+                                            <div class="item-grade-container mr-1">
+                                                <div class="item-grade-octagon"></div>
+                                                <div class="item-grade-small-octagon" :style="{ 'background-color': `${potentialImageOptionGradeColor(item.additional_potential_option_grade)}`}">
+                                                    <div class="item-grade-text">{{ potentialImageOptionGradeText(item.additional_potential_option_grade) }}</div>
+                                                </div>
+                                            </div>
+                                            <span :style="{ color: `${potentialOptionGradeColor(item.additional_potential_option_grade)}` }">에디셔널 잠재옵션</span>
+                                        </div>
                                         <div v-if="item.additional_potential_option_1 !== null" class="ml-3">{{ item.additional_potential_option_1 }}</div>
                                         <div v-if="item.additional_potential_option_2 !== null" class="ml-3">{{ item.additional_potential_option_2 }}</div>
                                         <div v-if="item.additional_potential_option_3 !== null" class="ml-3">{{ item.additional_potential_option_3 }}</div>
@@ -481,7 +694,7 @@
                                 <img class="equip" 
                                     v-bind="props" 
                                     :src="item.item_icon" 
-                                    :style="{ position: 'relative', left: `${index *10}px`, border: `1px solid ${potentialOptionGradeColor(item.potential_option_grade)}` }"
+                                    :style="{ position: 'relative', left: `${index *10}px`, border: `1px solid ${potentialImageOptionGradeColor(item.potential_option_grade)}` }"
                                 />   
                             </template>
                             <v-card id="item-container" width="300" flat>
@@ -536,7 +749,7 @@
                                 <v-row id="item-image-container" class="mt-2" no-gutters>
                                     <v-col cols="auto" class="ma-3">
                                         <div style="display: flex; align-items: center;">
-                                            <img id="item-image" :src="item.item_icon" :style="{ border: `1px solid ${potentialOptionGradeColor(item.potential_option_grade)}` }"/>
+                                            <img id="item-image" :src="item.item_icon" :style="{ border: `1px solid ${potentialImageOptionGradeColor(item.potential_option_grade)}` }"/>
                                             <span class="ml-2" style="color:#F7D300; font-size: 11px;">· REQ LEV : {{ item.item_base_option.base_equipment_level }}</span>                                          
                                         </div>
                                         <div class="equip-class mt-3 pa-1">
@@ -596,9 +809,67 @@
                                              <span class="item-starforce-option" v-if="item.item_starforce_option.luk !== '0'"> +{{ item.item_starforce_option.luk }}</span>)
                                             </span>
                                         </div>
-                                        <div>공격력 : +82 (7 + 75)</div>
-                                        <div>마력 : +82 (7 + 75)</div>
-                                        <div>방어력 : +82 (7 + 75)</div>
+                                        <div v-if="item.item_total_option.max_hp !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.max_hp) + parseInt(item.item_etc_option.max_hp) + parseInt(item.item_starforce_option.max_hp) !== 0 }">
+                                                최대 HP : +{{ item.item_total_option.max_hp }} 
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.max_hp) + parseInt(item.item_etc_option.max_hp) + parseInt(item.item_starforce_option.max_hp) !== 0">
+                                            (<span>{{ item.item_base_option.max_hp }}</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.max_hp !== '0'"> +{{ item.item_add_option.max_hp }}</span>
+                                             <span class="item-etc-option" v-if="item.item_etc_option.max_hp !== '0'"> +{{ item.item_etc_option.max_hp }}</span>
+                                             <span class="item-starforce-option" v-if="item.item_starforce_option.max_hp !== '0'"> +{{ item.item_starforce_option.max_hp }}</span>)
+                                            </span>
+                                        </div>
+                                        <div v-if="item.item_total_option.max_mp !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.max_mp) + parseInt(item.item_etc_option.max_mp) + parseInt(item.item_starforce_option.max_mp) !== 0 }">
+                                                최대 MP : +{{ item.item_total_option.max_mp }} 
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.max_mp) + parseInt(item.item_etc_option.max_mp) + parseInt(item.item_starforce_option.max_mp) !== 0">
+                                            (<span>{{ item.item_base_option.max_mp }}</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.max_mp !== '0'"> +{{ item.item_add_option.max_mp }}</span>
+                                             <span class="item-etc-option" v-if="item.item_etc_option.max_mp !== '0'"> +{{ item.item_etc_option.max_mp }}</span>
+                                             <span class="item-starforce-option" v-if="item.item_starforce_option.max_mp !== '0'"> +{{ item.item_starforce_option.max_mp }}</span>)
+                                            </span>
+                                        </div>
+                                        <div v-if="item.item_total_option.max_hp_rate !== '0'">
+                                            최대 HP : +{{ item.item_total_option.max_hp_rate }}%
+                                        </div>
+                                        <div v-if="item.item_total_option.max_mp_rate !== '0'">
+                                            최대 MP : +{{ item.item_total_option.max_mp_rate }}%
+                                        </div>
+                                        <div v-if="item.item_total_option.attack_power !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.attack_power) + parseInt(item.item_etc_option.attack_power) + parseInt(item.item_starforce_option.attack_power) !== 0 }">
+                                                공격력 : +{{ item.item_total_option.attack_power }} 
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.attack_power) + parseInt(item.item_etc_option.attack_power) + parseInt(item.item_starforce_option.attack_power) !== 0">
+                                            (<span>{{ item.item_base_option.attack_power }}</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.attack_power !== '0'"> +{{ item.item_add_option.attack_power }}</span>
+                                             <span class="item-etc-option" v-if="item.item_etc_option.attack_power !== '0'"> +{{ item.item_etc_option.attack_power }}</span>
+                                             <span class="item-starforce-option" v-if="item.item_starforce_option.attack_power !== '0'"> +{{ item.item_starforce_option.attack_power }}</span>)
+                                            </span>
+                                        </div>
+                                        <div v-if="item.item_total_option.magic_power !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.magic_power) + parseInt(item.item_etc_option.magic_power) + parseInt(item.item_starforce_option.magic_power) !== 0 }">
+                                                마력 : +{{ item.item_total_option.magic_power }} 
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.magic_power) + parseInt(item.item_etc_option.magic_power) + parseInt(item.item_starforce_option.magic_power) !== 0">
+                                            (<span>{{ item.item_base_option.magic_power }}</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.magic_power !== '0'"> +{{ item.item_add_option.magic_power }}</span>
+                                             <span class="item-etc-option" v-if="item.item_etc_option.magic_power !== '0'"> +{{ item.item_etc_option.magic_power }}</span>
+                                             <span class="item-starforce-option" v-if="item.item_starforce_option.magic_power !== '0'"> +{{ item.item_starforce_option.magic_power }}</span>)
+                                            </span>
+                                        </div>
+                                        <div v-if="item.item_total_option.armor !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.armor) + parseInt(item.item_etc_option.armor) + parseInt(item.item_starforce_option.armor) !== 0 }">
+                                                방어력 : +{{ item.item_total_option.armor }} 
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.armor) + parseInt(item.item_etc_option.armor) + parseInt(item.item_starforce_option.armor) !== 0">
+                                            (<span>{{ item.item_base_option.armor }}</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.armor !== '0'"> +{{ item.item_add_option.armor }}</span>
+                                             <span class="item-etc-option" v-if="item.item_etc_option.armor !== '0'"> +{{ item.item_etc_option.armor }}</span>
+                                             <span class="item-starforce-option" v-if="item.item_starforce_option.armor !== '0'"> +{{ item.item_starforce_option.armor }}</span>)
+                                            </span>
+                                        </div>
                                         <div>올스탯 : +5% (0% + 5%)</div>
                                         <div>업그레이드 가능 횟수 : 0 (복구 가능 횟수: 0)</div>
                                         <div v-if="item.golden_hammer_flag === '적용'">황금망치 제련 적용</div>
@@ -607,7 +878,15 @@
                                 </v-row>
                                 <v-row v-if="item.potential_option_1 && item.potential_option_2 && item.potential_option_3 !== null" class="potential_option" no-gutters>
                                     <v-col class="mt-1 mb-1" style="font-size: 12px; color: white;">
-                                        <div class="ml-3" :style="{ color: `${potentialOptionGradeColor(item.potential_option_grade)}` }">잠재옵션</div>
+                                        <div class="ml-3" style="display: flex; align-items: center;">
+                                            <div class="item-grade-container mr-1">
+                                                <div class="item-grade-octagon"></div>
+                                                <div class="item-grade-small-octagon" :style="{ 'background-color': `${potentialImageOptionGradeColor(item.potential_option_grade)}`}">
+                                                    <div class="item-grade-text">{{ potentialImageOptionGradeText(item.potential_option_grade) }}</div>
+                                                </div>
+                                            </div>
+                                            <span :style="{ color: `${potentialOptionGradeColor(item.potential_option_grade)}` }">잠재옵션</span>
+                                        </div>
                                         <div v-if="item.potential_option_1 !== null" class="ml-3">{{ item.potential_option_1 }}</div>
                                         <div v-if="item.potential_option_2 !== null" class="ml-3">{{ item.potential_option_2 }}</div>
                                         <div v-if="item.potential_option_3 !== null" class="ml-3">{{ item.potential_option_3 }}</div>
@@ -615,7 +894,15 @@
                                 </v-row>
                                 <v-row v-if="item.additional_potential_option_1 && item.additional_potential_option_2 && item.additional_potential_option_3 !== null" class="potential_option" no-gutters>
                                     <v-col class="mt-1 mb-1" style="font-size: 12px; color: white;">
-                                        <div class="ml-3" :style="{ color: `${potentialOptionGradeColor(item.additional_potential_option_grade)}` }">에디셔널 잠재옵션</div>
+                                        <div class="ml-3" style="display: flex; align-items: center;">
+                                            <div class="item-grade-container mr-1">
+                                                <div class="item-grade-octagon"></div>
+                                                <div class="item-grade-small-octagon" :style="{ 'background-color': `${potentialImageOptionGradeColor(item.additional_potential_option_grade)}`}">
+                                                    <div class="item-grade-text">{{ potentialImageOptionGradeText(item.additional_potential_option_grade) }}</div>
+                                                </div>
+                                            </div>
+                                            <span :style="{ color: `${potentialOptionGradeColor(item.additional_potential_option_grade)}` }">에디셔널 잠재옵션</span>
+                                        </div>
                                         <div v-if="item.additional_potential_option_1 !== null" class="ml-3">{{ item.additional_potential_option_1 }}</div>
                                         <div v-if="item.additional_potential_option_2 !== null" class="ml-3">{{ item.additional_potential_option_2 }}</div>
                                         <div v-if="item.additional_potential_option_3 !== null" class="ml-3">{{ item.additional_potential_option_3 }}</div>
@@ -635,7 +922,7 @@
                                 <img class="equip" 
                                     v-bind="props" 
                                     :src="item.item_icon" 
-                                    :style="{ position: 'relative', left: `${index *10}px`, border: `1px solid ${potentialOptionGradeColor(item.potential_option_grade)}` }"
+                                    :style="{ position: 'relative', left: `${index *10}px`, border: `1px solid ${potentialImageOptionGradeColor(item.potential_option_grade)}` }"
                                 />   
                             </template>
                             <v-card id="item-container" width="300" flat>
@@ -690,7 +977,7 @@
                                 <v-row id="item-image-container" class="mt-2" no-gutters>
                                     <v-col cols="auto" class="ma-3">
                                         <div style="display: flex; align-items: center;">
-                                            <img id="item-image" :src="item.item_icon" :style="{ border: `1px solid ${potentialOptionGradeColor(item.potential_option_grade)}` }"/>
+                                            <img id="item-image" :src="item.item_icon" :style="{ border: `1px solid ${potentialImageOptionGradeColor(item.potential_option_grade)}` }"/>
                                             <span class="ml-2" style="color:#F7D300; font-size: 11px;">· REQ LEV : {{ item.item_base_option.base_equipment_level }}</span>                                          
                                         </div>
                                         <div class="equip-class mt-3 pa-1">
@@ -750,9 +1037,67 @@
                                              <span class="item-starforce-option" v-if="item.item_starforce_option.luk !== '0'"> +{{ item.item_starforce_option.luk }}</span>)
                                             </span>
                                         </div>
-                                        <div>공격력 : +82 (7 + 75)</div>
-                                        <div>마력 : +82 (7 + 75)</div>
-                                        <div>방어력 : +82 (7 + 75)</div>
+                                        <div v-if="item.item_total_option.max_hp !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.max_hp) + parseInt(item.item_etc_option.max_hp) + parseInt(item.item_starforce_option.max_hp) !== 0 }">
+                                                최대 HP : +{{ item.item_total_option.max_hp }} 
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.max_hp) + parseInt(item.item_etc_option.max_hp) + parseInt(item.item_starforce_option.max_hp) !== 0">
+                                            (<span>{{ item.item_base_option.max_hp }}</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.max_hp !== '0'"> +{{ item.item_add_option.max_hp }}</span>
+                                             <span class="item-etc-option" v-if="item.item_etc_option.max_hp !== '0'"> +{{ item.item_etc_option.max_hp }}</span>
+                                             <span class="item-starforce-option" v-if="item.item_starforce_option.max_hp !== '0'"> +{{ item.item_starforce_option.max_hp }}</span>)
+                                            </span>
+                                        </div>
+                                        <div v-if="item.item_total_option.max_mp !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.max_mp) + parseInt(item.item_etc_option.max_mp) + parseInt(item.item_starforce_option.max_mp) !== 0 }">
+                                                최대 MP : +{{ item.item_total_option.max_mp }} 
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.max_mp) + parseInt(item.item_etc_option.max_mp) + parseInt(item.item_starforce_option.max_mp) !== 0">
+                                            (<span>{{ item.item_base_option.max_mp }}</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.max_mp !== '0'"> +{{ item.item_add_option.max_mp }}</span>
+                                             <span class="item-etc-option" v-if="item.item_etc_option.max_mp !== '0'"> +{{ item.item_etc_option.max_mp }}</span>
+                                             <span class="item-starforce-option" v-if="item.item_starforce_option.max_mp !== '0'"> +{{ item.item_starforce_option.max_mp }}</span>)
+                                            </span>
+                                        </div>
+                                        <div v-if="item.item_total_option.max_hp_rate !== '0'">
+                                            최대 HP : +{{ item.item_total_option.max_hp_rate }}%
+                                        </div>
+                                        <div v-if="item.item_total_option.max_mp_rate !== '0'">
+                                            최대 MP : +{{ item.item_total_option.max_mp_rate }}%
+                                        </div>
+                                        <div v-if="item.item_total_option.attack_power !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.attack_power) + parseInt(item.item_etc_option.attack_power) + parseInt(item.item_starforce_option.attack_power) !== 0 }">
+                                                공격력 : +{{ item.item_total_option.attack_power }} 
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.attack_power) + parseInt(item.item_etc_option.attack_power) + parseInt(item.item_starforce_option.attack_power) !== 0">
+                                            (<span>{{ item.item_base_option.attack_power }}</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.attack_power !== '0'"> +{{ item.item_add_option.attack_power }}</span>
+                                             <span class="item-etc-option" v-if="item.item_etc_option.attack_power !== '0'"> +{{ item.item_etc_option.attack_power }}</span>
+                                             <span class="item-starforce-option" v-if="item.item_starforce_option.attack_power !== '0'"> +{{ item.item_starforce_option.attack_power }}</span>)
+                                            </span>
+                                        </div>
+                                        <div v-if="item.item_total_option.magic_power !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.magic_power) + parseInt(item.item_etc_option.magic_power) + parseInt(item.item_starforce_option.magic_power) !== 0 }">
+                                                마력 : +{{ item.item_total_option.magic_power }} 
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.magic_power) + parseInt(item.item_etc_option.magic_power) + parseInt(item.item_starforce_option.magic_power) !== 0">
+                                            (<span>{{ item.item_base_option.magic_power }}</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.magic_power !== '0'"> +{{ item.item_add_option.magic_power }}</span>
+                                             <span class="item-etc-option" v-if="item.item_etc_option.magic_power !== '0'"> +{{ item.item_etc_option.magic_power }}</span>
+                                             <span class="item-starforce-option" v-if="item.item_starforce_option.magic_power !== '0'"> +{{ item.item_starforce_option.magic_power }}</span>)
+                                            </span>
+                                        </div>
+                                        <div v-if="item.item_total_option.armor !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.armor) + parseInt(item.item_etc_option.armor) + parseInt(item.item_starforce_option.armor) !== 0 }">
+                                                방어력 : +{{ item.item_total_option.armor }} 
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.armor) + parseInt(item.item_etc_option.armor) + parseInt(item.item_starforce_option.armor) !== 0">
+                                            (<span>{{ item.item_base_option.armor }}</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.armor !== '0'"> +{{ item.item_add_option.armor }}</span>
+                                             <span class="item-etc-option" v-if="item.item_etc_option.armor !== '0'"> +{{ item.item_etc_option.armor }}</span>
+                                             <span class="item-starforce-option" v-if="item.item_starforce_option.armor !== '0'"> +{{ item.item_starforce_option.armor }}</span>)
+                                            </span>
+                                        </div>
                                         <div>올스탯 : +5% (0% + 5%)</div>
                                         <div>업그레이드 가능 횟수 : 0 (복구 가능 횟수: 0)</div>
                                         <div v-if="item.golden_hammer_flag === '적용'">황금망치 제련 적용</div>
@@ -761,7 +1106,15 @@
                                 </v-row>
                                 <v-row v-if="item.potential_option_1 && item.potential_option_2 && item.potential_option_3 !== null" class="potential_option" no-gutters>
                                     <v-col class="mt-1 mb-1" style="font-size: 12px; color: white;">
-                                        <div class="ml-3" :style="{ color: `${potentialOptionGradeColor(item.potential_option_grade)}` }">잠재옵션</div>
+                                        <div class="ml-3" style="display: flex; align-items: center;">
+                                            <div class="item-grade-container mr-1">
+                                                <div class="item-grade-octagon"></div>
+                                                <div class="item-grade-small-octagon" :style="{ 'background-color': `${potentialImageOptionGradeColor(item.potential_option_grade)}`}">
+                                                    <div class="item-grade-text">{{ potentialImageOptionGradeText(item.potential_option_grade) }}</div>
+                                                </div>
+                                            </div>
+                                            <span :style="{ color: `${potentialOptionGradeColor(item.potential_option_grade)}` }">잠재옵션</span>
+                                        </div>
                                         <div v-if="item.potential_option_1 !== null" class="ml-3">{{ item.potential_option_1 }}</div>
                                         <div v-if="item.potential_option_2 !== null" class="ml-3">{{ item.potential_option_2 }}</div>
                                         <div v-if="item.potential_option_3 !== null" class="ml-3">{{ item.potential_option_3 }}</div>
@@ -769,7 +1122,15 @@
                                 </v-row>
                                 <v-row v-if="item.additional_potential_option_1 && item.additional_potential_option_2 && item.additional_potential_option_3 !== null" class="potential_option" no-gutters>
                                     <v-col class="mt-1 mb-1" style="font-size: 12px; color: white;">
-                                        <div class="ml-3" :style="{ color: `${potentialOptionGradeColor(item.additional_potential_option_grade)}` }">에디셔널 잠재옵션</div>
+                                        <div class="ml-3" style="display: flex; align-items: center;">
+                                            <div class="item-grade-container mr-1">
+                                                <div class="item-grade-octagon"></div>
+                                                <div class="item-grade-small-octagon" :style="{ 'background-color': `${potentialImageOptionGradeColor(item.additional_potential_option_grade)}`}">
+                                                    <div class="item-grade-text">{{ potentialImageOptionGradeText(item.additional_potential_option_grade) }}</div>
+                                                </div>
+                                            </div>
+                                            <span :style="{ color: `${potentialOptionGradeColor(item.additional_potential_option_grade)}` }">에디셔널 잠재옵션</span>
+                                        </div>
                                         <div v-if="item.additional_potential_option_1 !== null" class="ml-3">{{ item.additional_potential_option_1 }}</div>
                                         <div v-if="item.additional_potential_option_2 !== null" class="ml-3">{{ item.additional_potential_option_2 }}</div>
                                         <div v-if="item.additional_potential_option_3 !== null" class="ml-3">{{ item.additional_potential_option_3 }}</div>
@@ -789,7 +1150,7 @@
                                 <img class="equip" 
                                     v-bind="props" 
                                     :src="item.item_icon" 
-                                    :style="{ position: 'relative', left: `${item6Location[index]}px`, border: `1px solid ${potentialOptionGradeColor(item.potential_option_grade)}` }"
+                                    :style="{ position: 'relative', left: `${item6Location[index]}px`, border: `1px solid ${potentialImageOptionGradeColor(item.potential_option_grade)}` }"
                                 />   
                             </template>
                             <v-card id="item-container" width="300" flat>
@@ -844,7 +1205,7 @@
                                 <v-row id="item-image-container" class="mt-2" no-gutters>
                                     <v-col cols="auto" class="ma-3">
                                         <div style="display: flex; align-items: center;">
-                                            <img id="item-image" :src="item.item_icon" :style="{ border: `1px solid ${potentialOptionGradeColor(item.potential_option_grade)}` }"/>
+                                            <img id="item-image" :src="item.item_icon" :style="{ border: `1px solid ${potentialImageOptionGradeColor(item.potential_option_grade)}` }"/>
                                             <span class="ml-2" style="color:#F7D300; font-size: 11px;">· REQ LEV : {{ item.item_base_option.base_equipment_level }}</span>                                          
                                         </div>
                                         <div class="equip-class mt-3 pa-1">
@@ -904,9 +1265,67 @@
                                              <span class="item-starforce-option" v-if="item.item_starforce_option.luk !== '0'"> +{{ item.item_starforce_option.luk }}</span>)
                                             </span>
                                         </div>
-                                        <div>공격력 : +82 (7 + 75)</div>
-                                        <div>마력 : +82 (7 + 75)</div>
-                                        <div>방어력 : +82 (7 + 75)</div>
+                                        <div v-if="item.item_total_option.max_hp !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.max_hp) + parseInt(item.item_etc_option.max_hp) + parseInt(item.item_starforce_option.max_hp) !== 0 }">
+                                                최대 HP : +{{ item.item_total_option.max_hp }} 
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.max_hp) + parseInt(item.item_etc_option.max_hp) + parseInt(item.item_starforce_option.max_hp) !== 0">
+                                            (<span>{{ item.item_base_option.max_hp }}</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.max_hp !== '0'"> +{{ item.item_add_option.max_hp }}</span>
+                                             <span class="item-etc-option" v-if="item.item_etc_option.max_hp !== '0'"> +{{ item.item_etc_option.max_hp }}</span>
+                                             <span class="item-starforce-option" v-if="item.item_starforce_option.max_hp !== '0'"> +{{ item.item_starforce_option.max_hp }}</span>)
+                                            </span>
+                                        </div>
+                                        <div v-if="item.item_total_option.max_mp !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.max_mp) + parseInt(item.item_etc_option.max_mp) + parseInt(item.item_starforce_option.max_mp) !== 0 }">
+                                                최대 MP : +{{ item.item_total_option.max_mp }} 
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.max_mp) + parseInt(item.item_etc_option.max_mp) + parseInt(item.item_starforce_option.max_mp) !== 0">
+                                            (<span>{{ item.item_base_option.max_mp }}</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.max_mp !== '0'"> +{{ item.item_add_option.max_mp }}</span>
+                                             <span class="item-etc-option" v-if="item.item_etc_option.max_mp !== '0'"> +{{ item.item_etc_option.max_mp }}</span>
+                                             <span class="item-starforce-option" v-if="item.item_starforce_option.max_mp !== '0'"> +{{ item.item_starforce_option.max_mp }}</span>)
+                                            </span>
+                                        </div>
+                                        <div v-if="item.item_total_option.max_hp_rate !== '0'">
+                                            최대 HP : +{{ item.item_total_option.max_hp_rate }}%
+                                        </div>
+                                        <div v-if="item.item_total_option.max_mp_rate !== '0'">
+                                            최대 MP : +{{ item.item_total_option.max_mp_rate }}%
+                                        </div>
+                                        <div v-if="item.item_total_option.attack_power !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.attack_power) + parseInt(item.item_etc_option.attack_power) + parseInt(item.item_starforce_option.attack_power) !== 0 }">
+                                                공격력 : +{{ item.item_total_option.attack_power }} 
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.attack_power) + parseInt(item.item_etc_option.attack_power) + parseInt(item.item_starforce_option.attack_power) !== 0">
+                                            (<span>{{ item.item_base_option.attack_power }}</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.attack_power !== '0'"> +{{ item.item_add_option.attack_power }}</span>
+                                             <span class="item-etc-option" v-if="item.item_etc_option.attack_power !== '0'"> +{{ item.item_etc_option.attack_power }}</span>
+                                             <span class="item-starforce-option" v-if="item.item_starforce_option.attack_power !== '0'"> +{{ item.item_starforce_option.attack_power }}</span>)
+                                            </span>
+                                        </div>
+                                        <div v-if="item.item_total_option.magic_power !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.magic_power) + parseInt(item.item_etc_option.magic_power) + parseInt(item.item_starforce_option.magic_power) !== 0 }">
+                                                마력 : +{{ item.item_total_option.magic_power }} 
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.magic_power) + parseInt(item.item_etc_option.magic_power) + parseInt(item.item_starforce_option.magic_power) !== 0">
+                                            (<span>{{ item.item_base_option.magic_power }}</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.magic_power !== '0'"> +{{ item.item_add_option.magic_power }}</span>
+                                             <span class="item-etc-option" v-if="item.item_etc_option.magic_power !== '0'"> +{{ item.item_etc_option.magic_power }}</span>
+                                             <span class="item-starforce-option" v-if="item.item_starforce_option.magic_power !== '0'"> +{{ item.item_starforce_option.magic_power }}</span>)
+                                            </span>
+                                        </div>
+                                        <div v-if="item.item_total_option.armor !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.armor) + parseInt(item.item_etc_option.armor) + parseInt(item.item_starforce_option.armor) !== 0 }">
+                                                방어력 : +{{ item.item_total_option.armor }} 
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.armor) + parseInt(item.item_etc_option.armor) + parseInt(item.item_starforce_option.armor) !== 0">
+                                            (<span>{{ item.item_base_option.armor }}</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.armor !== '0'"> +{{ item.item_add_option.armor }}</span>
+                                             <span class="item-etc-option" v-if="item.item_etc_option.armor !== '0'"> +{{ item.item_etc_option.armor }}</span>
+                                             <span class="item-starforce-option" v-if="item.item_starforce_option.armor !== '0'"> +{{ item.item_starforce_option.armor }}</span>)
+                                            </span>
+                                        </div>
                                         <div>올스탯 : +5% (0% + 5%)</div>
                                         <div>업그레이드 가능 횟수 : 0 (복구 가능 횟수: 0)</div>
                                         <div v-if="item.golden_hammer_flag === '적용'">황금망치 제련 적용</div>
@@ -915,7 +1334,15 @@
                                 </v-row>
                                 <v-row v-if="item.potential_option_1 && item.potential_option_2 && item.potential_option_3 !== null" class="potential_option" no-gutters>
                                     <v-col class="mt-1 mb-1" style="font-size: 12px; color: white;">
-                                        <div class="ml-3" :style="{ color: `${potentialOptionGradeColor(item.potential_option_grade)}` }">잠재옵션</div>
+                                        <div class="ml-3" style="display: flex; align-items: center;">
+                                            <div class="item-grade-container mr-1">
+                                                <div class="item-grade-octagon"></div>
+                                                <div class="item-grade-small-octagon" :style="{ 'background-color': `${potentialImageOptionGradeColor(item.potential_option_grade)}`}">
+                                                    <div class="item-grade-text">{{ potentialImageOptionGradeText(item.potential_option_grade) }}</div>
+                                                </div>
+                                            </div>
+                                            <span :style="{ color: `${potentialOptionGradeColor(item.potential_option_grade)}` }">잠재옵션</span>
+                                        </div>
                                         <div v-if="item.potential_option_1 !== null" class="ml-3">{{ item.potential_option_1 }}</div>
                                         <div v-if="item.potential_option_2 !== null" class="ml-3">{{ item.potential_option_2 }}</div>
                                         <div v-if="item.potential_option_3 !== null" class="ml-3">{{ item.potential_option_3 }}</div>
@@ -923,7 +1350,15 @@
                                 </v-row>
                                 <v-row v-if="item.additional_potential_option_1 && item.additional_potential_option_2 && item.additional_potential_option_3 !== null" class="potential_option" no-gutters>
                                     <v-col class="mt-1 mb-1" style="font-size: 12px; color: white;">
-                                        <div class="ml-3" :style="{ color: `${potentialOptionGradeColor(item.additional_potential_option_grade)}` }">에디셔널 잠재옵션</div>
+                                        <div class="ml-3" style="display: flex; align-items: center;">
+                                            <div class="item-grade-container mr-1">
+                                                <div class="item-grade-octagon"></div>
+                                                <div class="item-grade-small-octagon" :style="{ 'background-color': `${potentialImageOptionGradeColor(item.additional_potential_option_grade)}`}">
+                                                    <div class="item-grade-text">{{ potentialImageOptionGradeText(item.additional_potential_option_grade) }}</div>
+                                                </div>
+                                            </div>
+                                            <span :style="{ color: `${potentialOptionGradeColor(item.additional_potential_option_grade)}` }">에디셔널 잠재옵션</span>
+                                        </div>
                                         <div v-if="item.additional_potential_option_1 !== null" class="ml-3">{{ item.additional_potential_option_1 }}</div>
                                         <div v-if="item.additional_potential_option_2 !== null" class="ml-3">{{ item.additional_potential_option_2 }}</div>
                                         <div v-if="item.additional_potential_option_3 !== null" class="ml-3">{{ item.additional_potential_option_3 }}</div>
@@ -953,7 +1388,7 @@
 
 <script>
 import { getCharacterEquipment } from '@/api/characterInfo/statAndEquip.js';
-import getPotentialOptionGradeColor from '@/common/potentialOptionGradeColor.js';
+import { getPotentialImageOptionGradeColor, getPotentialImageOptionGradeText, getPotentialOptionGradeColor } from '@/common/potentialOptionGradeColor.js';
 import getStarforceMaxEnhancement from '@/common/starforceMaxEnhancement.js';
 import { onMounted, reactive, ref } from 'vue';
 import { useRoute } from 'vue-router';
@@ -980,6 +1415,14 @@ export default {
 
         const potentialOptionGradeColor = (grade) => {
             return getPotentialOptionGradeColor(grade);
+        };
+        
+        const potentialImageOptionGradeColor = (grade) => {
+            return getPotentialImageOptionGradeColor(grade);
+        };
+
+        const potentialImageOptionGradeText = (grade) => {
+            return getPotentialImageOptionGradeText(grade);
         };
 
         const starforceMaxEnhancement = (baseEquipmentLevel, kind) => {
@@ -1042,6 +1485,8 @@ export default {
             item2Location,
             item6Location,
             potentialOptionGradeColor,
+            potentialImageOptionGradeColor,
+            potentialImageOptionGradeText,
             starforceMaxEnhancement
         }
     }
@@ -1121,17 +1566,16 @@ export default {
     .item-grade-octagon {
       width: 14px;
       height: 14px;
-      background-color: #FFF;
+      background-color: #888889;
       position: relative;
       clip-path: polygon(29% 0%, 71% 0%, 100% 29%, 100% 71%, 71% 100%, 29% 100%, 0% 71%, 0% 29%);
     }
     .item-grade-small-octagon {
       position: absolute;
-      background: black;
-      width: 11px;
-      height: 11px;
+      width: 11.5px;
+      height: 11.5px;
       left: 1.2px;
-      top: 1px;
+      top: 1.2px;
       clip-path: polygon(29% 0%, 71% 0%, 100% 29%, 100% 71%, 71% 100%, 29% 100%, 0% 71%, 0% 29%);
     }
     .item-grade-text {
@@ -1140,7 +1584,8 @@ export default {
       left: 50%;
       transform: translate(-50%, -50%);
       color: #fff;
-      font-size: 4px;
+      font-size: 8px;
+      font-weight: bold;
     }
     .cody-card {
         border: 1px solid rgba(50, 51, 55, 0.975) !important;   
