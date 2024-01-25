@@ -186,10 +186,60 @@
                                              <span class="item-starforce-option" v-if="item.item_starforce_option.armor !== '0'"> +{{ item.item_starforce_option.armor }}</span>)
                                             </span>
                                         </div>
-                                        <div>올스탯 : +5% (0% + 5%)</div>
+                                        <div v-if="item.item_total_option.speed !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.speed) + parseInt(item.item_etc_option.speed) + parseInt(item.item_starforce_option.speed) !== 0 }">
+                                                이동속도 : +{{ item.item_total_option.speed }} 
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.speed) + parseInt(item.item_etc_option.speed) + parseInt(item.item_starforce_option.speed) !== 0">
+                                            (<span>{{ item.item_base_option.speed }}</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.speed !== '0'"> +{{ item.item_add_option.speed }}</span>
+                                             <span class="item-etc-option" v-if="item.item_etc_option.speed !== '0'"> +{{ item.item_etc_option.speed }}</span>
+                                             <span class="item-starforce-option" v-if="item.item_starforce_option.speed !== '0'"> +{{ item.item_starforce_option.speed }}</span>)
+                                            </span>
+                                        </div>
+                                        <div v-if="item.item_total_option.jump !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.jump) + parseInt(item.item_etc_option.jump) + parseInt(item.item_starforce_option.jump) !== 0 }">
+                                                점프력 : +{{ item.item_total_option.jump }} 
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.jump) + parseInt(item.item_etc_option.jump) + parseInt(item.item_starforce_option.jump) !== 0">
+                                            (<span>{{ item.item_base_option.jump }}</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.jump !== '0'"> +{{ item.item_add_option.jump }}</span>
+                                             <span class="item-etc-option" v-if="item.item_etc_option.spjumpeed !== '0'"> +{{ item.item_etc_option.jump }}</span>
+                                             <span class="item-starforce-option" v-if="item.item_starforce_option.jump !== '0'"> +{{ item.item_starforce_option.jump }}</span>)
+                                            </span>
+                                        </div>
+                                        <div v-if="item.item_total_option.boss_damage !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.boss_damage) !== 0 }">
+                                                보스 몬스터 공격 시 데미지 : +{{ item.item_total_option.boss_damage }}%
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.boss_damage) !== 0">
+                                            (<span>{{ item.item_base_option.boss_damage }}%</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.boss_damage !== '0'"> +{{ item.item_add_option.boss_damage }}%</span>)
+                                            </span>
+                                        </div>
+                                        <div v-if="item.item_total_option.ignore_monster_armor !== '0'">
+                                            몬스터 방어율 무시 : +{{ item.item_total_option.ignore_monster_armor }}%
+                                        </div>
+                                        <div v-if="item.item_total_option.damage !== '0'">                                         
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.damage) !== 0 }">
+                                                데미지 : +{{ item.item_total_option.damage }}%
+                                            </span>
+                                            <span>
+                                                (0%<span class="item-add-option"> +{{ item.item_add_option.damage }}%</span>)
+                                            </span>
+                                        </div>
+                                        <div v-if="item.item_total_option.all_stat !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.all_stat) !== 0 }">
+                                                올스텟 : +{{ item.item_total_option.all_stat }}%
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.all_stat) !== 0">
+                                            (<span>{{ item.item_base_option.all_stat }}%</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.all_stat !== '0'"> +{{ item.item_add_option.all_stat }}%</span>)
+                                            </span>
+                                        </div>
                                         <div>업그레이드 가능 횟수 : 0 (복구 가능 횟수: 0)</div>
                                         <div v-if="item.golden_hammer_flag === '적용'">황금망치 제련 적용</div>
-                                        <div v-if="parseInt(item.cuttable_count) !== 255">가위 사용 가능 횟수 : {{ item.cuttable_count }}회</div>
+                                        <div class="item-cuttable-count" v-if="parseInt(item.cuttable_count) !== 255">가위 사용 가능 횟수 : {{ item.cuttable_count }}회</div>
                                     </v-col>
                                 </v-row>
                                 <v-row v-if="item.potential_option_1 && item.potential_option_2 && item.potential_option_3 !== null" class="potential_option" no-gutters>
@@ -414,10 +464,60 @@
                                              <span class="item-starforce-option" v-if="item.item_starforce_option.armor !== '0'"> +{{ item.item_starforce_option.armor }}</span>)
                                             </span>
                                         </div>
-                                        <div>올스탯 : +5% (0% + 5%)</div>
+                                        <div v-if="item.item_total_option.speed !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.speed) + parseInt(item.item_etc_option.speed) + parseInt(item.item_starforce_option.speed) !== 0 }">
+                                                이동속도 : +{{ item.item_total_option.speed }} 
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.speed) + parseInt(item.item_etc_option.speed) + parseInt(item.item_starforce_option.speed) !== 0">
+                                            (<span>{{ item.item_base_option.speed }}</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.speed !== '0'"> +{{ item.item_add_option.speed }}</span>
+                                             <span class="item-etc-option" v-if="item.item_etc_option.speed !== '0'"> +{{ item.item_etc_option.speed }}</span>
+                                             <span class="item-starforce-option" v-if="item.item_starforce_option.speed !== '0'"> +{{ item.item_starforce_option.speed }}</span>)
+                                            </span>
+                                        </div>
+                                        <div v-if="item.item_total_option.jump !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.jump) + parseInt(item.item_etc_option.jump) + parseInt(item.item_starforce_option.jump) !== 0 }">
+                                                점프력 : +{{ item.item_total_option.jump }} 
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.jump) + parseInt(item.item_etc_option.jump) + parseInt(item.item_starforce_option.jump) !== 0">
+                                            (<span>{{ item.item_base_option.jump }}</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.jump !== '0'"> +{{ item.item_add_option.jump }}</span>
+                                             <span class="item-etc-option" v-if="item.item_etc_option.spjumpeed !== '0'"> +{{ item.item_etc_option.jump }}</span>
+                                             <span class="item-starforce-option" v-if="item.item_starforce_option.jump !== '0'"> +{{ item.item_starforce_option.jump }}</span>)
+                                            </span>
+                                        </div>
+                                        <div v-if="item.item_total_option.boss_damage !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.boss_damage) !== 0 }">
+                                                보스 몬스터 공격 시 데미지 : +{{ item.item_total_option.boss_damage }}%
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.boss_damage) !== 0">
+                                            (<span>{{ item.item_base_option.boss_damage }}%</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.boss_damage !== '0'"> +{{ item.item_add_option.boss_damage }}%</span>)
+                                            </span>
+                                        </div>
+                                        <div v-if="item.item_total_option.ignore_monster_armor !== '0'">
+                                            몬스터 방어율 무시 : +{{ item.item_total_option.ignore_monster_armor }}%
+                                        </div>
+                                        <div v-if="item.item_total_option.damage !== '0'">                                         
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.damage) !== 0 }">
+                                                데미지 : +{{ item.item_total_option.damage }}%
+                                            </span>
+                                            <span>
+                                                (0%<span class="item-add-option"> +{{ item.item_add_option.damage }}%</span>)
+                                            </span>
+                                        </div>
+                                        <div v-if="item.item_total_option.all_stat !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.all_stat) !== 0 }">
+                                                올스텟 : +{{ item.item_total_option.all_stat }}%
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.all_stat) !== 0">
+                                            (<span>{{ item.item_base_option.all_stat }}%</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.all_stat !== '0'"> +{{ item.item_add_option.all_stat }}%</span>)
+                                            </span>
+                                        </div>
                                         <div>업그레이드 가능 횟수 : 0 (복구 가능 횟수: 0)</div>
                                         <div v-if="item.golden_hammer_flag === '적용'">황금망치 제련 적용</div>
-                                        <div v-if="parseInt(item.cuttable_count) !== 255">가위 사용 가능 횟수 : {{ item.cuttable_count }}회</div>
+                                        <div class="item-cuttable-count" v-if="parseInt(item.cuttable_count) !== 255">가위 사용 가능 횟수 : {{ item.cuttable_count }}회</div>
                                     </v-col>
                                 </v-row>
                                 <v-row v-if="item.potential_option_1 && item.potential_option_2 && item.potential_option_3 !== null" class="potential_option" no-gutters>
@@ -642,10 +742,60 @@
                                              <span class="item-starforce-option" v-if="item.item_starforce_option.armor !== '0'"> +{{ item.item_starforce_option.armor }}</span>)
                                             </span>
                                         </div>
-                                        <div>올스탯 : +5% (0% + 5%)</div>
+                                        <div v-if="item.item_total_option.speed !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.speed) + parseInt(item.item_etc_option.speed) + parseInt(item.item_starforce_option.speed) !== 0 }">
+                                                이동속도 : +{{ item.item_total_option.speed }} 
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.speed) + parseInt(item.item_etc_option.speed) + parseInt(item.item_starforce_option.speed) !== 0">
+                                            (<span>{{ item.item_base_option.speed }}</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.speed !== '0'"> +{{ item.item_add_option.speed }}</span>
+                                             <span class="item-etc-option" v-if="item.item_etc_option.speed !== '0'"> +{{ item.item_etc_option.speed }}</span>
+                                             <span class="item-starforce-option" v-if="item.item_starforce_option.speed !== '0'"> +{{ item.item_starforce_option.speed }}</span>)
+                                            </span>
+                                        </div>
+                                        <div v-if="item.item_total_option.jump !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.jump) + parseInt(item.item_etc_option.jump) + parseInt(item.item_starforce_option.jump) !== 0 }">
+                                                점프력 : +{{ item.item_total_option.jump }} 
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.jump) + parseInt(item.item_etc_option.jump) + parseInt(item.item_starforce_option.jump) !== 0">
+                                            (<span>{{ item.item_base_option.jump }}</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.jump !== '0'"> +{{ item.item_add_option.jump }}</span>
+                                             <span class="item-etc-option" v-if="item.item_etc_option.spjumpeed !== '0'"> +{{ item.item_etc_option.jump }}</span>
+                                             <span class="item-starforce-option" v-if="item.item_starforce_option.jump !== '0'"> +{{ item.item_starforce_option.jump }}</span>)
+                                            </span>
+                                        </div>
+                                        <div v-if="item.item_total_option.boss_damage !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.boss_damage) !== 0 }">
+                                                보스 몬스터 공격 시 데미지 : +{{ item.item_total_option.boss_damage }}%
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.boss_damage) !== 0">
+                                            (<span>{{ item.item_base_option.boss_damage }}%</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.boss_damage !== '0'"> +{{ item.item_add_option.boss_damage }}%</span>)
+                                            </span>
+                                        </div>
+                                        <div v-if="item.item_total_option.ignore_monster_armor !== '0'">
+                                            몬스터 방어율 무시 : +{{ item.item_total_option.ignore_monster_armor }}%
+                                        </div>
+                                        <div v-if="item.item_total_option.damage !== '0'">                                         
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.damage) !== 0 }">
+                                                데미지 : +{{ item.item_total_option.damage }}%
+                                            </span>
+                                            <span>
+                                                (0%<span class="item-add-option"> +{{ item.item_add_option.damage }}%</span>)
+                                            </span>
+                                        </div>
+                                        <div v-if="item.item_total_option.all_stat !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.all_stat) !== 0 }">
+                                                올스텟 : +{{ item.item_total_option.all_stat }}%
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.all_stat) !== 0">
+                                            (<span>{{ item.item_base_option.all_stat }}%</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.all_stat !== '0'"> +{{ item.item_add_option.all_stat }}%</span>)
+                                            </span>
+                                        </div>
                                         <div>업그레이드 가능 횟수 : 0 (복구 가능 횟수: 0)</div>
                                         <div v-if="item.golden_hammer_flag === '적용'">황금망치 제련 적용</div>
-                                        <div v-if="parseInt(item.cuttable_count) !== 255">가위 사용 가능 횟수 : {{ item.cuttable_count }}회</div>
+                                        <div class="item-cuttable-count" v-if="parseInt(item.cuttable_count) !== 255">가위 사용 가능 횟수 : {{ item.cuttable_count }}회</div>
                                     </v-col>
                                 </v-row>
                                 <v-row v-if="item.potential_option_1 && item.potential_option_2 && item.potential_option_3 !== null" class="potential_option" no-gutters>
@@ -870,10 +1020,60 @@
                                              <span class="item-starforce-option" v-if="item.item_starforce_option.armor !== '0'"> +{{ item.item_starforce_option.armor }}</span>)
                                             </span>
                                         </div>
-                                        <div>올스탯 : +5% (0% + 5%)</div>
+                                        <div v-if="item.item_total_option.speed !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.speed) + parseInt(item.item_etc_option.speed) + parseInt(item.item_starforce_option.speed) !== 0 }">
+                                                이동속도 : +{{ item.item_total_option.speed }} 
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.speed) + parseInt(item.item_etc_option.speed) + parseInt(item.item_starforce_option.speed) !== 0">
+                                            (<span>{{ item.item_base_option.speed }}</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.speed !== '0'"> +{{ item.item_add_option.speed }}</span>
+                                             <span class="item-etc-option" v-if="item.item_etc_option.speed !== '0'"> +{{ item.item_etc_option.speed }}</span>
+                                             <span class="item-starforce-option" v-if="item.item_starforce_option.speed !== '0'"> +{{ item.item_starforce_option.speed }}</span>)
+                                            </span>
+                                        </div>
+                                        <div v-if="item.item_total_option.jump !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.jump) + parseInt(item.item_etc_option.jump) + parseInt(item.item_starforce_option.jump) !== 0 }">
+                                                점프력 : +{{ item.item_total_option.jump }} 
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.jump) + parseInt(item.item_etc_option.jump) + parseInt(item.item_starforce_option.jump) !== 0">
+                                            (<span>{{ item.item_base_option.jump }}</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.jump !== '0'"> +{{ item.item_add_option.jump }}</span>
+                                             <span class="item-etc-option" v-if="item.item_etc_option.spjumpeed !== '0'"> +{{ item.item_etc_option.jump }}</span>
+                                             <span class="item-starforce-option" v-if="item.item_starforce_option.jump !== '0'"> +{{ item.item_starforce_option.jump }}</span>)
+                                            </span>
+                                        </div>
+                                        <div v-if="item.item_total_option.boss_damage !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.boss_damage) !== 0 }">
+                                                보스 몬스터 공격 시 데미지 : +{{ item.item_total_option.boss_damage }}%
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.boss_damage) !== 0">
+                                            (<span>{{ item.item_base_option.boss_damage }}%</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.boss_damage !== '0'"> +{{ item.item_add_option.boss_damage }}%</span>)
+                                            </span>
+                                        </div>
+                                        <div v-if="item.item_total_option.ignore_monster_armor !== '0'">
+                                            몬스터 방어율 무시 : +{{ item.item_total_option.ignore_monster_armor }}%
+                                        </div>
+                                        <div v-if="item.item_total_option.damage !== '0'">                                         
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.damage) !== 0 }">
+                                                데미지 : +{{ item.item_total_option.damage }}%
+                                            </span>
+                                            <span>
+                                                (0%<span class="item-add-option"> +{{ item.item_add_option.damage }}%</span>)
+                                            </span>
+                                        </div>
+                                        <div v-if="item.item_total_option.all_stat !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.all_stat) !== 0 }">
+                                                올스텟 : +{{ item.item_total_option.all_stat }}%
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.all_stat) !== 0">
+                                            (<span>{{ item.item_base_option.all_stat }}%</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.all_stat !== '0'"> +{{ item.item_add_option.all_stat }}%</span>)
+                                            </span>
+                                        </div>
                                         <div>업그레이드 가능 횟수 : 0 (복구 가능 횟수: 0)</div>
                                         <div v-if="item.golden_hammer_flag === '적용'">황금망치 제련 적용</div>
-                                        <div v-if="parseInt(item.cuttable_count) !== 255">가위 사용 가능 횟수 : {{ item.cuttable_count }}회</div>
+                                        <div class="item-cuttable-count" v-if="parseInt(item.cuttable_count) !== 255">가위 사용 가능 횟수 : {{ item.cuttable_count }}회</div>
                                     </v-col>
                                 </v-row>
                                 <v-row v-if="item.potential_option_1 && item.potential_option_2 && item.potential_option_3 !== null" class="potential_option" no-gutters>
@@ -1098,10 +1298,60 @@
                                              <span class="item-starforce-option" v-if="item.item_starforce_option.armor !== '0'"> +{{ item.item_starforce_option.armor }}</span>)
                                             </span>
                                         </div>
-                                        <div>올스탯 : +5% (0% + 5%)</div>
+                                        <div v-if="item.item_total_option.speed !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.speed) + parseInt(item.item_etc_option.speed) + parseInt(item.item_starforce_option.speed) !== 0 }">
+                                                이동속도 : +{{ item.item_total_option.speed }} 
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.speed) + parseInt(item.item_etc_option.speed) + parseInt(item.item_starforce_option.speed) !== 0">
+                                            (<span>{{ item.item_base_option.speed }}</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.speed !== '0'"> +{{ item.item_add_option.speed }}</span>
+                                             <span class="item-etc-option" v-if="item.item_etc_option.speed !== '0'"> +{{ item.item_etc_option.speed }}</span>
+                                             <span class="item-starforce-option" v-if="item.item_starforce_option.speed !== '0'"> +{{ item.item_starforce_option.speed }}</span>)
+                                            </span>
+                                        </div>
+                                        <div v-if="item.item_total_option.jump !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.jump) + parseInt(item.item_etc_option.jump) + parseInt(item.item_starforce_option.jump) !== 0 }">
+                                                점프력 : +{{ item.item_total_option.jump }} 
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.jump) + parseInt(item.item_etc_option.jump) + parseInt(item.item_starforce_option.jump) !== 0">
+                                            (<span>{{ item.item_base_option.jump }}</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.jump !== '0'"> +{{ item.item_add_option.jump }}</span>
+                                             <span class="item-etc-option" v-if="item.item_etc_option.spjumpeed !== '0'"> +{{ item.item_etc_option.jump }}</span>
+                                             <span class="item-starforce-option" v-if="item.item_starforce_option.jump !== '0'"> +{{ item.item_starforce_option.jump }}</span>)
+                                            </span>
+                                        </div>
+                                        <div v-if="item.item_total_option.boss_damage !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.boss_damage) !== 0 }">
+                                                보스 몬스터 공격 시 데미지 : +{{ item.item_total_option.boss_damage }}%
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.boss_damage) !== 0">
+                                            (<span>{{ item.item_base_option.boss_damage }}%</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.boss_damage !== '0'"> +{{ item.item_add_option.boss_damage }}%</span>)
+                                            </span>
+                                        </div>
+                                        <div v-if="item.item_total_option.ignore_monster_armor !== '0'">
+                                            몬스터 방어율 무시 : +{{ item.item_total_option.ignore_monster_armor }}%
+                                        </div>
+                                        <div v-if="item.item_total_option.damage !== '0'">                                         
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.damage) !== 0 }">
+                                                데미지 : +{{ item.item_total_option.damage }}%
+                                            </span>
+                                            <span>
+                                                (0%<span class="item-add-option"> +{{ item.item_add_option.damage }}%</span>)
+                                            </span>
+                                        </div>
+                                        <div v-if="item.item_total_option.all_stat !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.all_stat) !== 0 }">
+                                                올스텟 : +{{ item.item_total_option.all_stat }}%
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.all_stat) !== 0">
+                                            (<span>{{ item.item_base_option.all_stat }}%</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.all_stat !== '0'"> +{{ item.item_add_option.all_stat }}%</span>)
+                                            </span>
+                                        </div>
                                         <div>업그레이드 가능 횟수 : 0 (복구 가능 횟수: 0)</div>
                                         <div v-if="item.golden_hammer_flag === '적용'">황금망치 제련 적용</div>
-                                        <div v-if="parseInt(item.cuttable_count) !== 255">가위 사용 가능 횟수 : {{ item.cuttable_count }}회</div>
+                                        <div class="item-cuttable-count" v-if="parseInt(item.cuttable_count) !== 255">가위 사용 가능 횟수 : {{ item.cuttable_count }}회</div>
                                     </v-col>
                                 </v-row>
                                 <v-row v-if="item.potential_option_1 && item.potential_option_2 && item.potential_option_3 !== null" class="potential_option" no-gutters>
@@ -1326,10 +1576,60 @@
                                              <span class="item-starforce-option" v-if="item.item_starforce_option.armor !== '0'"> +{{ item.item_starforce_option.armor }}</span>)
                                             </span>
                                         </div>
-                                        <div>올스탯 : +5% (0% + 5%)</div>
+                                        <div v-if="item.item_total_option.speed !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.speed) + parseInt(item.item_etc_option.speed) + parseInt(item.item_starforce_option.speed) !== 0 }">
+                                                이동속도 : +{{ item.item_total_option.speed }} 
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.speed) + parseInt(item.item_etc_option.speed) + parseInt(item.item_starforce_option.speed) !== 0">
+                                            (<span>{{ item.item_base_option.speed }}</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.speed !== '0'"> +{{ item.item_add_option.speed }}</span>
+                                             <span class="item-etc-option" v-if="item.item_etc_option.speed !== '0'"> +{{ item.item_etc_option.speed }}</span>
+                                             <span class="item-starforce-option" v-if="item.item_starforce_option.speed !== '0'"> +{{ item.item_starforce_option.speed }}</span>)
+                                            </span>
+                                        </div>
+                                        <div v-if="item.item_total_option.jump !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.jump) + parseInt(item.item_etc_option.jump) + parseInt(item.item_starforce_option.jump) !== 0 }">
+                                                점프력 : +{{ item.item_total_option.jump }} 
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.jump) + parseInt(item.item_etc_option.jump) + parseInt(item.item_starforce_option.jump) !== 0">
+                                            (<span>{{ item.item_base_option.jump }}</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.jump !== '0'"> +{{ item.item_add_option.jump }}</span>
+                                             <span class="item-etc-option" v-if="item.item_etc_option.spjumpeed !== '0'"> +{{ item.item_etc_option.jump }}</span>
+                                             <span class="item-starforce-option" v-if="item.item_starforce_option.jump !== '0'"> +{{ item.item_starforce_option.jump }}</span>)
+                                            </span>
+                                        </div>
+                                        <div v-if="item.item_total_option.boss_damage !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.boss_damage) !== 0 }">
+                                                보스 몬스터 공격 시 데미지 : +{{ item.item_total_option.boss_damage }}%
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.boss_damage) !== 0">
+                                            (<span>{{ item.item_base_option.boss_damage }}%</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.boss_damage !== '0'"> +{{ item.item_add_option.boss_damage }}%</span>)
+                                            </span>
+                                        </div>
+                                        <div v-if="item.item_total_option.ignore_monster_armor !== '0'">
+                                            몬스터 방어율 무시 : +{{ item.item_total_option.ignore_monster_armor }}%
+                                        </div>
+                                        <div v-if="item.item_total_option.damage !== '0'">                                         
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.damage) !== 0 }">
+                                                데미지 : +{{ item.item_total_option.damage }}%
+                                            </span>
+                                            <span>
+                                                (0%<span class="item-add-option"> +{{ item.item_add_option.damage }}%</span>)
+                                            </span>
+                                        </div>
+                                        <div v-if="item.item_total_option.all_stat !== '0'">
+                                            <span :class="{ 'item-total-option': parseInt(item.item_add_option.all_stat) !== 0 }">
+                                                올스텟 : +{{ item.item_total_option.all_stat }}%
+                                            </span>
+                                            <span v-if="parseInt(item.item_add_option.all_stat) !== 0">
+                                            (<span>{{ item.item_base_option.all_stat }}%</span>
+                                             <span class="item-add-option" v-if="item.item_add_option.all_stat !== '0'"> +{{ item.item_add_option.all_stat }}%</span>)
+                                            </span>
+                                        </div>
                                         <div>업그레이드 가능 횟수 : 0 (복구 가능 횟수: 0)</div>
                                         <div v-if="item.golden_hammer_flag === '적용'">황금망치 제련 적용</div>
-                                        <div v-if="parseInt(item.cuttable_count) !== 255">가위 사용 가능 횟수 : {{ item.cuttable_count }}회</div>
+                                        <div class="item-cuttable-count" v-if="parseInt(item.cuttable_count) !== 255">가위 사용 가능 횟수 : {{ item.cuttable_count }}회</div>
                                     </v-col>
                                 </v-row>
                                 <v-row v-if="item.potential_option_1 && item.potential_option_2 && item.potential_option_3 !== null" class="potential_option" no-gutters>
@@ -1392,7 +1692,6 @@ import { getPotentialImageOptionGradeColor, getPotentialImageOptionGradeText, ge
 import getStarforceMaxEnhancement from '@/common/starforceMaxEnhancement.js';
 import { onMounted, reactive, ref } from 'vue';
 import { useRoute } from 'vue-router';
-
 export default {
     setup() {
         const route = useRoute();
@@ -1559,33 +1858,36 @@ export default {
         color: #F4C402;
     }
     .item-grade-container {
-      position: relative;
-      display: flex; 
-      align-items: center;
+        position: relative;
+        display: flex; 
+        align-items: center;
     }
     .item-grade-octagon {
-      width: 14px;
-      height: 14px;
-      background-color: #888889;
-      position: relative;
-      clip-path: polygon(29% 0%, 71% 0%, 100% 29%, 100% 71%, 71% 100%, 29% 100%, 0% 71%, 0% 29%);
+        width: 14px;
+        height: 14px;
+        background-color: #888889;
+        position: relative;
+        clip-path: polygon(29% 0%, 71% 0%, 100% 29%, 100% 71%, 71% 100%, 29% 100%, 0% 71%, 0% 29%);
     }
     .item-grade-small-octagon {
-      position: absolute;
-      width: 11.5px;
-      height: 11.5px;
-      left: 1.2px;
-      top: 1.2px;
-      clip-path: polygon(29% 0%, 71% 0%, 100% 29%, 100% 71%, 71% 100%, 29% 100%, 0% 71%, 0% 29%);
+        position: absolute;
+        width: 11.5px;
+        height: 11.5px;
+        left: 1.2px;
+        top: 1.2px;
+        clip-path: polygon(29% 0%, 71% 0%, 100% 29%, 100% 71%, 71% 100%, 29% 100%, 0% 71%, 0% 29%);
     }
     .item-grade-text {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: #fff;
-      font-size: 8px;
-      font-weight: bold;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #fff;
+        font-size: 8px;
+        font-weight: bold;
+    }
+    .item-cuttable-count {
+        color: #F1C101;
     }
     .cody-card {
         border: 1px solid rgba(50, 51, 55, 0.975) !important;   
