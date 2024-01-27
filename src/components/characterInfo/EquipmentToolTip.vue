@@ -1,11 +1,9 @@
 <template>
-    <v-tooltip v-for="(item, index) in equipItem" :key="item.item_equipment_slot" location="bottom" content-class='custom-tooltip' transition="false">
+    <v-tooltip v-for="(item, index) in item" :key="item.item_equipment_slot" location="bottom" content-class='custom-tooltip' transition="false">
         <template v-slot:activator="{ props }">
-            <img class="equip" 
-                v-bind="props" 
-                :src="item.item_icon" 
-                :style="{ position: 'relative', left: `${index *70}px`, border: `1px solid ${potentialImageOptionGradeColor(item.potential_option_grade)}` }"
-            />   
+            <div v-bind="props" class="equip-container" :style="{ position: 'relative', left: `${itemLocation[index]}px`, border: `1px solid ${potentialImageOptionGradeColor(item.potential_option_grade)}` }">
+                <img :src="item.item_shape_icon"/>  
+            </div> 
         </template>
         <v-card id="item-container" width="300" flat>
             <v-row justify="center" no-gutters>
@@ -17,13 +15,19 @@
                                 <v-icon v-else size="12" color="#778087">mdi-star</v-icon>
                             </span>
                         </span>
-                        <span class="mr-2">
+                        <span v-if="parseInt(item.item_base_option.base_equipment_level) > 94 && parseInt(item.item_base_option.base_equipment_level) < 108" class="mr-2">
+                            <span v-for="index in 3" :key="index">
+                                <v-icon v-if="parseInt(item.starforce) > index + 4" size="12" color="#F7D300">mdi-star</v-icon>
+                                <v-icon v-else size="12" color="#778087">mdi-star</v-icon>
+                            </span>
+                        </span>
+                        <span v-if="parseInt(item.item_base_option.base_equipment_level) > 107" class="mr-2">
                             <span v-for="index in 5" :key="index">
                                 <v-icon v-if="parseInt(item.starforce) > index + 4" size="12" color="#F7D300">mdi-star</v-icon>
                                 <v-icon v-else size="12" color="#778087">mdi-star</v-icon>
                             </span>
                         </span>
-                        <span>
+                        <span v-if="parseInt(item.item_base_option.base_equipment_level) > 117">
                             <span v-for="index in 5" :key="index">
                                 <v-icon v-if="parseInt(item.starforce) > index + 9" size="12" color="#F7D300">mdi-star</v-icon>
                                 <v-icon v-else size="12" color="#778087">mdi-star</v-icon>
@@ -31,13 +35,13 @@
                         </span>
                     </div>
                     <div style="position: relative; bottom: 5px;">
-                        <span class="mr-2">
+                        <span v-if="parseInt(item.item_base_option.base_equipment_level) > 127">
                             <span v-for="index in 5" :key="index">
                                 <v-icon v-if="parseInt(item.starforce) > index + 14" size="12" color="#F7D300">mdi-star</v-icon>
                                 <v-icon v-else size="12" color="#778087">mdi-star</v-icon>
                             </span>
                         </span>
-                        <span>
+                        <span v-if="parseInt(item.item_base_option.base_equipment_level) > 137" class="ml-2">
                             <span v-for="index in 5" :key="index">
                                 <v-icon v-if="parseInt(item.starforce) > index + 19" size="12" color="#F7D300">mdi-star</v-icon>
                                 <v-icon v-else size="12" color="#778087">mdi-star</v-icon>      
@@ -59,7 +63,9 @@
             <v-row id="item-image-container" class="mt-2" no-gutters>
                 <v-col cols="auto" class="ma-3">
                     <div style="display: flex; align-items: center;">
-                        <img id="item-image" :src="item.item_icon" :style="{ border: `1px solid ${potentialImageOptionGradeColor(item.potential_option_grade)}` }"/>
+                        <div class="item-image-wrapper" :style="{ border: `1px solid ${potentialImageOptionGradeColor(item.potential_option_grade)}` }">
+                            <img id="item-image" :src="item.item_shape_icon"/>
+                        </div>
                         <span class="ml-2" style="font-size: 11px; color:white">
                             <span style="color:#F7D300;">
                                 · REQ LEV : {{ parseInt(item.item_base_option.base_equipment_level) - parseInt(item.item_total_option.equipment_level_decrease) }}
@@ -249,7 +255,11 @@
                             착용 레벨 감소 : - {{ item.item_total_option.equipment_level_decrease }}
                         </span>
                     </div>
-                    <div>업그레이드 가능 횟수 : 0 (복구 가능 횟수: 0)</div>
+                    <div>업그레이드 가능 횟수 : {{ item.scroll_upgradeable_count }} 
+                        <span class="item-esilience-count">
+                            (복구 가능 횟수 : {{ item.scroll_resilience_count }})
+                        </span>
+                    </div>
                     <div v-if="item.golden_hammer_flag === '적용'">황금망치 제련 적용</div>
                     <div class="item-cuttable-count" v-if="parseInt(item.cuttable_count) !== 255">가위 사용 가능 횟수 : {{ item.cuttable_count }}회</div>
                 </v-col>
@@ -289,6 +299,10 @@
             <v-row class="potential_option" no-gutters>
                 <v-col class="mt-1 mb-6" style="font-size: 12px; color: white;">
                     <div class="ml-3 mr-3" style="color:#FFAA00">플래티넘 카르마의 가위를 사용하면 1회 교환이 가능하게 할 수 있습니다.</div>
+                    <div v-if="item.item_description !== null" class="ml-3 mr-3" style="color: white" v-html="item.item_description"></div>
+                    <div v-if="item.item_shape_icon !== item.item_icon" class="ml-3 mr-3 mt-3" style="color: #B6E405;">
+                        신비의 모루에 의해 [{{ item.item_shape_name }}]의 외형이 합성됨
+                    </div>
                 </v-col>
             </v-row>
         </v-card>
@@ -298,18 +312,18 @@
 <script>
 import { getPotentialImageOptionGradeColor, getPotentialImageOptionGradeText, getPotentialOptionGradeColor } from '@/common/potentialOptionGradeColor.js';
 import getStarforceMaxEnhancement from '@/common/starforceMaxEnhancement.js';
-import { ref } from 'vue';
 export default {
     props: {
-        equipItem: {
+        item: {
             type: Array,
+            required: true
+        },
+        itemLocation: {
+            type: Object,
             required: true
         }
     },
     setup() {
-        const item2Location = ref([0, 10, 20, 90]);
-        const item6Location = ref([120, 130, 140]);
-
         const potentialOptionGradeColor = (grade) => {
             return getPotentialOptionGradeColor(grade);
         };
@@ -330,23 +344,23 @@ export default {
             potentialOptionGradeColor,
             potentialImageOptionGradeColor,
             potentialImageOptionGradeText,
-            starforceMaxEnhancement,
-            item2Location,
-            item6Location
+            starforceMaxEnhancement
         }
     }
 }
 </script>
 
 <style lang="scss" scoped>
-    .equip {
-
+    .equip-container {
+        position: relative;
         background-color: rgba(136, 136, 136, 0.5);
         height: 50px;
         width: 50px;
+        display: flex;
         cursor: pointer;
-        padding:7px;
-        border-radius: 5px;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
     }
     #item-container {
         border: 1px solid #F5F5F5;
@@ -357,13 +371,19 @@ export default {
         border-top: 1px dashed rgba(128, 128, 128, 0.7);
         border-bottom: 1px dashed rgba(128, 128, 128, 0.7);
     }
-    #item-image {
-        padding: 5px;
+    .item-image-wrapper {
         border-radius: 5px;
         background: rgb(244,247,250);
         background: linear-gradient(0deg, rgba(244,247,250,1) 0%, rgba(83,83,83,1) 100%);
         height: 60px;
         width: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+    }
+    #item-image {
+        height: 80%;
     }
     .equip-class {
         border: 1px solid rgba(128, 128, 128, 0.7);
@@ -421,6 +441,9 @@ export default {
         color: #fff;
         font-size: 8px;
         font-weight: bold;
+    }
+    .item-esilience-count {
+        color: #F1C101;
     }
     .item-cuttable-count {
         color: #F1C101;
