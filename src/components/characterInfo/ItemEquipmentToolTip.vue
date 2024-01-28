@@ -2,7 +2,7 @@
     <v-tooltip v-for="(item, index) in item" :key="item.item_equipment_slot" location="bottom" content-class='custom-tooltip' transition="false">
         <template v-slot:activator="{ props }">
             <div v-bind="props" class="equip-container" :style="{ position: 'relative', left: `${itemLocation[index]}px`, border: `1px solid ${potentialImageOptionGradeColor(item.potential_option_grade)}` }">
-                <img :src="item.item_shape_icon"/>  
+                <img v-if="item != null" :src="item.item_shape_icon"/>  
             </div> 
         </template>
         <v-card id="item-container" width="300" flat>
@@ -255,7 +255,8 @@
                             착용 레벨 감소 : - {{ item.item_total_option.equipment_level_decrease }}
                         </span>
                     </div>
-                    <div>업그레이드 가능 횟수 : {{ item.scroll_upgradeable_count }} 
+                    <div v-if="parseInt(item.scroll_resilience_count) + parseInt(item.scroll_upgrade) + parseInt(item.scroll_upgradeable_count) !==0">
+                        업그레이드 가능 횟수 : {{ item.scroll_upgradeable_count }} 
                         <span class="item-esilience-count">
                             (복구 가능 횟수 : {{ item.scroll_resilience_count }})
                         </span>
@@ -297,13 +298,16 @@
                 </v-col>
             </v-row>
             <v-row class="potential_option" no-gutters>
-                <v-col class="mt-1 mb-6" style="font-size: 12px; color: white;">
-                    <div class="ml-3 mr-3" style="color:#FFAA00">플래티넘 카르마의 가위를 사용하면 1회 교환이 가능하게 할 수 있습니다.</div>
+                <v-col class="mt-1 mb-1" style="font-size: 12px; color: white;">
+                    <div v-if="parseInt(item.cuttable_count) !== 255" class="ml-3 mr-3" style="color:#FFAA00">플래티넘 카르마의 가위를 사용하면 1회 교환이 가능하게 할 수 있습니다.</div>
                     <div v-if="item.item_description !== null" class="ml-3 mr-3" style="color: white" v-html="item.item_description"></div>
                     <div v-if="item.item_shape_icon !== item.item_icon" class="ml-3 mr-3 mt-3" style="color: #B6E405;">
                         신비의 모루에 의해 [{{ item.item_shape_name }}]의 외형이 합성됨
                     </div>
                 </v-col>
+            </v-row>
+            <v-row class="mb-3">
+
             </v-row>
         </v-card>
     </v-tooltip>      
@@ -383,7 +387,8 @@ export default {
         align-content: center;
     }
     #item-image {
-        height: 80%;
+        width: 75%; 
+        height: auto;
     }
     .equip-class {
         border: 1px solid rgba(128, 128, 128, 0.7);
@@ -396,10 +401,10 @@ export default {
         justify-content: space-around;
     }
     .equip-option {
-        border-bottom: 1px dashed rgba(128, 128, 128, 0.7);
+        border-top: 1px dashed rgba(128, 128, 128, 0.7);
     }
     .potential_option {
-        border-bottom: 1px dashed rgba(128, 128, 128, 0.7);
+        border-top: 1px dashed rgba(128, 128, 128, 0.7);
     }
     .item-total-option {
         color: #62F1F1;

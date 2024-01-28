@@ -5,41 +5,63 @@
                 <v-card-title style="font-size: 16px; font-weight: bold; color: white; background-color: rgba(50, 51, 55, 0.975);">장비</v-card-title>
                 <v-card-item class="equip-container">
                     <div class="ma-5" style="display: flex;"> 
-                        <keep-alive>
-                            <EquipmentToolTip :item="item1" :itemLocation="item1Location"/>
-                        </keep-alive> 
+                            <ItemEquipmentToolTip :item="item1" :itemLocation="item1Location"/> 
                     </div>
                     <div class="ma-5" style="display: flex;">
-                        <keep-alive>
-                            <EquipmentToolTip :item="item2" :itemLocation="item2Location"/>
-                        </keep-alive>
+                            <ItemEquipmentToolTip :item="item2" :itemLocation="item2Location"/>
                     </div>
                     <div class="ma-5" style="display: flex;">
-                        <keep-alive>
-                            <EquipmentToolTip :item="item3" :itemLocation="item3Location"/>
-                        </keep-alive>
+                            <ItemEquipmentToolTip :item="item3" :itemLocation="item3Location"/>
                     </div>
                     <div class="ma-5" style="display: flex;">
-                        <keep-alive>
-                            <EquipmentToolTip :item="item4" :itemLocation="item4Location"/>
-                        </keep-alive>
+                            <ItemEquipmentToolTip :item="item4" :itemLocation="item4Location"/>
                     </div>
                     <div class="ma-5" style="display: flex;">
-                        <keep-alive>
-                            <EquipmentToolTip :item="item5" :itemLocation="item5Location"/>
-                        </keep-alive>
+                            <ItemEquipmentToolTip :item="item5" :itemLocation="item5Location"/>
                     </div>
                     <div class="ma-5" style="display: flex;">
-                        <keep-alive>
-                            <EquipmentToolTip :item="item6" :itemLocation="item6Location"/>
-                        </keep-alive>
+                            <ItemEquipmentToolTip :item="item6" :itemLocation="item6Location"/>
+                            <AndroidToolTip :item="characterAndroidEquipment" :itemLocation="androidItemLocation"/>                   
+                    </div>
+                </v-card-item>
+            </v-card>
+        </v-col>
+        <v-col cols="auto">
+            <v-card class="equip-card" flat width="360">
+                <v-card-title class="cody-card" style="font-size: 16px; font-weight: bold; color: white; background-color: rgba(50, 51, 55, 0.975);">코디</v-card-title>
+                <v-card-item class="equip-container">
+                    <div class="ma-5" style="display: flex;"> 
+                            <CashItemEquipmentToolTip :item="cashItem1" :itemLocation="cashItem1Location"/> 
+                    </div>
+                    <div class="ma-5" style="display: flex;">
+                            <CashItemEquipmentToolTip :item="cashItem2" :itemLocation="cashItem2Location"/>
+                    </div>
+                    <div class="ma-5" style="display: flex;">
+                            <CashItemEquipmentToolTip :item="cashItem3" :itemLocation="cashItem3Location"/>
+                    </div>
+                    <div class="ma-5" style="display: flex;">
+                            <CashItemEquipmentToolTip :item="cashItem4" :itemLocation="cashItem4Location"/>
+                    </div>
+                    <div class="ma-5" style="display: flex;">
+                            <CashItemEquipmentToolTip :item="cashItem5" :itemLocation="cashItem5Location"/>
+                    </div>
+                    <div class="ma-5" style="display: flex;">
+                            <CashItemEquipmentToolTip :item="cashItem6" :itemLocation="cashItem6Location"/>               
                     </div>
                 </v-card-item>
             </v-card>
         </v-col>
         <v-col cols="auto">
             <v-card class="equip-card" flat>
-                <v-card-title class="cody-card" style="font-size: 16px; font-weight: bold; color: white; background-color: rgba(50, 51, 55, 0.975);">코디</v-card-title>
+                <v-card-title class="cody-card" style="font-size: 16px; font-weight: bold; color: white; background-color: rgba(50, 51, 55, 0.975);">펫</v-card-title>
+                <v-card-item>
+
+                </v-card-item>
+            </v-card>
+        </v-col>
+        <v-col cols="auto">
+            <v-card class="equip-card" flat>
+                <v-card-title class="cody-card" style="font-size: 16px; font-weight: bold; color: white; background-color: rgba(50, 51, 55, 0.975);">안드로이드</v-card-title>
                 <v-card-item>
 
                 </v-card-item>
@@ -52,20 +74,24 @@
 import { getCharacterEquipment } from '@/api/characterInfo/statAndEquip.js';
 import { getPotentialImageOptionGradeColor, getPotentialImageOptionGradeText, getPotentialOptionGradeColor } from '@/common/potentialOptionGradeColor.js';
 import getStarforceMaxEnhancement from '@/common/starforceMaxEnhancement.js';
-import EquipmentToolTip from '@/components/characterInfo/EquipmentToolTip';
+import AndroidToolTip from '@/components/characterInfo/AndroidToolTip.vue';
+import CashItemEquipmentToolTip from '@/components/characterInfo/CashItemEquipmentToolTip.vue';
+import ItemEquipmentToolTip from '@/components/characterInfo/ItemEquipmentToolTip.vue';
 import { onMounted, reactive, ref } from 'vue';
 import { useRoute } from 'vue-router';
+
 export default {
     components: {
-        EquipmentToolTip
+        ItemEquipmentToolTip,
+        AndroidToolTip,
+        CashItemEquipmentToolTip
     },
     setup() {
         const route = useRoute();
         const characterName = route.params;
-        const characterItemEquipment = reactive({});
-        const characterAndroidEquipment = reactive({});
         const loading = ref(false);
         // 저장할 아이템 리스트
+        const characterItemEquipment = reactive({});
         const item1 = reactive([]);
         const item1Location = ref([0, 70 ,140]);
         const item2 = reactive([]);
@@ -77,7 +103,24 @@ export default {
         const item5 = reactive([]);
         const item5Location = ref([0, 10, 20, 30 ,40]);
         const item6 = reactive([]);
-        const item6Location = ref([120, 130, 140]);
+        const item6Location = ref([120, 190]);
+        // 저장할 안드로이드 아이템 리스트
+        const characterAndroidEquipment = reactive({});
+        const androidItemLocation = ref([80]);
+        // 저장할 캐시 아이템 리스트
+        const characterCashItemEquipment = reactive({});
+        const cashItem1 = reactive([]);
+        const cashItem1Location = ref([0, 70]);
+        const cashItem2 = reactive([]);
+        const cashItem2Location = ref([0, 70]);
+        const cashItem3 = reactive([]);
+        const cashItem3Location = ref([0, 70 ,140]);
+        const cashItem4 = reactive([]);
+        const cashItem4Location = ref([0, 70 ,140, 210]);
+        const cashItem5 = reactive([]);
+        const cashItem5Location = ref([0, 70 ,140]);
+        const cashItem6 = reactive([]);
+        const cashItem6Location = ref([0]);
 
         onMounted(() => {
             characterEquipment();
@@ -103,10 +146,10 @@ export default {
             const params = { 'characterName': characterName.name };
             try {
                 const response = await getCharacterEquipment(params);
-                console.log(response.data.data.characterItemEquipment);
                 Object.assign(characterItemEquipment, response.data.data.characterItemEquipment.item_equipment);
                 Object.assign(characterAndroidEquipment, response.data.data.characterAndroidEquipment);
-                console.log(response.data.data.characterAndroidEquipment);
+                Object.assign(characterCashItemEquipment, response.data.data.characterCashitemEquipment.cash_item_equipment_base);
+                console.log(response.data.data.characterCashitemEquipment);
                 item1.push(characterItemEquipment[14]);
                 item1.push(characterItemEquipment[0]);
                 item1.push(characterItemEquipment[22]);
@@ -135,8 +178,28 @@ export default {
                 item5.push(characterItemEquipment[8]);
 
                 item6.push(characterItemEquipment[6]);
-                item6.push(characterItemEquipment[17]); // 수정하기 안드로이드로 
                 item6.push(characterItemEquipment[20]);
+
+                cashItem1.push(characterCashItemEquipment[9]);
+                cashItem1.push(characterCashItemEquipment[0]);
+
+                cashItem2.push(characterCashItemEquipment[10]);                
+                cashItem2.push(characterCashItemEquipment[1]);                  
+
+                cashItem3.push(characterCashItemEquipment[11]);                
+                cashItem3.push(characterCashItemEquipment[2]);                
+                cashItem3.push(characterCashItemEquipment[3]);                
+                
+                cashItem4.push(characterCashItemEquipment[12]);
+                cashItem4.push(characterCashItemEquipment[8]);
+                cashItem4.push(characterCashItemEquipment[4]);
+                cashItem4.push();
+
+                cashItem5.push();
+                cashItem5.push(characterCashItemEquipment[6]);
+                cashItem5.push(characterCashItemEquipment[7]);
+
+                cashItem6.push(characterCashItemEquipment[5]);
             } catch(error) {
                 console.log(error);
             } finally {
@@ -145,8 +208,8 @@ export default {
         };
 
         return {
-            characterItemEquipment,
             loading,
+            characterItemEquipment,
             item1,
             item1Location,
             item2,
@@ -159,6 +222,21 @@ export default {
             item5Location,
             item6,
             item6Location,
+            characterAndroidEquipment,
+            androidItemLocation,
+            characterCashItemEquipment,
+            cashItem1,
+            cashItem1Location,
+            cashItem2,
+            cashItem2Location,
+            cashItem3,
+            cashItem3Location,
+            cashItem4,
+            cashItem4Location,
+            cashItem5,
+            cashItem5Location,
+            cashItem6,
+            cashItem6Location,
             potentialOptionGradeColor,
             potentialImageOptionGradeColor,
             potentialImageOptionGradeText,
