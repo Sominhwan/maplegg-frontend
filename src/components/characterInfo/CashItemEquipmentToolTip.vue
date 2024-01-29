@@ -5,11 +5,22 @@
                 <img v-if="item != null" :src="item.cash_item_icon"/>  
             </div> 
         </template>
-        <!-- <v-card id="item-container" width="300" flat>
+        <v-card v-if="item != null" id="item-container" width="300" flat>
             <v-row justify="center" no-gutters class="mt-2">
                 <v-col cols="auto" class="text-center">
                     <div style="color: white">
-                        {{ item.android_name }}
+                        {{ item.cash_item_name }}
+                    </div>
+                    <div class="mt-1" style="color:#F7D300; font-size: 12px;">
+                        <span>
+                            교환 불가
+                        </span>
+                        <span v-if="item.date_option_expire != null">
+                            , 기간 한정 능력치, 유효기간 연장 불가
+                        </span>
+                        <div v-if="item.date_option_expire != null" style="color: white;">
+                            {{ expireTimeFormat(item.date_option_expire) }}까지 사용가능
+                        </div>
                     </div>
                 </v-col>
             </v-row>
@@ -17,11 +28,11 @@
                 <v-col cols="auto" class="ma-3">
                     <div style="display: flex; align-items: center;">
                         <div class="item-image-wrapper">
-                            <img id="item-image" :src="item.android_icon"/>
+                            <img id="item-image" :src="item.cash_item_icon"/>
                         </div>
                         <span class="ml-2" style="font-size: 11px; color:white">
                             <span style="color:#F7D300;">
-                                · REQ LEV : 10
+                                · REQ LEV : 0
                             </span>
                         </span>                                           
                     </div>
@@ -37,25 +48,26 @@
             </v-row>
             <v-row class="equip-option" no-gutters>
                 <v-col class="ml-3 mt-1 mb-1" style="font-size: 12px; color:white">
-                    <div>장비분류 : 안드로이드</div>
-                    <div>등급 : {{ item.android_grade }}</div>
-                    <div>잠재능력 설정 불가</div>
+                    <div>장비분류 : {{ item.cash_item_equipment_part }}</div>
+                    <div v-if="(item.cash_item_option).length != 0">
+                        <div v-for="(subItem, index) in item.cash_item_option" :key="index">
+                            <div>
+                                <span class="item-total-option">{{ subItem.option_type }} : +{{ subItem.option_value }}</span> 
+                                <span> (0 </span>
+                                <span class="item-etc-option">+{{ subItem.option_value }}</span>
+                                <span>)</span>
+                            </div>
+                        </div>
+                    </div>              
                 </v-col>
             </v-row>
-            <v-row class="potential_option" no-gutters>
-                <v-col class="mt-3 mb-3" style="font-size: 12px; color: white;">
-                    <div class="ml-3 mr-3" style="display: flex; align-items: center;">
-                        {{ item. android_description }}
-                    </div>
-                </v-col>
+            <v-row class="mb-3">
             </v-row>
-        </v-card> -->
+        </v-card>
     </v-tooltip>      
 </template>
 
 <script>
-import { getPotentialImageOptionGradeColor, getPotentialImageOptionGradeText, getPotentialOptionGradeColor } from '@/common/potentialOptionGradeColor.js';
-import getStarforceMaxEnhancement from '@/common/starforceMaxEnhancement.js';
 export default {
     props: {
         item: {
@@ -68,27 +80,20 @@ export default {
         }
     },
     setup() {
-        const potentialOptionGradeColor = (grade) => {
-            return getPotentialOptionGradeColor(grade);
-        };
-        
-        const potentialImageOptionGradeColor = (grade) => {
-            return getPotentialImageOptionGradeColor(grade);
-        };
-
-        const potentialImageOptionGradeText = (grade) => {
-            return getPotentialImageOptionGradeText(grade);
-        };
-
-        const starforceMaxEnhancement = (baseEquipmentLevel, kind) => {
-            return getStarforceMaxEnhancement(baseEquipmentLevel, kind);
+        const expireTimeFormat =  (date) => {
+            const dateoObject = new Date(date);
+            const year = dateoObject.getFullYear();
+            const month = dateoObject.getMonth() + 1; 
+            const day = dateoObject.getDate();
+            const hours = dateoObject.getHours();
+            const minutes = dateoObject.getMinutes();
+            // 포맷된 문자열 생성
+            const formattedExpireDate = `${year}년 ${month}월 ${day}일 ${hours}시 ${minutes}분`;
+            return formattedExpireDate;
         };
 
         return {
-            potentialOptionGradeColor,
-            potentialImageOptionGradeColor,
-            potentialImageOptionGradeText,
-            starforceMaxEnhancement
+            expireTimeFormat
         }
     }
 }
@@ -127,7 +132,8 @@ export default {
         align-content: center;
     }
     #item-image {
-        height: 80%;
+        height: 55%;
+        width: auto;
     }
     .equip-class {
         border: 1px solid rgba(128, 128, 128, 0.7);
@@ -140,60 +146,13 @@ export default {
         justify-content: space-around;
     }
     .equip-option {
-        border-bottom: 1px dashed rgba(128, 128, 128, 0.7);
-    }
-    .potential_option {
-        border-bottom: 1px dashed rgba(128, 128, 128, 0.7);
+
     }
     .item-total-option {
         color: #62F1F1;
     }
-    .item-add-option {
-        color: #C4F402;
-    }
     .item-etc-option {
         color: #9696E0;
-    }
-    .item-starforce-option {
-        color: #F4C402;
-    }
-    .item-grade-container {
-        position: relative;
-        display: flex; 
-        align-items: center;
-    }
-    .item-grade-octagon {
-        width: 14px;
-        height: 14px;
-        background-color: #888889;
-        position: relative;
-        clip-path: polygon(29% 0%, 71% 0%, 100% 29%, 100% 71%, 71% 100%, 29% 100%, 0% 71%, 0% 29%);
-    }
-    .item-grade-small-octagon {
-        position: absolute;
-        width: 11.5px;
-        height: 11.5px;
-        left: 1.2px;
-        top: 1.2px;
-        clip-path: polygon(29% 0%, 71% 0%, 100% 29%, 100% 71%, 71% 100%, 29% 100%, 0% 71%, 0% 29%);
-    }
-    .item-grade-text {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: #fff;
-        font-size: 8px;
-        font-weight: bold;
-    }
-    .item-esilience-count {
-        color: #F1C101;
-    }
-    .item-cuttable-count {
-        color: #F1C101;
-    }
-    .item-level-decrease {
-        color: #CCFF00;
     }
 </style>
 

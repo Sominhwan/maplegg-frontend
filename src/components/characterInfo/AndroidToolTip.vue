@@ -5,7 +5,7 @@
                 <img v-if="item != null" :src="item.android_icon"/>  
             </div> 
         </template>
-        <v-card id="item-container" width="300" flat>
+        <v-card v-if="item != null" id="item-container" width="300" flat>
             <v-row justify="center" no-gutters class="mt-2">
                 <v-col cols="auto" class="text-center">
                     <div style="color: white">

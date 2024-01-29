@@ -110,17 +110,17 @@ export default {
         // 저장할 캐시 아이템 리스트
         const characterCashItemEquipment = reactive({});
         const cashItem1 = reactive([]);
-        const cashItem1Location = ref([0, 70]);
+        const cashItem1Location = ref([0, 10, 20]);
         const cashItem2 = reactive([]);
-        const cashItem2Location = ref([0, 70]);
+        const cashItem2Location = ref([0, 10, 20]);
         const cashItem3 = reactive([]);
-        const cashItem3Location = ref([0, 70 ,140]);
+        const cashItem3Location = ref([0, 10, 20, 30]);
         const cashItem4 = reactive([]);
-        const cashItem4Location = ref([0, 70 ,140, 210]);
+        const cashItem4Location = ref([0, 10 ,20, 90]);
         const cashItem5 = reactive([]);
-        const cashItem5Location = ref([0, 70 ,140]);
+        const cashItem5Location = ref([120, 130 ,140]);
         const cashItem6 = reactive([]);
-        const cashItem6Location = ref([0]);
+        const cashItem6Location = ref([120]);
 
         onMounted(() => {
             characterEquipment();
@@ -180,22 +180,25 @@ export default {
                 item6.push(characterItemEquipment[6]);
                 item6.push(characterItemEquipment[20]);
 
-                cashItem1.push(characterCashItemEquipment[9]);
+                cashItem1.push(characterCashItemEquipment[12]);
+                cashItem1.push(null); // 헤어 마네킹
                 cashItem1.push(characterCashItemEquipment[0]);
 
-                cashItem2.push(characterCashItemEquipment[10]);                
+                cashItem2.push(characterCashItemEquipment[10]);        
+                cashItem2.push(null); // 얼굴 마네킹     
                 cashItem2.push(characterCashItemEquipment[1]);                  
 
                 cashItem3.push(characterCashItemEquipment[11]);                
+                cashItem3.push(null); // 피부 마네킹              
                 cashItem3.push(characterCashItemEquipment[2]);                
                 cashItem3.push(characterCashItemEquipment[3]);                
                 
-                cashItem4.push(characterCashItemEquipment[12]);
+                cashItem4.push(characterCashItemEquipment[9]);
                 cashItem4.push(characterCashItemEquipment[8]);
                 cashItem4.push(characterCashItemEquipment[4]);
-                cashItem4.push();
+                cashItem4.push(null); // 보조 무기
 
-                cashItem5.push();
+                cashItem5.push(null); // 바지 TODO 추가 예정
                 cashItem5.push(characterCashItemEquipment[6]);
                 cashItem5.push(characterCashItemEquipment[7]);
 
