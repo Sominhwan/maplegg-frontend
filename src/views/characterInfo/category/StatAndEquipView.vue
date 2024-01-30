@@ -5,48 +5,72 @@
                 <v-card-title style="font-size: 16px; font-weight: bold; color: white; background-color: rgba(50, 51, 55, 0.975);">장비</v-card-title>
                 <v-card-item class="equip-container">
                     <div class="ma-5" style="display: flex;"> 
-                            <ItemEquipmentToolTip :item="item1" :itemLocation="item1Location"/> 
+                        <ItemEquipmentToolTip :item="item1" :itemLocation="item1Location"/> 
                     </div>
                     <div class="ma-5" style="display: flex;">
-                            <ItemEquipmentToolTip :item="item2" :itemLocation="item2Location"/>
+                        <ItemEquipmentToolTip :item="item2" :itemLocation="item2Location"/>
                     </div>
                     <div class="ma-5" style="display: flex;">
-                            <ItemEquipmentToolTip :item="item3" :itemLocation="item3Location"/>
+                        <ItemEquipmentToolTip :item="item3" :itemLocation="item3Location"/>
                     </div>
                     <div class="ma-5" style="display: flex;">
-                            <ItemEquipmentToolTip :item="item4" :itemLocation="item4Location"/>
+                        <ItemEquipmentToolTip :item="item4" :itemLocation="item4Location"/>
                     </div>
                     <div class="ma-5" style="display: flex;">
-                            <ItemEquipmentToolTip :item="item5" :itemLocation="item5Location"/>
+                        <ItemEquipmentToolTip :item="item5" :itemLocation="item5Location"/>
                     </div>
                     <div class="ma-5" style="display: flex;">
-                            <ItemEquipmentToolTip :item="item6" :itemLocation="item6Location"/>
-                            <AndroidToolTip :item="characterAndroidEquipment" :itemLocation="androidItemLocation"/>                   
+                        <ItemEquipmentToolTip :item="item6" :itemLocation="item6Location"/>
+                        <AndroidToolTip :item="characterAndroidEquipment" :itemLocation="androidItemLocation"/>                   
                     </div>
                 </v-card-item>
             </v-card>
         </v-col>
         <v-col cols="auto">
             <v-card class="equip-card" flat width="360">
-                <v-card-title class="cody-card" style="font-size: 16px; font-weight: bold; color: white; background-color: rgba(50, 51, 55, 0.975);">코디</v-card-title>
+                <v-card-title class="cody-card" style="font-size: 16px; font-weight: bold; color: white; background-color: rgba(50, 51, 55, 0.975);">
+                    <v-row justify="space-between">
+                        <v-col cols="auto">
+                        <span style="color: white;">{{ changeCodyText }}</span>
+                        </v-col>
+                        <v-col cols="auto">
+                            <v-btn
+                                density="compact"
+                                class="text-none"
+                                color="white"
+                                min-width="80"
+                                rounded
+                                variant="outlined"
+                                @click="changeText()"
+                            >
+                                {{ changeBtnText }}
+                            </v-btn>
+                        </v-col>
+                    </v-row>
+                </v-card-title>
                 <v-card-item class="equip-container">
                     <div class="ma-5" style="display: flex;"> 
-                            <CashItemEquipmentToolTip :item="cashItem1" :itemLocation="cashItem1Location"/> 
+                        <CashItemEquipmentToolTip :item="cashItem1" :itemLocation="cashItem1Location"/> 
                     </div>
                     <div class="ma-5" style="display: flex;">
-                            <CashItemEquipmentToolTip :item="cashItem2" :itemLocation="cashItem2Location"/>
+                        <CashItemEquipmentToolTip :item="cashItem2" :itemLocation="cashItem2Location"/>
                     </div>
                     <div class="ma-5" style="display: flex;">
-                            <CashItemEquipmentToolTip :item="cashItem3" :itemLocation="cashItem3Location"/>
+                        <CashItemEquipmentToolTip :item="cashItem3" :itemLocation="cashItem3Location"/>
                     </div>
                     <div class="ma-5" style="display: flex;">
-                            <CashItemEquipmentToolTip :item="cashItem4" :itemLocation="cashItem4Location"/>
+                        <CashItemEquipmentToolTip :item="cashItem4" :itemLocation="cashItem4Location"/>
                     </div>
                     <div class="ma-5" style="display: flex;">
-                            <CashItemEquipmentToolTip :item="cashItem5" :itemLocation="cashItem5Location"/>
+                        <CashItemEquipmentToolTip :item="cashItem5" :itemLocation="cashItem5Location"/>
                     </div>
                     <div class="ma-5" style="display: flex;">
-                            <CashItemEquipmentToolTip :item="cashItem6" :itemLocation="cashItem6Location"/>               
+                        <CashItemEquipmentToolTip :item="cashItem6" :itemLocation="cashItem6Location"/>               
+                    </div>
+                    <div v-if="!codyTextFlag" class="preset-btn-wrapper">
+                        <div :class="[ presetBtn1Flag ? 'preset-custom-btn' : 'preset-btn1' ]" @click="selectPresetBtn1Flag()">1</div>
+                        <div :class="[ presetBtn2Flag ? 'preset-custom-btn' : 'preset-btn2' ]" @click="selectPresetBtn2Flag()">2</div>
+                        <div :class="[ presetBtn3Flag ? 'preset-custom-btn' : 'preset-btn3' ]" @click="selectPresetBtn3Flag()">3</div>
                     </div>
                 </v-card-item>
             </v-card>
@@ -77,7 +101,7 @@ import getStarforceMaxEnhancement from '@/common/starforceMaxEnhancement.js';
 import AndroidToolTip from '@/components/characterInfo/AndroidToolTip.vue';
 import CashItemEquipmentToolTip from '@/components/characterInfo/CashItemEquipmentToolTip.vue';
 import ItemEquipmentToolTip from '@/components/characterInfo/ItemEquipmentToolTip.vue';
-import { onMounted, reactive, ref } from 'vue';
+import { computed, onMounted, reactive, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
 export default {
@@ -125,6 +149,39 @@ export default {
         onMounted(() => {
             characterEquipment();
         });
+        // 캐시 아이템 버튼 수정 관련 
+        const cashText = ref('캐시');
+        const codyText = ref('코디 프리셋');
+        const codyTextFlag = ref(true);
+        const changeCodyText = computed(() => {
+            return codyTextFlag.value ? cashText.value : codyText.value
+        });
+        const changeBtnText = computed(() => {
+            return codyTextFlag.value ? codyText.value :cashText.value 
+        });
+        const changeText = () => {
+            codyTextFlag.value = !codyTextFlag.value;
+            selectPresetBtn1Flag();
+        };
+        // 코디 프리셋 버튼 관련
+        const presetBtn1Flag = ref(true);
+        const presetBtn2Flag = ref(false);
+        const presetBtn3Flag = ref(false);
+        const selectPresetBtn1Flag = () => {
+            presetBtn1Flag.value = true;
+            presetBtn2Flag.value = false;
+            presetBtn3Flag.value = false;
+        };
+        const selectPresetBtn2Flag = () => {
+            presetBtn1Flag.value = false;
+            presetBtn2Flag.value = true;
+            presetBtn3Flag.value = false;
+        };
+        const selectPresetBtn3Flag = () => {
+            presetBtn1Flag.value = false;
+            presetBtn2Flag.value = false;
+            presetBtn3Flag.value = true;
+        };
 
         const potentialOptionGradeColor = (grade) => {
             return getPotentialOptionGradeColor(grade);
@@ -243,7 +300,17 @@ export default {
             potentialOptionGradeColor,
             potentialImageOptionGradeColor,
             potentialImageOptionGradeText,
-            starforceMaxEnhancement
+            starforceMaxEnhancement,
+            changeCodyText,
+            changeText,
+            changeBtnText,
+            codyTextFlag,
+            presetBtn1Flag,
+            presetBtn2Flag,
+            presetBtn3Flag,
+            selectPresetBtn1Flag,
+            selectPresetBtn2Flag,
+            selectPresetBtn3Flag
         }
     }
 }
@@ -262,6 +329,46 @@ export default {
     }
     .cody-card {
         border: 1px solid rgba(50, 51, 55, 0.975) !important;   
+    }
+    .preset-btn-wrapper {
+        position: absolute;
+        bottom: 10px;
+        right: 5px;
+        display: flex;
+        font-size: 12px;
+        color: white;
+    }
+    .preset-custom-btn {
+        background-color: black;
+        border: 1px solid black;
+        border-radius: 3px;
+        padding: 0px 6px 2px 6px;
+        cursor: pointer;
+        margin-right: 5px;
+    }
+    .preset-btn1 {
+        background-color: #E2E2E2;
+        border: 1px solid #CBCBCB;
+        border-radius: 3px;
+        padding: 0px 6px 2px 6px;
+        cursor: pointer;
+        margin-right: 5px;
+    }
+    .preset-btn2 {
+        background-color: #E2E2E2;
+        border: 1px solid #CBCBCB;
+        border-radius: 3px;
+        padding: 0px 6px 2px 6px;
+        cursor: pointer;
+        margin-right: 5px;
+    }
+    .preset-btn3 {
+        background-color: #E2E2E2;
+        border: 1px solid #CBCBCB;
+        border-radius: 3px;
+        padding: 0px 6px 2px 6px;
+        cursor: pointer;
+        margin-right: 5px;
     }
 </style>
 

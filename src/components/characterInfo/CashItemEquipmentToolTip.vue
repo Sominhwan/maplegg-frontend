@@ -77,6 +77,18 @@ export default {
         itemLocation: {
             type: Object,
             required: false
+        },
+        preset1Flag: {
+            type: Boolean,
+            required: false
+        },
+        preset2Flag: {
+            type: Boolean,
+            required: false
+        },
+        preset3Flag: {
+            type: Boolean,
+            required: false
         }
     },
     setup() {
