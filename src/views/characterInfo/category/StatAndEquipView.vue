@@ -49,23 +49,45 @@
                     </v-row>
                 </v-card-title>
                 <v-card-item class="equip-container">
-                    <div class="ma-5" style="display: flex;"> 
-                        <CashItemEquipmentToolTip :item="cashItem1" :itemLocation="cashItem1Location"/> 
+                    <div v-if="codyTextFlag">
+                        <div class="ma-5" style="display: flex;"> 
+                            <CashItemEquipmentToolTip :item="cashItem1" :itemLocation="cashItem1Location"/> 
+                        </div>
+                        <div class="ma-5" style="display: flex;">
+                            <CashItemEquipmentToolTip :item="cashItem2" :itemLocation="cashItem2Location"/>
+                        </div>
+                        <div class="ma-5" style="display: flex;">
+                            <CashItemEquipmentToolTip :item="cashItem3" :itemLocation="cashItem3Location"/>
+                        </div>
+                        <div class="ma-5" style="display: flex;">
+                            <CashItemEquipmentToolTip :item="cashItem4" :itemLocation="cashItem4Location"/>
+                        </div>
+                        <div class="ma-5" style="display: flex;">
+                            <CashItemEquipmentToolTip :item="cashItem5" :itemLocation="cashItem5Location"/>
+                        </div>
+                        <div class="ma-5" style="display: flex;">
+                            <CashItemEquipmentToolTip :item="cashItem6" :itemLocation="cashItem6Location"/>               
+                        </div>
                     </div>
-                    <div class="ma-5" style="display: flex;">
-                        <CashItemEquipmentToolTip :item="cashItem2" :itemLocation="cashItem2Location"/>
-                    </div>
-                    <div class="ma-5" style="display: flex;">
-                        <CashItemEquipmentToolTip :item="cashItem3" :itemLocation="cashItem3Location"/>
-                    </div>
-                    <div class="ma-5" style="display: flex;">
-                        <CashItemEquipmentToolTip :item="cashItem4" :itemLocation="cashItem4Location"/>
-                    </div>
-                    <div class="ma-5" style="display: flex;">
-                        <CashItemEquipmentToolTip :item="cashItem5" :itemLocation="cashItem5Location"/>
-                    </div>
-                    <div class="ma-5" style="display: flex;">
-                        <CashItemEquipmentToolTip :item="cashItem6" :itemLocation="cashItem6Location"/>               
+                    <div v-else>
+                        <div class="ma-5" style="display: flex;"> 
+                            <CodyPresetEquipmentToolTip :item="persetItem1" :itemLocation="presetItem1Location"/> 
+                        </div>
+                        <div class="ma-5" style="display: flex;">
+                            <CodyPresetEquipmentToolTip :item="persetItem2" :itemLocation="presetItem2Location"/>
+                        </div>
+                        <div class="ma-5" style="display: flex;">
+                            <CodyPresetEquipmentToolTip :item="persetItem3" :itemLocation="presetItem3Location"/>
+                        </div>
+                        <div class="ma-5" style="display: flex;">
+                            <CodyPresetEquipmentToolTip :item="persetItem4" :itemLocation="presetItem4Location"/>
+                        </div>
+                        <div class="ma-5" style="display: flex;">
+                            <CodyPresetEquipmentToolTip :item="persetItem5" :itemLocation="presetItem5Location"/>
+                        </div>
+                        <div class="ma-5" style="display: flex;">
+                            <CodyPresetEquipmentToolTip :item="persetItem6" :itemLocation="presetItem6Location"/>               
+                        </div>
                     </div>
                     <div v-if="!codyTextFlag" class="preset-btn-wrapper">
                         <div :class="[ presetBtn1Flag ? 'preset-custom-btn' : 'preset-btn1' ]" @click="selectPresetBtn1Flag()">1</div>
@@ -100,6 +122,7 @@ import { getPotentialImageOptionGradeColor, getPotentialImageOptionGradeText, ge
 import getStarforceMaxEnhancement from '@/common/starforceMaxEnhancement.js';
 import AndroidToolTip from '@/components/characterInfo/AndroidToolTip.vue';
 import CashItemEquipmentToolTip from '@/components/characterInfo/CashItemEquipmentToolTip.vue';
+import CodyPresetEquipmentToolTip from '@/components/characterInfo/CodyPresetEquipmentToolTip.vue';
 import ItemEquipmentToolTip from '@/components/characterInfo/ItemEquipmentToolTip.vue';
 import { computed, onMounted, reactive, ref } from 'vue';
 import { useRoute } from 'vue-router';
@@ -108,7 +131,8 @@ export default {
     components: {
         ItemEquipmentToolTip,
         AndroidToolTip,
-        CashItemEquipmentToolTip
+        CashItemEquipmentToolTip,
+        CodyPresetEquipmentToolTip
     },
     setup() {
         const route = useRoute();
@@ -145,6 +169,22 @@ export default {
         const cashItem5Location = ref([120, 130 ,140]);
         const cashItem6 = reactive([]);
         const cashItem6Location = ref([120]);
+        // 저장할 코디 프리셋 리스트
+        const characeterCashItemEquipmentPreset1 = reactive({});
+        const characeterCashItemEquipmentPreset2 = reactive({});
+        const characeterCashItemEquipmentPreset3 = reactive({});
+        const persetItem1 = reactive([]);
+        const presetItem1Location = ref([0, 10, 20]);
+        const persetItem2 = reactive([]);
+        const presetItem2Location = ref([0, 10, 20]);
+        const persetItem3 = reactive([]);
+        const presetItem3Location = ref([0, 10, 20, 30]);
+        const persetItem4 = reactive([]);
+        const presetItem4Location = ref([0, 10 ,20, 90]);
+        const persetItem5 = reactive([]);
+        const presetItem5Location = ref([120, 130 ,140]);
+        const persetItem6 = reactive([]);
+        const presetItem6Location = ref([120]);
 
         onMounted(() => {
             characterEquipment();
@@ -161,6 +201,7 @@ export default {
         });
         const changeText = () => {
             codyTextFlag.value = !codyTextFlag.value;
+
             selectPresetBtn1Flag();
         };
         // 코디 프리셋 버튼 관련
@@ -171,16 +212,106 @@ export default {
             presetBtn1Flag.value = true;
             presetBtn2Flag.value = false;
             presetBtn3Flag.value = false;
+
+            persetItem1.length = 0;
+            persetItem1.push(characeterCashItemEquipmentPreset1[12]);
+            persetItem1.push(null); 
+            persetItem1.push(characeterCashItemEquipmentPreset1[0]);
+
+            persetItem2.length = 0;
+            persetItem2.push(characeterCashItemEquipmentPreset1[10]);        
+            persetItem2.push(null);     
+            persetItem2.push(characeterCashItemEquipmentPreset1[1]);                  
+
+            persetItem3.length = 0;
+            persetItem3.push(characeterCashItemEquipmentPreset1[11]);                
+            persetItem3.push(null);              
+            persetItem3.push(characeterCashItemEquipmentPreset1[2]);                
+            persetItem3.push(characeterCashItemEquipmentPreset1[3]);                
+            
+            persetItem4.length = 0;
+            persetItem4.push(characeterCashItemEquipmentPreset1[9]);
+            persetItem4.push(characeterCashItemEquipmentPreset1[8]);
+            persetItem4.push(characeterCashItemEquipmentPreset1[4]);
+            persetItem4.push(null); 
+
+            persetItem5.length = 0;
+            persetItem5.push(null); 
+            persetItem5.push(characeterCashItemEquipmentPreset1[6]);
+            persetItem5.push(characeterCashItemEquipmentPreset1[7]);
+
+            persetItem6.length = 0;
+            persetItem6.push(characeterCashItemEquipmentPreset1[5]);
         };
         const selectPresetBtn2Flag = () => {
             presetBtn1Flag.value = false;
             presetBtn2Flag.value = true;
             presetBtn3Flag.value = false;
+
+            persetItem1.length = 0;
+            persetItem1.push(characeterCashItemEquipmentPreset2[12]);
+            persetItem1.push(null); 
+            persetItem1.push(characeterCashItemEquipmentPreset2[0]);
+
+            persetItem2.length = 0;
+            persetItem2.push(characeterCashItemEquipmentPreset2[10]);        
+            persetItem2.push(null);     
+            persetItem2.push(characeterCashItemEquipmentPreset2[1]);                  
+
+            persetItem3.length = 0;
+            persetItem3.push(characeterCashItemEquipmentPreset2[11]);                
+            persetItem3.push(null);              
+            persetItem3.push(characeterCashItemEquipmentPreset2[2]);                
+            persetItem3.push(characeterCashItemEquipmentPreset2[3]);                
+            
+            persetItem4.length = 0;
+            persetItem4.push(characeterCashItemEquipmentPreset2[9]);
+            persetItem4.push(characeterCashItemEquipmentPreset2[8]);
+            persetItem4.push(characeterCashItemEquipmentPreset2[4]);
+            persetItem4.push(null); 
+
+            persetItem5.length = 0;
+            persetItem5.push(null); 
+            persetItem5.push(characeterCashItemEquipmentPreset2[6]);
+            persetItem5.push(characeterCashItemEquipmentPreset2[7]);
+
+            persetItem6.length = 0;
+            persetItem6.push(characeterCashItemEquipmentPreset2[5]);
         };
         const selectPresetBtn3Flag = () => {
             presetBtn1Flag.value = false;
             presetBtn2Flag.value = false;
             presetBtn3Flag.value = true;
+
+            persetItem1.length = 0;
+            persetItem1.push(characeterCashItemEquipmentPreset3[12]);
+            persetItem1.push(null); 
+            persetItem1.push(characeterCashItemEquipmentPreset3[0]);
+
+            persetItem2.length = 0;
+            persetItem2.push(characeterCashItemEquipmentPreset3[10]);        
+            persetItem2.push(null);     
+            persetItem2.push(characeterCashItemEquipmentPreset3[1]);                  
+
+            persetItem3.length = 0;
+            persetItem3.push(characeterCashItemEquipmentPreset3[11]);                
+            persetItem3.push(null);              
+            persetItem3.push(characeterCashItemEquipmentPreset3[2]);                
+            persetItem3.push(characeterCashItemEquipmentPreset3[3]);                
+            
+            persetItem4.length = 0;
+            persetItem4.push(characeterCashItemEquipmentPreset3[9]);
+            persetItem4.push(characeterCashItemEquipmentPreset3[8]);
+            persetItem4.push(characeterCashItemEquipmentPreset3[4]);
+            persetItem4.push(null); 
+
+            persetItem5.length = 0;
+            persetItem5.push(null); 
+            persetItem5.push(characeterCashItemEquipmentPreset3[6]);
+            persetItem5.push(characeterCashItemEquipmentPreset3[7]);
+
+            persetItem6.length = 0;
+            persetItem6.push(characeterCashItemEquipmentPreset3[5]);
         };
 
         const potentialOptionGradeColor = (grade) => {
@@ -206,7 +337,11 @@ export default {
                 Object.assign(characterItemEquipment, response.data.data.characterItemEquipment.item_equipment);
                 Object.assign(characterAndroidEquipment, response.data.data.characterAndroidEquipment);
                 Object.assign(characterCashItemEquipment, response.data.data.characterCashitemEquipment.cash_item_equipment_base);
+                Object.assign(characeterCashItemEquipmentPreset1, response.data.data.characterCashitemEquipment.cash_item_equipment_preset_1);
+                Object.assign(characeterCashItemEquipmentPreset2, response.data.data.characterCashitemEquipment.cash_item_equipment_preset_2);
+                Object.assign(characeterCashItemEquipmentPreset3, response.data.data.characterCashitemEquipment.cash_item_equipment_preset_3);
                 console.log(response.data.data.characterCashitemEquipment);
+                // 장비 아이템
                 item1.push(characterItemEquipment[14]);
                 item1.push(characterItemEquipment[0]);
                 item1.push(characterItemEquipment[22]);
@@ -236,7 +371,7 @@ export default {
 
                 item6.push(characterItemEquipment[6]);
                 item6.push(characterItemEquipment[20]);
-
+                // 캐시 아이템
                 cashItem1.push(characterCashItemEquipment[12]);
                 cashItem1.push(null); // 헤어 마네킹
                 cashItem1.push(characterCashItemEquipment[0]);
@@ -310,7 +445,19 @@ export default {
             presetBtn3Flag,
             selectPresetBtn1Flag,
             selectPresetBtn2Flag,
-            selectPresetBtn3Flag
+            selectPresetBtn3Flag,
+            persetItem1,
+            presetItem1Location,
+            persetItem2,
+            presetItem2Location,
+            persetItem3,
+            presetItem3Location,
+            persetItem4,
+            presetItem4Location,
+            persetItem5,
+            presetItem5Location,
+            persetItem6,
+            presetItem6Location,
         }
     }
 }
@@ -339,8 +486,8 @@ export default {
         color: white;
     }
     .preset-custom-btn {
-        background-color: black;
-        border: 1px solid black;
+        background-color: rgba(50, 51, 55, 0.975);
+        border: 1px solid rgba(50, 51, 55, 0.975);
         border-radius: 3px;
         padding: 0px 6px 2px 6px;
         cursor: pointer;
