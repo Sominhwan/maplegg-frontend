@@ -185,6 +185,8 @@ export default {
         const presetItem5Location = ref([120, 130 ,140]);
         const persetItem6 = reactive([]);
         const presetItem6Location = ref([120]);
+        // 저장할 펫 리스트
+        const characterPetEquipment = reactive({});
 
         onMounted(() => {
             characterEquipment();
@@ -340,7 +342,8 @@ export default {
                 Object.assign(characeterCashItemEquipmentPreset1, response.data.data.characterCashitemEquipment.cash_item_equipment_preset_1);
                 Object.assign(characeterCashItemEquipmentPreset2, response.data.data.characterCashitemEquipment.cash_item_equipment_preset_2);
                 Object.assign(characeterCashItemEquipmentPreset3, response.data.data.characterCashitemEquipment.cash_item_equipment_preset_3);
-                console.log(response.data.data.characterCashitemEquipment);
+                Object.assign(characterPetEquipment, response.data.data.characterPetEquipment);
+                console.log(response.data.data.characterPetEquipment);
                 // 장비 아이템
                 item1.push(characterItemEquipment[14]);
                 item1.push(characterItemEquipment[0]);
@@ -395,6 +398,8 @@ export default {
                 cashItem5.push(characterCashItemEquipment[7]);
 
                 cashItem6.push(characterCashItemEquipment[5]);
+                // 펫
+                
             } catch(error) {
                 console.log(error);
             } finally {
