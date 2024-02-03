@@ -386,8 +386,8 @@ export default {
         align-content: center;
     }
     #item-image {
-        width: 75%; 
-        height: auto;
+        width: 100%; 
+        padding: 10px;
     }
     .equip-class {
         border: 1px solid rgba(128, 128, 128, 0.7);

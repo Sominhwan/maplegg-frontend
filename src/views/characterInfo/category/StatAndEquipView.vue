@@ -98,10 +98,12 @@
             </v-card>
         </v-col>
         <v-col cols="auto">
-            <v-card class="equip-card" flat>
+            <v-card class="equip-card" flat width="300">
                 <v-card-title class="cody-card" style="font-size: 16px; font-weight: bold; color: white; background-color: rgba(50, 51, 55, 0.975);">펫</v-card-title>
                 <v-card-item>
-
+                    <div class="ma-5"> 
+                    <PetEquipmentToolTip :item="characterPetEquipment" :itemLocation="presetItem5Location"/>
+                    </div>
                 </v-card-item>
             </v-card>
         </v-col>
@@ -124,6 +126,7 @@ import AndroidToolTip from '@/components/characterInfo/AndroidToolTip.vue';
 import CashItemEquipmentToolTip from '@/components/characterInfo/CashItemEquipmentToolTip.vue';
 import CodyPresetEquipmentToolTip from '@/components/characterInfo/CodyPresetEquipmentToolTip.vue';
 import ItemEquipmentToolTip from '@/components/characterInfo/ItemEquipmentToolTip.vue';
+import PetEquipmentToolTip from '@/components/characterInfo/PetEquipmentToolTip.vue';
 import { computed, onMounted, reactive, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
@@ -132,7 +135,8 @@ export default {
         ItemEquipmentToolTip,
         AndroidToolTip,
         CashItemEquipmentToolTip,
-        CodyPresetEquipmentToolTip
+        CodyPresetEquipmentToolTip,
+        PetEquipmentToolTip
     },
     setup() {
         const route = useRoute();
@@ -463,6 +467,7 @@ export default {
             presetItem5Location,
             persetItem6,
             presetItem6Location,
+            characterPetEquipment
         }
     }
 }

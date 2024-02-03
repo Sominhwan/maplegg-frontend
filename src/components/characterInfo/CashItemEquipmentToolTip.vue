@@ -132,8 +132,8 @@ export default {
         align-content: center;
     }
     #item-image {
-        height: 55%;
-        width: auto;
+        width: 100%; 
+        padding: 10px;
     }
     .equip-class {
         border: 1px solid rgba(128, 128, 128, 0.7);
@@ -144,9 +144,6 @@ export default {
         width: 275px;
         display: flex;
         justify-content: space-around;
-    }
-    .equip-option {
-
     }
     .item-total-option {
         color: #62F1F1;
