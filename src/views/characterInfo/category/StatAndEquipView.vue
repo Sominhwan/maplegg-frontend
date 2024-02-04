@@ -401,9 +401,7 @@ export default {
                 cashItem5.push(characterCashItemEquipment[6]);
                 cashItem5.push(characterCashItemEquipment[7]);
 
-                cashItem6.push(characterCashItemEquipment[5]);
-                // 펫
-                
+                cashItem6.push(characterCashItemEquipment[5]);          
             } catch(error) {
                 console.log(error);
             } finally {

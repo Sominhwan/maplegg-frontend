@@ -2,10 +2,10 @@
     <v-tooltip location="bottom" content-class='custom-tooltip' transition="false">
         <template v-slot:activator="{ props }">
             <div v-bind="props" class="equip-container" :style="{ position: 'relative', left: `${itemLocation}px`}">
-                <img v-if="item != null" :src="item.android_icon"/>  
+                <img v-if="item.android_name != null" :src="item.android_icon"/>  
             </div> 
         </template>
-        <v-card v-if="item != null" id="item-container" width="300" flat>
+        <v-card v-if="item.android_name != null" id="item-container" width="300" flat>
             <v-row justify="center" no-gutters class="mt-2">
                 <v-col cols="auto" class="text-center">
                     <div style="color: white">

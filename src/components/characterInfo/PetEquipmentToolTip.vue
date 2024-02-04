@@ -1,4 +1,5 @@
 <template>
+    <!-- 펫1 -->
     <div style="display: flex;">
         <v-tooltip location="bottom" content-class='custom-tooltip' transition="false">
         <template v-slot:activator="{ props }">
@@ -6,12 +7,13 @@
                 <img v-if="item != null" :src="item.pet_1_appearance_icon"/>  
             </div> 
         </template>
-        <v-card v-if="item != null" id="item-container" width="300" flat>
+        <v-card v-if="item.pet_1_name != null" id="item-container" width="300" flat>
             <v-row justify="center" no-gutters class="mt-2">
                 <v-col cols="auto" class="text-center">
                     <div style="color: white">
                         {{ item.pet_1_nickname }} ({{ item.pet_1_name }})
                     </div>
+                    <div v-if="item.pet_1_pet_type !== null" style="font-size: 11px; color: white;">{{ item.pet_1_pet_type }}</div>
                     <div class="mt-0" style="color:#F7D300; font-size: 12px;">
                         <span>
                             교환 불가
@@ -22,34 +24,20 @@
                     </div>
                 </v-col>
             </v-row>
-            <v-row id="item-image-container" class="mt-2" no-gutters>
+            <v-row id="item-image-container" class="mt-0" no-gutters>
                 <v-col cols="auto" class="ma-3">
                     <div class="mr-2" style="display: flex;">
                         <div class="item-image-wrapper mr-2">
                             <img id="item-image" :src="item.pet_1_appearance_icon"/>
                         </div>     
-                        <span class="mr-2" style="font-size: 11px; color:white">
-                            <span style="color:#F7D300;">
-                                description
-                            </span>
-                        </span>               
+                        <div class="mr-2" style="font-size: 11px; color:white">
+                            <div style="color: white;">
+                                {{ item.pet_1_description }}
+                            </div>
+                        </div>               
                     </div>
                 </v-col>
             </v-row>
-            <!-- <v-row class="equip-option" no-gutters>
-                <v-col class="ml-3 mt-1 mb-1" style="font-size: 12px; color:white">
-                    <div>장비분류 : 안드로이드</div>
-                    <div>등급 : {{ item.android_grade }}</div>
-                    <div>잠재능력 설정 불가</div>
-                </v-col>
-            </v-row>
-            <v-row class="potential_option" no-gutters>
-                <v-col class="mt-3 mb-3" style="font-size: 12px; color: white;">
-                    <div class="ml-3 mr-3" style="display: flex; align-items: center;">
-                        {{ item. android_description }}
-                    </div>
-                </v-col>
-            </v-row> -->
         </v-card>
         </v-tooltip>    
         <v-tooltip location="bottom" content-class='custom-tooltip' transition="false">
@@ -58,29 +46,304 @@
                     <img v-if="item != null" :src="item.pet_1_equipment.item_icon"/>  
                 </div> 
             </template>
-            <v-card v-if="item != null" id="item-container" width="300" flat>
+            <v-card v-if="item.pet_1_equipment.item_name != null" id="item-container" width="300" flat>
                 <v-row justify="center" no-gutters class="mt-2">
                     <v-col cols="auto" class="text-center">
-                        <div style="color: white">
-                            {{ item.pet_1_name }}
+                        <div :style="item.pet_1_equipment.scroll_upgrade !== 0 ? 'color: #F7D300' : 'color: white'">
+                            {{ item.pet_1_equipment.item_name }}
+                            <span v-if="item.pet_1_equipment.scroll_upgrade !== 0">(+{{ item.pet_1_equipment.scroll_upgrade }})</span>
                         </div>
+                        <div class="mt-1" style="color:#F7D300; font-size: 12px;">
+                            <span>
+                                교환 불가
+                            </span>
+                        </div>
+                    </v-col>
+                </v-row>
+                <v-row id="item-image-container" class="mt-2" no-gutters>
+                    <v-col cols="auto" class="ma-3">
+                        <div style="display: flex; align-items: center;">
+                            <div class="item-image-wrapper">
+                                <img id="item-image" :src="item.pet_1_equipment.item_icon"/>
+                            </div>
+                            <span class="ml-2" style="font-size: 11px; color:white">
+                                <span style="color:#F7D300;">
+                                    · REQ LEV : 0
+                                </span>
+                            </span>                                           
+                        </div>
+                        <div class="equip-class mt-3 pa-1">
+                            <span>초보자</span>
+                            <span>전사</span>
+                            <span>마법사</span>
+                            <span>궁수</span>
+                            <span>도적</span>
+                            <span>해적</span>
+                        </div>
+                    </v-col>
+                </v-row>
+                <v-row class="equip-option" no-gutters>
+                    <v-col class="ml-3 mt-1 mb-1" style="font-size: 12px; color:white">
+                        <div>장비분류 : 펫장비</div>
+                        <div v-if="(item.pet_1_equipment.item_option).length != 0">
+                            <div v-for="(subItem, index) in item.pet_1_equipment.item_option" :key="index">
+                                <div>
+                                    <span class="item-total-option">{{ subItem.option_type }} : +{{ subItem.option_value }}</span> 
+                                    <span> (0 </span>
+                                    <span class="item-etc-option">+{{ subItem.option_value }}</span>
+                                    <span>)</span>
+                                </div>
+                            </div>
+                        </div>   
+                        <div>업그레이드 가능 횟수 : {{ item.pet_1_equipment.scroll_upgradable }}</div>           
+                    </v-col>
+                </v-row>
+                <v-row class="mb-3" no-gutters>
+                    <v-col class="ml-3 mt-1 mb-1" style="font-size: 12px; color:white">
+                        <div style="color: white;">{{ item.pet_1_equipment.item_description }}</div>
                     </v-col>
                 </v-row>
             </v-card>
         </v-tooltip> 
         <!-- 버프 스킬 자동 -->
         <div class="equip-container" :style="{ position: 'relative', left: '20px'}">
-            <img style="width: 80%;" v-if="item != null" :src="item.pet_1_auto_skill.skill_1_icon"/>  
+            <img style="width: 80%;" v-if="item.pet_1_auto_skill.skill_1 != null" :src="item.pet_1_auto_skill.skill_1_icon"/>  
         </div> 
         <div class="equip-container" :style="{ position: 'relative', left: '30px'}">
-            <img style="width: 80%;" v-if="item != null" :src="item.pet_1_auto_skill.skill_2_icon"/>  
+            <img style="width: 80%;" v-if="item.pet_1_auto_skill.skill_2 != null" :src="item.pet_1_auto_skill.skill_2_icon"/>  
+        </div> 
+    </div>
+    <!-- 펫2 -->
+    <div class="mt-5" style="display: flex;">
+        <v-tooltip location="bottom" content-class='custom-tooltip' transition="false">
+        <template v-slot:activator="{ props }">
+            <div v-bind="props" class="equip-container" :style="{ position: 'relative', left: `${itemLocation}px`}">
+                <img v-if="item != null" :src="item.pet_2_appearance_icon"/>  
+            </div> 
+        </template>
+        <v-card v-if="item.pet_1_name != null" id="item-container" width="300" flat>
+            <v-row justify="center" no-gutters class="mt-2">
+                <v-col cols="auto" class="text-center">
+                    <div style="color: white">
+                        {{ item.pet_2_nickname }} ({{ item.pet_2_name }})
+                    </div>
+                    <div v-if="item.pet_2_pet_type !== null" style="font-size: 11px; color: white;">{{ item.pet_2_pet_type }}</div>
+                    <div class="mt-0" style="color:#F7D300; font-size: 12px;">
+                        <span>
+                            교환 불가
+                        </span>
+                        <div v-if="item.pet_2_date_expire != null" style="color: white;">
+                            마법의 시간: {{ expireTimeFormat(item.pet_2_date_expire) }}까지
+                        </div>
+                    </div>
+                </v-col>
+            </v-row>
+            <v-row id="item-image-container" class="mt-0" no-gutters>
+                <v-col cols="auto" class="ma-3">
+                    <div class="mr-2" style="display: flex;">
+                        <div class="item-image-wrapper mr-2">
+                            <img id="item-image" :src="item.pet_2_appearance_icon"/>
+                        </div>     
+                        <div class="mr-2" style="font-size: 11px; color:white">
+                            <div style="color: white;">
+                                {{ item.pet_2_description }}
+                            </div>
+                        </div>               
+                    </div>
+                </v-col>
+            </v-row>
+        </v-card>
+        </v-tooltip>    
+        <v-tooltip location="bottom" content-class='custom-tooltip' transition="false">
+            <template v-slot:activator="{ props }">
+                <div v-bind="props" class="equip-container" :style="{ position: 'relative', left: '10px'}">
+                    <img v-if="item != null" :src="item.pet_2_equipment.item_icon"/>  
+                </div> 
+            </template>
+            <v-card v-if="item.pet_2_equipment.item_name != null" id="item-container" width="300" flat>
+                <v-row justify="center" no-gutters class="mt-2">
+                    <v-col cols="auto" class="text-center">
+                        <div :style="item.pet_2_equipment.scroll_upgrade !== 0 ? 'color: #F7D300' : 'color: white'">
+                            {{ item.pet_2_equipment.item_name }}
+                            <span v-if="item.pet_2_equipment.scroll_upgrade !== 0">(+{{ item.pet_2_equipment.scroll_upgrade }})</span>
+                        </div>
+                        <div class="mt-1" style="color:#F7D300; font-size: 12px;">
+                            <span>
+                                교환 불가
+                            </span>
+                        </div>
+                    </v-col>
+                </v-row>
+                <v-row id="item-image-container" class="mt-2" no-gutters>
+                    <v-col cols="auto" class="ma-3">
+                        <div style="display: flex; align-items: center;">
+                            <div class="item-image-wrapper">
+                                <img id="item-image" :src="item.pet_2_equipment.item_icon"/>
+                            </div>
+                            <span class="ml-2" style="font-size: 11px; color:white">
+                                <span style="color:#F7D300;">
+                                    · REQ LEV : 0
+                                </span>
+                            </span>                                           
+                        </div>
+                        <div class="equip-class mt-3 pa-1">
+                            <span>초보자</span>
+                            <span>전사</span>
+                            <span>마법사</span>
+                            <span>궁수</span>
+                            <span>도적</span>
+                            <span>해적</span>
+                        </div>
+                    </v-col>
+                </v-row>
+                <v-row class="equip-option" no-gutters>
+                    <v-col class="ml-3 mt-1 mb-1" style="font-size: 12px; color:white">
+                        <div>장비분류 : 펫장비</div>
+                        <div v-if="(item.pet_2_equipment.item_option).length != 0">
+                            <div v-for="(subItem, index) in item.pet_2_equipment.item_option" :key="index">
+                                <div>
+                                    <span class="item-total-option">{{ subItem.option_type }} : +{{ subItem.option_value }}</span> 
+                                    <span> (0 </span>
+                                    <span class="item-etc-option">+{{ subItem.option_value }}</span>
+                                    <span>)</span>
+                                </div>
+                            </div>
+                        </div>   
+                        <div>업그레이드 가능 횟수 : {{ item.pet_2_equipment.scroll_upgradable }}</div>           
+                    </v-col>
+                </v-row>
+                <v-row class="mb-3" no-gutters>
+                    <v-col class="ml-3 mt-1 mb-1" style="font-size: 12px; color:white">
+                        <div style="color: white;">{{ item.pet_2_equipment.item_description }}</div>
+                    </v-col>
+                </v-row>
+            </v-card>
+        </v-tooltip> 
+        <!-- 버프 스킬 자동 -->
+        <div class="equip-container" :style="{ position: 'relative', left: '20px'}">
+            <img style="width: 80%;" v-if="item.pet_2_auto_skill.skill_1 != null" :src="item.pet_2_auto_skill.skill_1_icon"/>  
+        </div> 
+        <div class="equip-container" :style="{ position: 'relative', left: '30px'}">
+            <img style="width: 80%;" v-if="item.pet_2_auto_skill.skill_2 != null" :src="item.pet_2_auto_skill.skill_2_icon"/>  
+        </div> 
+    </div>
+    <!-- 펫3 -->
+    <div class="mt-5" style="display: flex;">
+        <v-tooltip location="bottom" content-class='custom-tooltip' transition="false">
+        <template v-slot:activator="{ props }">
+            <div v-bind="props" class="equip-container" :style="{ position: 'relative', left: `${itemLocation}px`}">
+                <img v-if="item != null" :src="item.pet_3_appearance_icon"/>  
+            </div> 
+        </template>
+        <v-card v-if="item.pet_3_name != null" id="item-container" width="300" flat>
+            <v-row justify="center" no-gutters class="mt-2">
+                <v-col cols="auto" class="text-center">
+                    <div style="color: white">
+                        {{ item.pet_3_nickname }} ({{ item.pet_3_name }})
+                    </div>
+                    <div v-if="item.pet_3_pet_type !== null" style="font-size: 11px; color: white;">{{ item.pet_3_pet_type }}</div>
+                    <div class="mt-0" style="color:#F7D300; font-size: 12px;">
+                        <span>
+                            교환 불가
+                        </span>
+                        <div v-if="item.pet_3_date_expire != null" style="color: white;">
+                            마법의 시간: {{ expireTimeFormat(item.pet_3_date_expire) }}까지
+                        </div>
+                    </div>
+                </v-col>
+            </v-row>
+            <v-row id="item-image-container" class="mt-0" no-gutters>
+                <v-col cols="auto" class="ma-3">
+                    <div class="mr-2" style="display: flex;">
+                        <div class="item-image-wrapper mr-2">
+                            <img id="item-image" :src="item.pet_3_appearance_icon"/>
+                        </div>     
+                        <div class="mr-2" style="font-size: 11px; color:white">
+                            <div style="color: white;">
+                                {{ item.pet_3_description }}
+                            </div>
+                        </div>               
+                    </div>
+                </v-col>
+            </v-row>
+        </v-card>
+        </v-tooltip>    
+        <v-tooltip location="bottom" content-class='custom-tooltip' transition="false">
+            <template v-slot:activator="{ props }">
+                <div v-bind="props" class="equip-container" :style="{ position: 'relative', left: '10px'}">
+                    <img v-if="item != null" :src="item.pet_3_equipment.item_icon"/>  
+                </div> 
+            </template>
+            <v-card v-if="item.pet_3_equipment.item_name != null" id="item-container" width="300" flat>
+                <v-row justify="center" no-gutters class="mt-2">
+                    <v-col cols="auto" class="text-center">
+                        <div :style="item.pet_3_equipment.scroll_upgrade !== 0 ? 'color: #F7D300' : 'color: white'">
+                            {{ item.pet_3_equipment.item_name }}
+                            <span v-if="item.pet_3_equipment.scroll_upgrade !== 0">(+{{ item.pet_3_equipment.scroll_upgrade }})</span>
+                        </div>
+                        <div class="mt-1" style="color:#F7D300; font-size: 12px;">
+                            <span>
+                                교환 불가
+                            </span>
+                        </div>
+                    </v-col>
+                </v-row>
+                <v-row id="item-image-container" class="mt-2" no-gutters>
+                    <v-col cols="auto" class="ma-3">
+                        <div style="display: flex; align-items: center;">
+                            <div class="item-image-wrapper">
+                                <img id="item-image" :src="item.pet_3_equipment.item_icon"/>
+                            </div>
+                            <span class="ml-2" style="font-size: 11px; color:white">
+                                <span style="color:#F7D300;">
+                                    · REQ LEV : 0
+                                </span>
+                            </span>                                           
+                        </div>
+                        <div class="equip-class mt-3 pa-1">
+                            <span>초보자</span>
+                            <span>전사</span>
+                            <span>마법사</span>
+                            <span>궁수</span>
+                            <span>도적</span>
+                            <span>해적</span>
+                        </div>
+                    </v-col>
+                </v-row>
+                <v-row class="equip-option" no-gutters>
+                    <v-col class="ml-3 mt-1 mb-1" style="font-size: 12px; color:white">
+                        <div>장비분류 : 펫장비</div>
+                        <div v-if="(item.pet_3_equipment.item_option).length != 0">
+                            <div v-for="(subItem, index) in item.pet_3_equipment.item_option" :key="index">
+                                <div>
+                                    <span class="item-total-option">{{ subItem.option_type }} : +{{ subItem.option_value }}</span> 
+                                    <span> (0 </span>
+                                    <span class="item-etc-option">+{{ subItem.option_value }}</span>
+                                    <span>)</span>
+                                </div>
+                            </div>
+                        </div>   
+                        <div>업그레이드 가능 횟수 : {{ item.pet_3_equipment.scroll_upgradable }}</div>           
+                    </v-col>
+                </v-row>
+                <v-row class="mb-3" no-gutters>
+                    <v-col class="ml-3 mt-1 mb-1" style="font-size: 12px; color:white">
+                        <div style="color: white;">{{ item.pet_3_equipment.item_description }}</div>
+                    </v-col>
+                </v-row>
+            </v-card>
+        </v-tooltip> 
+        <!-- 버프 스킬 자동 -->
+        <div class="equip-container" :style="{ position: 'relative', left: '20px'}">
+            <img style="width: 80%;" v-if="item.pet_3_auto_skill.skill_1 != null" :src="item.pet_3_auto_skill.skill_1_icon"/>  
+        </div> 
+        <div class="equip-container" :style="{ position: 'relative', left: '30px'}">
+            <img style="width: 80%;" v-if="item.pet_3_auto_skill.skill_2 != null" :src="item.pet_3_auto_skill.skill_2_icon"/>  
         </div> 
     </div>
 </template>
 
 <script>
-import { getPotentialImageOptionGradeColor, getPotentialImageOptionGradeText, getPotentialOptionGradeColor } from '@/common/potentialOptionGradeColor.js';
-import getStarforceMaxEnhancement from '@/common/starforceMaxEnhancement.js';
 export default {
     props: {
         item: {
@@ -93,22 +356,6 @@ export default {
         }
     },
     setup() {
-        const potentialOptionGradeColor = (grade) => {
-            return getPotentialOptionGradeColor(grade);
-        };
-        
-        const potentialImageOptionGradeColor = (grade) => {
-            return getPotentialImageOptionGradeColor(grade);
-        };
-
-        const potentialImageOptionGradeText = (grade) => {
-            return getPotentialImageOptionGradeText(grade);
-        };
-
-        const starforceMaxEnhancement = (baseEquipmentLevel, kind) => {
-            return getStarforceMaxEnhancement(baseEquipmentLevel, kind);
-        };
-
         const expireTimeFormat =  (date) => {
             const dateoObject = new Date(date);
             const year = dateoObject.getFullYear();
@@ -121,10 +368,6 @@ export default {
         };
 
         return {
-            potentialOptionGradeColor,
-            potentialImageOptionGradeColor,
-            potentialImageOptionGradeText,
-            starforceMaxEnhancement,
             expireTimeFormat
         }
     }
@@ -176,9 +419,13 @@ export default {
     }
     .equip-option {
         border-bottom: 1px dashed rgba(128, 128, 128, 0.7);
+        border-top: 1px dashed rgba(128, 128, 128, 0.7);
     }
-    .potential_option {
-        border-bottom: 1px dashed rgba(128, 128, 128, 0.7);
+    .item-total-option {
+        color: #62F1F1;
+    }
+    .item-etc-option {
+        color: #9696E0;
     }
 </style>
 

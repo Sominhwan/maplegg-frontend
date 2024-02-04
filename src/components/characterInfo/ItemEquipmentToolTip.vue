@@ -1,11 +1,11 @@
 <template>
-    <v-tooltip v-for="(item, index) in item" :key="item.item_equipment_slot" location="bottom" content-class='custom-tooltip' transition="false">
+    <v-tooltip v-for="(item, index) in item" :key="index" location="bottom" content-class='custom-tooltip' transition="false">
         <template v-slot:activator="{ props }">
-            <div v-bind="props" class="equip-container" :style="{ position: 'relative', left: `${itemLocation[index]}px`, border: `1px solid ${potentialImageOptionGradeColor(item.potential_option_grade)}` }">
-                <img v-if="item != null" :src="item.item_shape_icon"/>  
+            <div v-bind="props" class="equip-container" :style="{ position: 'relative', left: `${itemLocation[index]}px`, border: item ? `1px solid ${potentialImageOptionGradeColor(item.potential_option_grade)}` : 'none' }">
+                <img v-if="item != null"  :src="item.item_shape_icon"/>  
             </div> 
         </template>
-        <v-card id="item-container" width="300" flat>
+        <v-card v-if="item != null" id="item-container" width="300" flat>
             <v-row justify="center" no-gutters>
                 <v-col cols="auto" class="mt-1 text-center">
                     <div>
