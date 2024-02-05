@@ -3,7 +3,7 @@
     <div style="display: flex;">
         <v-tooltip location="bottom" content-class='custom-tooltip' transition="false">
         <template v-slot:activator="{ props }">
-            <div v-bind="props" class="equip-container" :style="{ position: 'relative', left: `${itemLocation}px`}">
+            <div v-bind="props" class="equip-container" :style="{ position: 'relative'}">
                 <img v-if="item != null" :src="item.pet_1_appearance_icon"/>  
             </div> 
         </template>
@@ -43,10 +43,10 @@
         <v-tooltip location="bottom" content-class='custom-tooltip' transition="false">
             <template v-slot:activator="{ props }">
                 <div v-bind="props" class="equip-container" :style="{ position: 'relative', left: '10px'}">
-                    <img v-if="item != null" :src="item.pet_1_equipment.item_icon"/>  
+                    <img v-if="item.pet_1_equipment != null" :src="item.pet_1_equipment.item_icon"/>  
                 </div> 
             </template>
-            <v-card v-if="item.pet_1_equipment.item_name != null" id="item-container" width="300" flat>
+            <v-card v-if="item.pet_1_equipment != null" id="item-container" width="300" flat>
                 <v-row justify="center" no-gutters class="mt-2">
                     <v-col cols="auto" class="text-center">
                         <div :style="item.pet_1_equipment.scroll_upgrade !== 0 ? 'color: #F7D300' : 'color: white'">
@@ -107,17 +107,17 @@
         </v-tooltip> 
         <!-- 버프 스킬 자동 -->
         <div class="equip-container" :style="{ position: 'relative', left: '20px'}">
-            <img style="width: 80%;" v-if="item.pet_1_auto_skill.skill_1 != null" :src="item.pet_1_auto_skill.skill_1_icon"/>  
+            <img style="width: 80%;" v-if="item.pet_1_auto_skill != null" :src="item.pet_1_auto_skill.skill_1_icon"/>  
         </div> 
         <div class="equip-container" :style="{ position: 'relative', left: '30px'}">
-            <img style="width: 80%;" v-if="item.pet_1_auto_skill.skill_2 != null" :src="item.pet_1_auto_skill.skill_2_icon"/>  
+            <img style="width: 80%;" v-if="item.pet_1_auto_skill != null" :src="item.pet_1_auto_skill.skill_2_icon"/>  
         </div> 
     </div>
     <!-- 펫2 -->
     <div class="mt-5" style="display: flex;">
         <v-tooltip location="bottom" content-class='custom-tooltip' transition="false">
         <template v-slot:activator="{ props }">
-            <div v-bind="props" class="equip-container" :style="{ position: 'relative', left: `${itemLocation}px`}">
+            <div v-bind="props" class="equip-container" :style="{ position: 'relative'}">
                 <img v-if="item != null" :src="item.pet_2_appearance_icon"/>  
             </div> 
         </template>
@@ -157,10 +157,10 @@
         <v-tooltip location="bottom" content-class='custom-tooltip' transition="false">
             <template v-slot:activator="{ props }">
                 <div v-bind="props" class="equip-container" :style="{ position: 'relative', left: '10px'}">
-                    <img v-if="item != null" :src="item.pet_2_equipment.item_icon"/>  
+                    <img v-if="item.pet_2_equipment != null" :src="item.pet_2_equipment.item_icon"/>  
                 </div> 
             </template>
-            <v-card v-if="item.pet_2_equipment.item_name != null" id="item-container" width="300" flat>
+            <v-card v-if="item.pet_2_equipment != null" id="item-container" width="300" flat>
                 <v-row justify="center" no-gutters class="mt-2">
                     <v-col cols="auto" class="text-center">
                         <div :style="item.pet_2_equipment.scroll_upgrade !== 0 ? 'color: #F7D300' : 'color: white'">
@@ -221,17 +221,17 @@
         </v-tooltip> 
         <!-- 버프 스킬 자동 -->
         <div class="equip-container" :style="{ position: 'relative', left: '20px'}">
-            <img style="width: 80%;" v-if="item.pet_2_auto_skill.skill_1 != null" :src="item.pet_2_auto_skill.skill_1_icon"/>  
+            <img style="width: 80%;" v-if="item.pet_2_auto_skill != null" :src="item.pet_2_auto_skill.skill_1_icon"/>  
         </div> 
         <div class="equip-container" :style="{ position: 'relative', left: '30px'}">
-            <img style="width: 80%;" v-if="item.pet_2_auto_skill.skill_2 != null" :src="item.pet_2_auto_skill.skill_2_icon"/>  
+            <img style="width: 80%;" v-if="item.pet_2_auto_skill != null" :src="item.pet_2_auto_skill.skill_2_icon"/>  
         </div> 
     </div>
     <!-- 펫3 -->
     <div class="mt-5" style="display: flex;">
         <v-tooltip location="bottom" content-class='custom-tooltip' transition="false">
         <template v-slot:activator="{ props }">
-            <div v-bind="props" class="equip-container" :style="{ position: 'relative', left: `${itemLocation}px`}">
+            <div v-bind="props" class="equip-container" :style="{ position: 'relative'}">
                 <img v-if="item != null" :src="item.pet_3_appearance_icon"/>  
             </div> 
         </template>
@@ -271,10 +271,10 @@
         <v-tooltip location="bottom" content-class='custom-tooltip' transition="false">
             <template v-slot:activator="{ props }">
                 <div v-bind="props" class="equip-container" :style="{ position: 'relative', left: '10px'}">
-                    <img v-if="item != null" :src="item.pet_3_equipment.item_icon"/>  
+                    <img v-if="item.pet_3_equipment != null" :src="item.pet_3_equipment.item_icon"/>  
                 </div> 
             </template>
-            <v-card v-if="item.pet_3_equipment.item_name != null" id="item-container" width="300" flat>
+            <v-card v-if="item.pet_3_equipment != null" id="item-container" width="300" flat>
                 <v-row justify="center" no-gutters class="mt-2">
                     <v-col cols="auto" class="text-center">
                         <div :style="item.pet_3_equipment.scroll_upgrade !== 0 ? 'color: #F7D300' : 'color: white'">
@@ -335,10 +335,10 @@
         </v-tooltip> 
         <!-- 버프 스킬 자동 -->
         <div class="equip-container" :style="{ position: 'relative', left: '20px'}">
-            <img style="width: 80%;" v-if="item.pet_3_auto_skill.skill_1 != null" :src="item.pet_3_auto_skill.skill_1_icon"/>  
+            <img style="width: 80%;" v-if="item.pet_3_auto_skill != null" :src="item.pet_3_auto_skill.skill_1_icon"/>  
         </div> 
         <div class="equip-container" :style="{ position: 'relative', left: '30px'}">
-            <img style="width: 80%;" v-if="item.pet_3_auto_skill.skill_2 != null" :src="item.pet_3_auto_skill.skill_2_icon"/>  
+            <img style="width: 80%;" v-if="item.pet_3_auto_skill != null" :src="item.pet_3_auto_skill.skill_2_icon"/>  
         </div> 
     </div>
 </template>
@@ -349,10 +349,6 @@ export default {
         item: {
             type: Object,
             required: true
-        },
-        itemLocation: {
-            type: Object,
-            required: false
         }
     },
     setup() {

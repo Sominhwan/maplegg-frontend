@@ -102,7 +102,7 @@
                 <v-card-title class="cody-card" style="font-size: 16px; font-weight: bold; color: white; background-color: rgba(50, 51, 55, 0.975);">펫</v-card-title>
                 <v-card-item>
                     <div class="ma-5"> 
-                    <PetEquipmentToolTip :item="characterPetEquipment" :itemLocation="presetItem5Location"/>
+                    <PetEquipmentToolTip :item="characterPetEquipment"/>
                     </div>
                 </v-card-item>
             </v-card>
