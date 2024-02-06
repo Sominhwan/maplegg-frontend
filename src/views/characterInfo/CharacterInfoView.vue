@@ -7,27 +7,29 @@
                     <v-col class="mt-16" cols="6">
                         <v-list-item class="mt-5">
                             <template v-slot:prepend>
-                                <img :src="characterBasicInfo.character_image" style="width: 200px;"/>
+                                <img :src="characterBasicInfo.character_image" style="width: 170px;"/>
                             </template>
-                            <div>
-                                <span class="character-name">{{ characterBasicInfo.character_name }}</span>
-                                <span class="world-name ml-3">
-                                    <img class="ml-1" :src="worldIcon(characterBasicInfo.world_name)" style="height: 18px; position: relative; top: 4px;"/>
-                                    {{ characterBasicInfo.world_name }}
-                                </span>
-                            </div>
-                            <div class="character-sub-info mt-2">
-                                <span>LV.{{ characterBasicInfo.character_level }}</span>
-                                <span class="divider"></span>
-                                <span>{{ characterBasicInfo.character_class }}</span>
-                                <span class="divider"></span>
-                                <span>인기도 {{ Number(characterPopularityInfo.popularity).toLocaleString() }}</span>
-                                <span class="divider"></span>
-                                <span>{{ characterBasicInfo.character_guild_name }}</span>
-                            </div>
-                            <div class="btn-wrapper mt-5" style="width: 300px;">
-                                <v-btn color="primary">최신 정보</v-btn>
-                                <v-btn class="ml-3" color="#323337" prepend-icon="mdi-star-outline">즐겨찾기</v-btn>
+                            <div class="ml-2">
+                                <div>
+                                    <span class="character-name">{{ characterBasicInfo.character_name }}</span>
+                                    <span class="world-name ml-3">
+                                        <img class="ml-1" :src="worldIcon(characterBasicInfo.world_name)" style="height: 18px; position: relative; top: 4px;"/>
+                                        {{ characterBasicInfo.world_name }}
+                                    </span>
+                                </div>
+                                <div class="character-sub-info mt-2">
+                                    <span>LV.{{ characterBasicInfo.character_level }}</span>
+                                    <span class="divider"></span>
+                                    <span>{{ characterBasicInfo.character_class }}</span>
+                                    <span class="divider"></span>
+                                    <span>인기도 {{ Number(characterPopularityInfo.popularity).toLocaleString() }}</span>
+                                    <span class="divider"></span>
+                                    <span>{{ characterBasicInfo.character_guild_name }}</span>
+                                </div>
+                                <div class="btn-wrapper mt-5" style="width: 300px;">
+                                    <v-btn color="primary">최신 정보</v-btn>
+                                    <v-btn class="ml-3" color="#323337" prepend-icon="mdi-star-outline">즐겨찾기</v-btn>
+                                </div>
                             </div>
                         </v-list-item>
                     </v-col>
@@ -148,7 +150,7 @@
             </v-container>
         </div>
         <!-- 하단 -->
-        <v-container class="character-info-content-container">
+        <v-container class="character-info-content-container xl">
             <div class="mb-6" style="width: 100%; background-color: white; border-radius: 5px; border: 1px solid #EEE;">
                 <div class="category-btn" :class="{'active-categeory-btn' : routeUrl == 'StatAndEquip'}" id="equip-btn" @click="changeRoute('StatAndEquip')">
                     스탯/장비

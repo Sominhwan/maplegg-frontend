@@ -28,10 +28,10 @@
         </v-col>
         <v-col cols="auto">
             <v-card class="equip-card" flat width="360">
-                <v-card-title class="cody-card" style="font-size: 16px; font-weight: bold; color: white; background-color: rgba(50, 51, 55, 0.975);">
+                <v-card-title class="cody-card" style="font-size: 16px; background-color: rgba(50, 51, 55, 0.975);">
                     <v-row justify="space-between">
                         <v-col cols="auto">
-                        <span style="color: white;">{{ changeCodyText }}</span>
+                        <span style="color: white; font-weight: bold;">{{ changeCodyText }}</span>
                         </v-col>
                         <v-col cols="auto">
                             <v-btn
@@ -108,10 +108,24 @@
             </v-card>
         </v-col>
         <v-col cols="auto">
-            <v-card class="equip-card" flat>
+            <v-card class="equip-card" flat width="240">
                 <v-card-title class="cody-card" style="font-size: 16px; font-weight: bold; color: white; background-color: rgba(50, 51, 55, 0.975);">안드로이드</v-card-title>
                 <v-card-item>
-
+                    <div class="ma-5" style="display: flex;"> 
+                        <AndroidCashItemEquipmentToolTipVue :item="androidCashItem1" :itemLocation="androidCashItem1Location"/> 
+                    </div>
+                    <div class="ma-5" style="display: flex;"> 
+                        <AndroidCashItemEquipmentToolTipVue :item="androidCashItem2" :itemLocation="androidCashItem2Location"/> 
+                    </div>
+                    <div class="ma-5" style="display: flex;"> 
+                        <AndroidCashItemEquipmentToolTipVue :item="androidCashItem3" :itemLocation="androidCashItem3Location"/> 
+                    </div>
+                    <div class="ma-5" style="display: flex;"> 
+                        <AndroidCashItemEquipmentToolTipVue :item="androidCashItem4" :itemLocation="androidCashItem4Location"/> 
+                    </div>
+                    <div class="ma-5" style="display: flex;"> 
+                        <AndroidCashItemEquipmentToolTipVue :item="androidCashItem5" :itemLocation="androidCashItem5Location"/> 
+                    </div>
                 </v-card-item>
             </v-card>
         </v-col>
@@ -122,6 +136,7 @@
 import { getCharacterEquipment } from '@/api/characterInfo/statAndEquip.js';
 import { getPotentialImageOptionGradeColor, getPotentialImageOptionGradeText, getPotentialOptionGradeColor } from '@/common/potentialOptionGradeColor.js';
 import getStarforceMaxEnhancement from '@/common/starforceMaxEnhancement.js';
+import AndroidCashItemEquipmentToolTipVue from '@/components/characterInfo/AndroidCashItemEquipmentToolTip.vue';
 import AndroidToolTip from '@/components/characterInfo/AndroidToolTip.vue';
 import CashItemEquipmentToolTip from '@/components/characterInfo/CashItemEquipmentToolTip.vue';
 import CodyPresetEquipmentToolTip from '@/components/characterInfo/CodyPresetEquipmentToolTip.vue';
@@ -136,7 +151,8 @@ export default {
         AndroidToolTip,
         CashItemEquipmentToolTip,
         CodyPresetEquipmentToolTip,
-        PetEquipmentToolTip
+        PetEquipmentToolTip,
+        AndroidCashItemEquipmentToolTipVue
     },
     setup() {
         const route = useRoute();
@@ -159,6 +175,18 @@ export default {
         // 저장할 안드로이드 아이템 리스트
         const characterAndroidEquipment = reactive({});
         const androidItemLocation = ref([80]);
+        // 저장할 안드로이드 캐시 아이템 리스트
+        const characterAndroidCashItemEquipment = reactive({});
+        const androidCashItem1 = reactive([]);
+        const androidCashItem1Location = ref([60]);
+        const androidCashItem2 = reactive([]);
+        const androidCashItem2Location = ref([60]);
+        const androidCashItem3 = reactive([]);
+        const androidCashItem3Location = ref([60]);
+        const androidCashItem4 = reactive([]);
+        const androidCashItem4Location = ref([0, 10, 20]);
+        const androidCashItem5 = reactive([]);
+        const androidCashItem5Location = ref([60]);
         // 저장할 캐시 아이템 리스트
         const characterCashItemEquipment = reactive({});
         const cashItem1 = reactive([]);
@@ -342,12 +370,13 @@ export default {
                 const response = await getCharacterEquipment(params);
                 Object.assign(characterItemEquipment, response.data.data.characterItemEquipment.item_equipment);
                 Object.assign(characterAndroidEquipment, response.data.data.characterAndroidEquipment);
+                Object.assign(characterAndroidCashItemEquipment, response.data.data.characterAndroidEquipment.android_cash_item_equipment);
                 Object.assign(characterCashItemEquipment, response.data.data.characterCashitemEquipment.cash_item_equipment_base);
                 Object.assign(characeterCashItemEquipmentPreset1, response.data.data.characterCashitemEquipment.cash_item_equipment_preset_1);
                 Object.assign(characeterCashItemEquipmentPreset2, response.data.data.characterCashitemEquipment.cash_item_equipment_preset_2);
                 Object.assign(characeterCashItemEquipmentPreset3, response.data.data.characterCashitemEquipment.cash_item_equipment_preset_3);
                 Object.assign(characterPetEquipment, response.data.data.characterPetEquipment);
-                console.log(response.data.data.characterPetEquipment);
+                console.log(response.data.data.characterAndroidEquipment);
                 // 장비 아이템
                 item1.push(characterItemEquipment[14]);
                 item1.push(characterItemEquipment[0]);
@@ -401,7 +430,15 @@ export default {
                 cashItem5.push(characterCashItemEquipment[6]);
                 cashItem5.push(characterCashItemEquipment[7]);
 
-                cashItem6.push(characterCashItemEquipment[5]);          
+                cashItem6.push(characterCashItemEquipment[5]);   
+                // 안드로이드 캐시 아이템
+                androidCashItem1.push(characterAndroidCashItemEquipment[0]);
+                androidCashItem2.push(characterAndroidCashItemEquipment[2]);
+                androidCashItem3.push(characterAndroidCashItemEquipment[3]);
+                androidCashItem4.push(characterAndroidCashItemEquipment[5]);
+                androidCashItem4.push(characterAndroidCashItemEquipment[6]);
+                androidCashItem4.push(characterAndroidCashItemEquipment[1]);
+                androidCashItem5.push(characterAndroidCashItemEquipment[4]);
             } catch(error) {
                 console.log(error);
             } finally {
@@ -465,7 +502,17 @@ export default {
             presetItem5Location,
             persetItem6,
             presetItem6Location,
-            characterPetEquipment
+            characterPetEquipment,
+            androidCashItem1,
+            androidCashItem1Location,
+            androidCashItem2,
+            androidCashItem2Location,
+            androidCashItem3,
+            androidCashItem3Location,
+            androidCashItem4,
+            androidCashItem4Location,
+            androidCashItem5,
+            androidCashItem5Location
         }
     }
 }
