@@ -32,6 +32,72 @@
                                 </div>
                             </div>
                         </v-list-item>
+                        <div class="ranking-container">
+                            <div class="ranking-wrapper">
+                                <v-row justify="center" no-gutters="">
+                                    <div style="width: 16%;">
+                                        <v-card height="100%" flat color="transparent">
+                                            <div class="ranking-title mt-5 ml-5" style="color: #fdbb2d;">
+                                                종합랭킹
+                                            </div>
+                                            <div class="ranking-content mt-2 ml-5">
+                                                1,212 위
+                                            </div>
+                                        </v-card>
+                                    </div>
+                                    <div style="width: 16%;">
+                                        <v-card height="100%" flat color="transparent">
+                                            <div class="ranking-title mt-5 ml-5" style="color: #5CB85C;">
+                                                월드랭킹
+                                            </div>
+                                            <div class="ranking-content mt-2 ml-5">
+                                                1,212 위
+                                            </div>
+                                        </v-card>
+                                    </div>
+                                    <div style="width: 16%;">
+                                        <v-card height="100%" flat color="transparent">
+                                            <div class="ranking-title mt-5 ml-5" style="color: #5393CA;">
+                                                직업랭킹
+                                            </div>
+                                            <div class="ranking-content mt-2 ml-5">
+                                                1,212 위
+                                            </div>
+                                        </v-card>
+                                    </div>
+                                    <div style="width: 18%;">
+                                        <v-card height="100%" flat color="transparent">
+                                            <div class="ranking-title mt-5 ml-5" style="color: #6D62A1;">
+                                                인기도랭킹
+                                            </div>
+                                            <div class="ranking-content mt-2 ml-5">
+                                                1,212 위
+                                            </div>
+                                        </v-card>
+                                    </div>
+                                    <div style="width: 18%;">
+                                        <v-card height="100%" flat color="transparent">
+                                            <div class="ranking-title mt-5 ml-5" style="color: #b84f3c;">
+                                                메이플 유니온
+                                            </div>
+                                            <div class="ranking-content mt-2 ml-5">
+                                                1,212 위
+                                            </div>
+                                        </v-card>
+                                    </div>
+                                    <div style="width: 16%;">
+                                        <v-card height="100%" flat color="transparent">
+                                            <div class="ranking-title mt-5 ml-5" style="color: #e644c2;">
+                                                업적랭킹
+                                            </div>
+                                            <div class="ranking-content mt-2 ml-5">
+                                                1,212 위
+                                            </div>
+                                        </v-card>
+                                    </div>
+                                </v-row>
+                            </div>
+                        </div>
                     </v-col>
                     <v-col cols="6">
                         <div class="character-info-wrapper mt-0">
@@ -359,6 +425,34 @@ export default {
     }
     #sub-character-btn {
         border-right: 1px solid #EEE;
+    }
+    .ranking-container {
+        position: absolute;
+        bottom: 0px;
+        width: 47.5%;
+        height: 30%;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        background-color: #F4F7FA;
+    }
+    .ranking-wrapper {
+        position: relative;
+        border-radius: 5px;
+        border: 1px solid #EEE;
+        width: 95%;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        height: 70%;
+        background-color: #FFF;
+    }
+    .ranking-title {
+        font-size: 16px;
+        font-weight: 600;
+        position: relative;
+    }
+    .ranking-content {
+        font-weight: 600;
     }
 </style>
 
