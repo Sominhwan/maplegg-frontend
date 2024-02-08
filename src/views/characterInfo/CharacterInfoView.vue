@@ -35,63 +35,43 @@
                         <div class="ranking-container">
                             <div class="ranking-wrapper">
                                 <v-row justify="center" no-gutters="">
-                                    <div style="width: 16%;">
+                                    <div style="width: 25%;">
                                         <v-card height="100%" flat color="transparent">
                                             <div class="ranking-title mt-5 ml-5" style="color: #fdbb2d;">
                                                 종합랭킹
                                             </div>
                                             <div class="ranking-content mt-2 ml-5">
-                                                1,212 위
+                                                {{ Number(characterOverallRanking.ranking).toLocaleString() }} 위
                                             </div>
                                         </v-card>
                                     </div>
-                                    <div style="width: 16%;">
+                                    <div style="width: 25%;">
                                         <v-card height="100%" flat color="transparent">
                                             <div class="ranking-title mt-5 ml-5" style="color: #5CB85C;">
                                                 월드랭킹
                                             </div>
                                             <div class="ranking-content mt-2 ml-5">
-                                                1,212 위
+                                                {{ Number(characterWorldRanking.ranking).toLocaleString() }} 위
                                             </div>
                                         </v-card>
                                     </div>
-                                    <div style="width: 16%;">
+                                    <div style="width: 25%;">
                                         <v-card height="100%" flat color="transparent">
                                             <div class="ranking-title mt-5 ml-5" style="color: #5393CA;">
-                                                직업랭킹
+                                                직업랭킹(월드)
                                             </div>
                                             <div class="ranking-content mt-2 ml-5">
-                                                1,212 위
+                                                {{ Number(characterWorldClassRanking.ranking).toLocaleString() }} 위
                                             </div>
                                         </v-card>
                                     </div>
-                                    <div style="width: 18%;">
+                                    <div style="width: 25%;">
                                         <v-card height="100%" flat color="transparent">
                                             <div class="ranking-title mt-5 ml-5" style="color: #6D62A1;">
-                                                인기도랭킹
+                                                직업랭킹(전체)
                                             </div>
                                             <div class="ranking-content mt-2 ml-5">
-                                                1,212 위
-                                            </div>
-                                        </v-card>
-                                    </div>
-                                    <div style="width: 18%;">
-                                        <v-card height="100%" flat color="transparent">
-                                            <div class="ranking-title mt-5 ml-5" style="color: #b84f3c;">
-                                                메이플 유니온
-                                            </div>
-                                            <div class="ranking-content mt-2 ml-5">
-                                                1,212 위
-                                            </div>
-                                        </v-card>
-                                    </div>
-                                    <div style="width: 16%;">
-                                        <v-card height="100%" flat color="transparent">
-                                            <div class="ranking-title mt-5 ml-5" style="color: #e644c2;">
-                                                업적랭킹
-                                            </div>
-                                            <div class="ranking-content mt-2 ml-5">
-                                                1,212 위
+                                                {{ Number(characterTotalClassRanking.ranking).toLocaleString() }} 위
                                             </div>
                                         </v-card>
                                     </div>
@@ -256,6 +236,14 @@ export default {
         const characterPopularityInfo = reactive({});
         // 캐릭터 증합 능력 정보
         const characterStatInfo = reactive({});
+        // 캐릭터 종합 랭킹 정보
+        const characterOverallRanking = reactive({});
+        // 캐릭터 월드 랭킹 정보
+        const characterWorldRanking = reactive({});
+        // 캐릭터 직업 랭킹(월드)정보 
+        const characterWorldClassRanking = reactive({});
+        // 캐릭터 직업 랭킹(전체)정보
+        const characterTotalClassRanking = reactive({});
 
         const loading = ref(false);
 
@@ -299,6 +287,11 @@ export default {
                 Object.assign(characterBasicInfo, response.data.data.characterBasicInfo);
                 Object.assign(characterPopularityInfo, response.data.data.characterPopularityInfo);
                 Object.assign(characterStatInfo, response.data.data.characterStatInfo.final_stat); 
+
+                Object.assign(characterOverallRanking, response.data.data.characterOverallRanking); 
+                Object.assign(characterWorldRanking, response.data.data.characterWorldRanking); 
+                Object.assign(characterWorldClassRanking, response.data.data.characterWorldClassRanking); 
+                Object.assign(characterTotalClassRanking, response.data.data.characterTotalClassRanking); 
             } catch(error) {
                 console.log(error);
             } finally {
@@ -314,6 +307,10 @@ export default {
             characterBasicInfo,
             characterPopularityInfo,
             characterStatInfo,
+            characterOverallRanking,
+            characterWorldRanking,
+            characterWorldClassRanking,
+            characterTotalClassRanking,
             worldIcon,
             powerLevel,
             loading
