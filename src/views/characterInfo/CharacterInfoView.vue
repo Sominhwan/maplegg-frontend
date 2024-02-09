@@ -3,6 +3,52 @@
         <div class="parent-container" style="position: relative;">
             <img src="https://cdn.dak.gg/maple/images/bg/guide-top-bg.jpg" cover height="500" style="position: relative; width: 100%"/>
             <v-container class="character-info-container">
+                <div class="ranking-container">
+                    <div v-if="loading" class="ranking-wrapper">
+                        <v-row justify="center" no-gutters="">
+                            <div style="width: 25%;">
+                                <v-card height="100%" flat color="transparent">
+                                    <div class="ranking-title mt-5 ml-5" style="color: #fdbb2d;">
+                                        종합랭킹
+                                    </div>
+                                    <div class="ranking-content mt-2 ml-5">
+                                        {{ Number(characterOverallRanking.ranking).toLocaleString() }} 위
+                                    </div>
+                                </v-card>
+                            </div>
+                            <div style="width: 25%;">
+                                <v-card height="100%" flat color="transparent">
+                                    <div class="ranking-title mt-5 ml-5" style="color: #5CB85C;">
+                                        월드랭킹
+                                    </div>
+                                    <div class="ranking-content mt-2 ml-5">
+                                        {{ Number(characterWorldRanking.ranking).toLocaleString() }} 위
+                                    </div>
+                                </v-card>
+                            </div>
+                            <div style="width: 25%;">
+                                <v-card height="100%" flat color="transparent">
+                                    <div class="ranking-title mt-5 ml-5" style="color: #5393CA;">
+                                        직업랭킹(월드)
+                                    </div>
+                                    <div class="ranking-content mt-2 ml-5">
+                                        {{ Number(characterWorldClassRanking.ranking).toLocaleString() }} 위
+                                    </div>
+                                </v-card>
+                            </div>
+                            <div style="width: 25%;">
+                                <v-card height="100%" flat color="transparent">
+                                    <div class="ranking-title mt-5 ml-5" style="color: #6D62A1;">
+                                        직업랭킹(전체)
+                                    </div>
+                                    <div class="ranking-content mt-2 ml-5">
+                                        {{ Number(characterTotalClassRanking.ranking).toLocaleString() }} 위
+                                    </div>
+                                </v-card>
+                            </div>
+                        </v-row>
+                    </div>
+                </div>
                 <v-row v-if="loading" class="mt-0">
                     <v-col class="mt-16" cols="6">
                         <v-list-item class="mt-5">
@@ -23,7 +69,7 @@
                                     <span>{{ characterBasicInfo.character_class }}</span>
                                     <span class="divider"></span>
                                     <span>인기도 {{ Number(characterPopularityInfo.popularity).toLocaleString() }}</span>
-                                    <span class="divider"></span>
+                                    <span v-if="characterBasicInfo.character_guild_name != null" class="divider"></span>
                                     <span>{{ characterBasicInfo.character_guild_name }}</span>
                                 </div>
                                 <div class="btn-wrapper mt-5" style="width: 300px;">
@@ -32,52 +78,6 @@
                                 </div>
                             </div>
                         </v-list-item>
-                        <div class="ranking-container">
-                            <div class="ranking-wrapper">
-                                <v-row justify="center" no-gutters="">
-                                    <div style="width: 25%;">
-                                        <v-card height="100%" flat color="transparent">
-                                            <div class="ranking-title mt-5 ml-5" style="color: #fdbb2d;">
-                                                종합랭킹
-                                            </div>
-                                            <div class="ranking-content mt-2 ml-5">
-                                                {{ Number(characterOverallRanking.ranking).toLocaleString() }} 위
-                                            </div>
-                                        </v-card>
-                                    </div>
-                                    <div style="width: 25%;">
-                                        <v-card height="100%" flat color="transparent">
-                                            <div class="ranking-title mt-5 ml-5" style="color: #5CB85C;">
-                                                월드랭킹
-                                            </div>
-                                            <div class="ranking-content mt-2 ml-5">
-                                                {{ Number(characterWorldRanking.ranking).toLocaleString() }} 위
-                                            </div>
-                                        </v-card>
-                                    </div>
-                                    <div style="width: 25%;">
-                                        <v-card height="100%" flat color="transparent">
-                                            <div class="ranking-title mt-5 ml-5" style="color: #5393CA;">
-                                                직업랭킹(월드)
-                                            </div>
-                                            <div class="ranking-content mt-2 ml-5">
-                                                {{ Number(characterWorldClassRanking.ranking).toLocaleString() }} 위
-                                            </div>
-                                        </v-card>
-                                    </div>
-                                    <div style="width: 25%;">
-                                        <v-card height="100%" flat color="transparent">
-                                            <div class="ranking-title mt-5 ml-5" style="color: #6D62A1;">
-                                                직업랭킹(전체)
-                                            </div>
-                                            <div class="ranking-content mt-2 ml-5">
-                                                {{ Number(characterTotalClassRanking.ranking).toLocaleString() }} 위
-                                            </div>
-                                        </v-card>
-                                    </div>
-                                </v-row>
-                            </div>
-                        </div>
                     </v-col>
                     <v-col cols="6">
                         <div class="character-info-wrapper mt-0">
@@ -326,7 +326,7 @@ export default {
         left: 50%;
         height: 500px;
         transform: translate(-50%, 0);
-        width: 60%;
+        width: 55%;
     }
     .character-name {
         font-size: 30px;
@@ -392,7 +392,7 @@ export default {
         text-align: right;
     }
     .character-info-content-container {
-        width: 60%;
+        width: 55%;
     }
     .category-btn {
         display: inline-block;

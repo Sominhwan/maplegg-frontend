@@ -27,7 +27,7 @@
       </v-card>
     </div>
     <v-sheet class="notice-sheet" height="65">
-      <v-container class="notice-container" style="width: 60%; height: 100%;">
+      <v-container class="notice-container" style="width: 55%; height: 100%;">
         <v-row no-gutters>
           <v-col cols="12" class="d-flex align-center">
             <i class="material-icons mr-5" style="font-size: 30px;">campaign</i>
@@ -848,7 +848,7 @@ export default {
     margin-top: 2px;
   }
   .main-container {
-    width: 60%;
+    width: 55%;
   }
   .rank-info-container {
     border-radius: 10px;
