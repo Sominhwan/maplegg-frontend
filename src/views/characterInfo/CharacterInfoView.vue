@@ -216,107 +216,84 @@
     </v-sheet>
 </template>
 
-<script>
+<script setup>
 import { getCharacterStat } from '@/api/characterInfo/characterInfo.js';
 import getNumberFormat from '@/common/numberFormat.js';
 import getWorldIcon from '@/common/worldIcon.js';
 import { onMounted, reactive, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
-export default {
-    setup() {
-        const route = useRoute();
-        const router = useRouter();
-        const characterName = route.params;
-        const testImage = ref('https://open.api.nexon.com/static/maplestory/Character/BKEPBKIPAAIKJDODOLCDJJEEGDJILJFMBNGEDPKNJNLPLOMPFNHMFDIDMCEPLNLDPONIKIGNCIKJOBAOLPLOCLKDMNIDKLMJCPAFCMHALLKJMFCEBFKHMIHKKCEOEKINHOEBHJMJFALPLKMDDNLGBGBOKLJEJBLHEGCKHEGDCAPADDLBIMOOOKCEGIFJIOBNJMMOJKAICGHJAELNCGKMNMLOENMFCLBIOOFIPEHDMLGIBFHAIMIAHDDIFPICMDGJ.png');
-        const routeUrl = ref('');
-        // 캐릭터 기본 정보
-        const characterBasicInfo = reactive({});
-        // 캐릭터 인기도 정보
-        const characterPopularityInfo = reactive({});
-        // 캐릭터 증합 능력 정보
-        const characterStatInfo = reactive({});
-        // 캐릭터 종합 랭킹 정보
-        const characterOverallRanking = reactive({});
-        // 캐릭터 월드 랭킹 정보
-        const characterWorldRanking = reactive({});
-        // 캐릭터 직업 랭킹(월드)정보 
-        const characterWorldClassRanking = reactive({});
-        // 캐릭터 직업 랭킹(전체)정보
-        const characterTotalClassRanking = reactive({});
+    const route = useRoute();
+    const router = useRouter();
+    const characterName = route.params;
+    const routeUrl = ref('');
+    // 캐릭터 기본 정보
+    const characterBasicInfo = reactive({});
+    // 캐릭터 인기도 정보
+    const characterPopularityInfo = reactive({});
+    // 캐릭터 증합 능력 정보
+    const characterStatInfo = reactive({});
+    // 캐릭터 종합 랭킹 정보
+    const characterOverallRanking = reactive({});
+    // 캐릭터 월드 랭킹 정보
+    const characterWorldRanking = reactive({});
+    // 캐릭터 직업 랭킹(월드)정보 
+    const characterWorldClassRanking = reactive({});
+    // 캐릭터 직업 랭킹(전체)정보
+    const characterTotalClassRanking = reactive({});
 
-        const loading = ref(false);
+    const loading = ref(false);
 
-        onMounted(() => {
-            routeUrl.value = route.name;
-            router.push({ 
-                name: route.name,
-                params: {
-                    name: characterName.name
-                } 
-            });
-            getCharaterInfo();
-        });
-
-        watch(route,() => {
-            routeUrl.value = route.name
-        });
-
-        const changeRoute = (routeName) => {
-            router.push({ 
-                name: routeName,
-                params: {
-                    name: characterName.name
-                } 
-            })
-        };
-
-        const worldIcon = (worldName) => { 
-            return getWorldIcon(worldName);
-        };
-
-        const powerLevel = (number) => {
-            return getNumberFormat(number);
-        }
-
-        const getCharaterInfo = async () => {
-            const params = {'characterName': characterName.name};
-            try {
-                const response = await getCharacterStat(params);
-
-                Object.assign(characterBasicInfo, response.data.data.characterBasicInfo);
-                Object.assign(characterPopularityInfo, response.data.data.characterPopularityInfo);
-                Object.assign(characterStatInfo, response.data.data.characterStatInfo.final_stat); 
-
-                Object.assign(characterOverallRanking, response.data.data.characterOverallRanking); 
-                Object.assign(characterWorldRanking, response.data.data.characterWorldRanking); 
-                Object.assign(characterWorldClassRanking, response.data.data.characterWorldClassRanking); 
-                Object.assign(characterTotalClassRanking, response.data.data.characterTotalClassRanking); 
-            } catch(error) {
-                console.log(error);
-            } finally {
-                loading.value = true;
+    onMounted(() => {
+        routeUrl.value = route.name;
+        router.push({ 
+            name: route.name,
+            params: {
+                name: characterName.name
             }
-        };
+        });
+        getCharaterInfo();
+    });
 
-        return {
-            characterName,
-            testImage,
-            changeRoute,
-            routeUrl,
-            characterBasicInfo,
-            characterPopularityInfo,
-            characterStatInfo,
-            characterOverallRanking,
-            characterWorldRanking,
-            characterWorldClassRanking,
-            characterTotalClassRanking,
-            worldIcon,
-            powerLevel,
-            loading
-        }
+    watch(route,() => {
+        routeUrl.value = route.name
+    });
+
+    const changeRoute = (routeName) => {
+        router.push({ 
+            name: routeName,
+            params: {
+                name: characterName.name
+            } 
+        })
+    };
+
+    const worldIcon = (worldName) => { 
+        return getWorldIcon(worldName);
+    };
+
+    const powerLevel = (number) => {
+        return getNumberFormat(number);
     }
-}
+
+    const getCharaterInfo = async () => {
+        const params = {'characterName': characterName.name};
+        try {
+            const response = await getCharacterStat(params);
+            Object.assign(characterBasicInfo, response.data.data.characterBasicInfo);
+            Object.assign(characterPopularityInfo, response.data.data.characterPopularityInfo);
+            Object.assign(characterStatInfo, response.data.data.characterStatInfo.final_stat); 
+
+            Object.assign(characterOverallRanking, response.data.data.characterOverallRanking); 
+            Object.assign(characterWorldRanking, response.data.data.characterWorldRanking); 
+            Object.assign(characterWorldClassRanking, response.data.data.characterWorldClassRanking); 
+            Object.assign(characterTotalClassRanking, response.data.data.characterTotalClassRanking); 
+        } catch(error) {
+            console.log(error);
+        } finally {
+            loading.value = true;
+        }
+    };
 </script>
 
 <style lang="scss" scoped>

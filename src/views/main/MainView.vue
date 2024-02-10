@@ -742,6 +742,7 @@ export default {
     const top10RankingList = async () => {
       try {
         const response = await getCharacterOverall();
+        console.log(response.data.data);
         Object.assign(baseRankingInfo, response.data.data.top1LevelRanking);
         Object.assign(dojangRankingInfo, response.data.data.top1DojangRanking);
         Object.assign(acheivementRankingInfo, response.data.data.top1AchievementRanking);
