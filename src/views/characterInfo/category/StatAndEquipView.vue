@@ -145,14 +145,21 @@
             </v-card-title>
             <v-card-item style=" background-color: #F6A7301A; "> 
               <v-row justify="center" style="font-size: 13px" no-gutters>
-                <v-col cols="auto" class="d-flex align-center ma-2">
+                <v-col cols="auto" class="d-flex align-center ma-2" style="height: 60px;">
                     <div style="text-align: center;">
+                      <div v-if="characterDojang.dojang_best_time !== 0">
                         <div class="ml-1" style="font-family: 'Noto Sans KR', sans-serif; font-size: 24px; font-weight: 600;">
                             {{ characterDojang.dojang_best_floor }}층
                         </div>
                         <div class="ml-1" style="color: #848999; font-family: 'Noto Sans KR', sans-serif; font-size: 16px;">
                           {{ parseInt((characterDojang.dojang_best_time%3600)/60) }}분{{ characterDojang.dojang_best_time%60 }}초
-                        </div>    
+                        </div>   
+                      </div> 
+                      <div v-else>
+                        <div style="color: #848999; font-family: 'Noto Sans KR', sans-serif; font-size: 18px; font-weight: bold;">
+                          기록 없음
+                        </div>
+                      </div>
                     </div>
                 </v-col>
               </v-row>
@@ -161,12 +168,12 @@
               <v-row justify="center" >
                 <v-col cols="auto" class="d-flex align-center">
                   <div style="text-align: center;">
-                    <div class="ma-2" style="font-size: 16px !important;">
-                      Lv.295 / 키네시스 
+                    <div v-if="characterDojang.dojang_best_time !== 0" class="ma-2" style="font-size: 16px !important;">
+                      Lv.{{ characterBasic.character_level }} / {{ characterBasic.character_class }} 
                     </div>
                     <div class="ma-0" style="font-size: 14px; color: grey; font-weight: bold;">월드 랭킹 13위</div>
                     <div class="ma-0" style="font-size: 14px; color: grey; font-weight: bold;">랭킹 71위</div>
-                    <div class="mt-2" style="font-size: 13px; color: grey;">기준일: 24년 2월 09일</div>
+                    <div v-if="characterDojang.dojang_best_time !== 0" class="mt-2" style="font-size: 13px; color: grey;">기준일: {{ recordDateFormat(characterDojang.date) }}</div>
                   </div>
                 </v-col>
               </v-row>
@@ -187,28 +194,35 @@
             </v-card-title>
             <v-card-item style=" background-color: #5CB85C1A; "> 
               <v-row justify="center" style="font-size: 13px" no-gutters>
-                <v-col cols="auto" class="d-flex align-center ma-2">
+                <v-col cols="auto" class="d-flex align-center ma-2" style="height: 60px;">
                     <div style="text-align: center;">
+                      <div v-if="Object.keys(characterTheseed).length != 0">
                         <div class="ml-1" style="font-family: 'Noto Sans KR', sans-serif; font-size: 24px; font-weight: 600;">
-                            85층
+                          {{ characterTheseed.theseed_floor }}층
                         </div>
                         <div class="ml-1" style="color: #848999; font-family: 'Noto Sans KR', sans-serif; font-size: 16px;">
-                            14분31초
-                        </div>    
+                          {{ parseInt((characterTheseed.theseed_time_record%3600)/60) }}분{{ characterTheseed.theseed_time_record%60 }}초
+                        </div>   
+                      </div> 
+                      <div v-else>
+                        <div style="color: #848999; font-family: 'Noto Sans KR', sans-serif; font-size: 18px; font-weight: bold;">
+                          기록 없음
+                        </div>
+                      </div>
                     </div>
                 </v-col>
               </v-row>
             </v-card-item>
             <v-card-item style="background-color: #FFF;">
               <v-row justify="center" >
-                <v-col cols="auto" class="d-flex align-center">
+                <v-col cols="auto" class="d-flex align-center" style="height: 135px;">
                   <div style="text-align: center;">
-                    <div class="ma-2" style="font-size: 16px !important;">
-                      Lv.295 / 키네시스 
+                    <div v-if="Object.keys(characterTheseed).length != 0" class="ma-2" style="font-size: 16px !important;">
+                      Lv.{{ characterBasic.character_level }} / {{ characterBasic.character_class }} 
                     </div>
                     <div class="ma-0" style="font-size: 14px; color: grey; font-weight: bold;">월드 랭킹 13위</div>
                     <div class="ma-0" style="font-size: 14px; color: grey; font-weight: bold;">랭킹 71위</div>
-                    <div class="mt-2" style="font-size: 13px; color: grey;">기준일: 24년 2월 09일</div>
+                    <div v-if="Object.keys(characterTheseed).length != 0" class="mt-2" style="font-size: 13px; color: grey;">기준일: {{ recordDateFormat(characterTheseed.date) }}</div>
                   </div>
                 </v-col>
               </v-row>
@@ -229,28 +243,40 @@
             </v-card-title>
             <v-card-item style=" background-color: #5393CA1A; "> 
               <v-row justify="center" style="font-size: 13px" no-gutters>
-                <v-col cols="auto" class="d-flex align-center ma-2">
-                    <div style="text-align: center;">
-                        <div class="ml-1" style="font-family: 'Noto Sans KR', sans-serif; font-size: 24px; font-weight: 600;">
-                            85층
+                <v-col cols="auto" class="align-center ma-2" style="height: 60px;">
+                    <div style="align-items: center;">
+                      <div v-if="characterAchievement.trophy_score != 0">
+                        <div style="float: left;">
+                            <div style="position: relative; margin-left: 10px; display: flex; width: 35px; height: 35px;">
+                              <img :src="achievementIcon(characterAchievement.trophy_grade)" style="width: 35px; height: 35px;"/>
+                            </div>
+                        </div>
+                        <div style="font-family: 'Noto Sans KR', sans-serif; font-size: 24px; font-weight: 600;"> 
+                          {{ characterAchievement.trophy_grade }}
                         </div>
                         <div class="ml-1" style="color: #848999; font-family: 'Noto Sans KR', sans-serif; font-size: 16px;">
-                            14분31초
-                        </div>    
+                          업접 점수 {{ Number(characterAchievement.trophy_score).toLocaleString() }}
+                        </div>   
+                      </div> 
+                      <div v-else>
+                        <div style="color: #848999; font-family: 'Noto Sans KR', sans-serif; font-size: 18px; font-weight: bold;">
+                          기록 없음
+                        </div>
+                      </div>
                     </div>
                 </v-col>
               </v-row>
             </v-card-item>
             <v-card-item style="background-color: #FFF;">
               <v-row justify="center" >
-                <v-col cols="auto" class="d-flex align-center">
+                <v-col cols="auto" class="align-center" style="height: 135px;">
                   <div style="text-align: center;">
-                    <div class="ma-2" style="font-size: 16px !important;">
-                      Lv.295 / 키네시스 
+                    <div v-if="characterAchievement.character_level != 0" class="ma-2" style="font-size: 16px !important;">
+                      Lv.{{ characterBasic.character_level }} / {{ characterBasic.character_class }} 
                     </div>
                     <div class="ma-0" style="font-size: 14px; color: grey; font-weight: bold;">월드 랭킹 13위</div>
                     <div class="ma-0" style="font-size: 14px; color: grey; font-weight: bold;">랭킹 71위</div>
-                    <div class="mt-2" style="font-size: 13px; color: grey;">기준일: 24년 2월 09일</div>
+                    <div v-if="characterAchievement.character_level != 0" class="mt-2" style="font-size: 13px; color: grey;">기준일: {{ recordDateFormat(characterBasic.date) }}</div>
                   </div>
                 </v-col>
               </v-row>
@@ -271,28 +297,35 @@
             </v-card-title>
             <v-card-item style=" background-color: #6D62A11A; "> 
               <v-row justify="center" style="font-size: 13px" no-gutters>
-                <v-col cols="auto" class="d-flex align-center ma-2">
+                <v-col cols="auto" class="d-flex align-center ma-2" style="height: 60px;">
                     <div style="text-align: center;">
+                      <div v-if="characterUnion.union_level != 0">
                         <div class="ml-1" style="font-family: 'Noto Sans KR', sans-serif; font-size: 24px; font-weight: 600;">
                             85층
                         </div>
                         <div class="ml-1" style="color: #848999; font-family: 'Noto Sans KR', sans-serif; font-size: 16px;">
-                            14분31초
+                            Lv.{{ characterUnion.union_level }}
                         </div>    
+                      </div>
+                      <div v-else>
+                        <div style="color: #848999; font-family: 'Noto Sans KR', sans-serif; font-size: 18px; font-weight: bold;">
+                          기록 없음
+                        </div>
+                      </div>
                     </div>
                 </v-col>
               </v-row>
             </v-card-item>
             <v-card-item style="background-color: #FFF;">
               <v-row justify="center" >
-                <v-col cols="auto" class="d-flex align-center">
+                <v-col cols="auto" class="d-flex align-center" style="height: 135px;">
                   <div style="text-align: center;">
-                    <div class="ma-2" style="font-size: 16px !important;">
-                      Lv.295 / 키네시스 
+                    <div v-if="characterUnion.union_level != 0" class="ma-2" style="font-size: 16px !important;">
+                      전투력 {{ Number(characterUnion.union_power).toLocaleString() }}
                     </div>
                     <div class="ma-0" style="font-size: 14px; color: grey; font-weight: bold;">월드 랭킹 13위</div>
                     <div class="ma-0" style="font-size: 14px; color: grey; font-weight: bold;">랭킹 71위</div>
-                    <div class="mt-2" style="font-size: 13px; color: grey;">기준일: 24년 2월 09일</div>
+                    <div v-if="characterUnion.union_level != 0" class="mt-2" style="font-size: 13px; color: grey;">기준일: {{ recordDateFormat(characterUnion.date) }}</div>
                   </div>
                 </v-col>
               </v-row>
@@ -304,6 +337,7 @@
 
 <script setup>
 import { getCharacterEquipment } from '@/api/characterInfo/statAndEquip.js';
+import getAchievementIcon from '@/common/achievementIcon.js';
 import AndroidCashItemEquipmentToolTipVue from '@/components/characterInfo/AndroidCashItemEquipmentToolTip.vue';
 import AndroidToolTip from '@/components/characterInfo/AndroidToolTip.vue';
 import CashItemEquipmentToolTip from '@/components/characterInfo/CashItemEquipmentToolTip.vue';
@@ -376,19 +410,33 @@ import { useRoute } from 'vue-router';
     const persetItem6 = reactive([]);
     const presetItem6Location = ref([120]);
     // 저장할 펫 리스트
-    const characterPetEquipment = reactive({});
+    const characterPetEquipment = reactive([]);
     // 무릉도장 최고기록
-    const characterDojang = reactive({});
+    const characterDojang = reactive([]);
     // 더 시드 최고기록
-    const characterTheseed = reactive({});
+    const characterTheseed = reactive([]);
     // 업적
-    const characterAchievement = reactive({});
+    const characterAchievement = reactive([]);
     // 유니온
-    const characterUnion = reactive({});
+    const characterUnion = reactive([]);
+    // 캐릭터 기본 정보
+    const characterBasic = reactive([]); 
 
     onMounted(() => {
         characterEquipment();
     });
+    // 업적 점수 아이콘
+    const achievementIcon = (trophyGrade) => {
+      return getAchievementIcon(trophyGrade);
+    }
+    // 기록 기준일 포맷
+    const recordDateFormat = (value) => {
+      const date = new Date(value);
+      const year = date.getFullYear().toString().substr(2,2); // '2024' -> '24'
+      const month = ('0' + (date.getMonth() + 1)).slice(-2); // '2' -> '02'
+      const day = ('0' + date.getDate()).slice(-2); // '10' -> '10'
+      return `${year}년 ${month}월 ${day}일`;
+    }
     // 캐시 아이템 버튼 수정 관련 
     const cashText = ref('캐시');
     const codyText = ref('코디 프리셋');
@@ -530,6 +578,7 @@ import { useRoute } from 'vue-router';
             Object.assign(characterTheseed, response.data.data.characterTheseedRanking);
             Object.assign(characterAchievement, response.data.data.characterAchievementRanking);
             Object.assign(characterUnion, response.data.data.characterUnionRanking);
+            Object.assign(characterBasic, response.data.data.characterBasic);
             console.log(response.data.data);
             // 장비 아이템
             item1.push(characterItemEquipment[14]);
