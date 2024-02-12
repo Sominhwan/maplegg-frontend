@@ -148,10 +148,10 @@
                 <v-col cols="auto" class="d-flex align-center ma-2" style="height: 60px;">
                     <div style="text-align: center;">
                       <div v-if="characterDojang.dojang_best_time !== 0">
-                        <div class="ml-1" style="font-family: 'Noto Sans KR', sans-serif; font-size: 24px; font-weight: 600;">
+                        <div style="font-family: 'Noto Sans KR', sans-serif; font-size: 24px; font-weight: 600;">
                             {{ characterDojang.dojang_best_floor }}층
                         </div>
-                        <div class="ml-1" style="color: #848999; font-family: 'Noto Sans KR', sans-serif; font-size: 16px;">
+                        <div style="color: #848999; font-family: 'Noto Sans KR', sans-serif; font-size: 16px;">
                           {{ parseInt((characterDojang.dojang_best_time%3600)/60) }}분{{ characterDojang.dojang_best_time%60 }}초
                         </div>   
                       </div> 
@@ -165,14 +165,14 @@
               </v-row>
             </v-card-item>
             <v-card-item style="background-color: #FFF;">
-              <v-row justify="center" >
-                <v-col cols="auto" class="d-flex align-center">
+              <v-row justify="center">
+                <v-col cols="auto" class="d-flex align-center" style="height: 135px;">
                   <div style="text-align: center;">
                     <div v-if="characterDojang.dojang_best_time !== 0" class="ma-2" style="font-size: 16px !important;">
                       Lv.{{ characterBasic.character_level }} / {{ characterBasic.character_class }} 
                     </div>
-                    <div class="ma-0" style="font-size: 14px; color: grey; font-weight: bold;">월드 랭킹 13위</div>
-                    <div class="ma-0" style="font-size: 14px; color: grey; font-weight: bold;">랭킹 71위</div>
+                    <div style="font-size: 14px; color: grey; font-weight: bold;">월드 랭킹 13위</div>
+                    <div style="font-size: 14px; color: grey; font-weight: bold;">랭킹 71위</div>
                     <div v-if="characterDojang.dojang_best_time !== 0" class="mt-2" style="font-size: 13px; color: grey;">기준일: {{ recordDateFormat(characterDojang.date) }}</div>
                   </div>
                 </v-col>
@@ -197,10 +197,10 @@
                 <v-col cols="auto" class="d-flex align-center ma-2" style="height: 60px;">
                     <div style="text-align: center;">
                       <div v-if="Object.keys(characterTheseed).length != 0">
-                        <div class="ml-1" style="font-family: 'Noto Sans KR', sans-serif; font-size: 24px; font-weight: 600;">
+                        <div style="font-family: 'Noto Sans KR', sans-serif; font-size: 24px; font-weight: 600;">
                           {{ characterTheseed.theseed_floor }}층
                         </div>
-                        <div class="ml-1" style="color: #848999; font-family: 'Noto Sans KR', sans-serif; font-size: 16px;">
+                        <div style="color: #848999; font-family: 'Noto Sans KR', sans-serif; font-size: 16px;">
                           {{ parseInt((characterTheseed.theseed_time_record%3600)/60) }}분{{ characterTheseed.theseed_time_record%60 }}초
                         </div>   
                       </div> 
@@ -220,8 +220,8 @@
                     <div v-if="Object.keys(characterTheseed).length != 0" class="ma-2" style="font-size: 16px !important;">
                       Lv.{{ characterBasic.character_level }} / {{ characterBasic.character_class }} 
                     </div>
-                    <div class="ma-0" style="font-size: 14px; color: grey; font-weight: bold;">월드 랭킹 13위</div>
-                    <div class="ma-0" style="font-size: 14px; color: grey; font-weight: bold;">랭킹 71위</div>
+                    <div style="font-size: 14px; color: grey; font-weight: bold;">월드 랭킹 13위</div>
+                    <div style="font-size: 14px; color: grey; font-weight: bold;">랭킹 71위</div>
                     <div v-if="Object.keys(characterTheseed).length != 0" class="mt-2" style="font-size: 13px; color: grey;">기준일: {{ recordDateFormat(characterTheseed.date) }}</div>
                   </div>
                 </v-col>
@@ -243,9 +243,9 @@
             </v-card-title>
             <v-card-item style=" background-color: #5393CA1A; "> 
               <v-row justify="center" style="font-size: 13px" no-gutters>
-                <v-col cols="auto" class="align-center ma-2" style="height: 60px;">
-                    <div style="align-items: center;">
-                      <div v-if="characterAchievement.trophy_score != 0">
+                <v-col cols="auto" class="d-flex align-center ma-2" style="height: 60px;">
+                    <div style="display: flex; align-items: center;">
+                      <div v-if="characterAchievement.trophy_score != 0 && Object.keys(characterAchievement).length != 0">
                         <div style="float: left;">
                             <div style="position: relative; margin-left: 10px; display: flex; width: 35px; height: 35px;">
                               <img :src="achievementIcon(characterAchievement.trophy_grade)" style="width: 35px; height: 35px;"/>
@@ -254,8 +254,8 @@
                         <div style="font-family: 'Noto Sans KR', sans-serif; font-size: 24px; font-weight: 600;"> 
                           {{ characterAchievement.trophy_grade }}
                         </div>
-                        <div class="ml-1" style="color: #848999; font-family: 'Noto Sans KR', sans-serif; font-size: 16px;">
-                          업접 점수 {{ Number(characterAchievement.trophy_score).toLocaleString() }}
+                        <div style="color: #848999; font-family: 'Noto Sans KR', sans-serif; font-size: 16px;">
+                          업적 점수 {{ Number(characterAchievement.trophy_score).toLocaleString() }}
                         </div>   
                       </div> 
                       <div v-else>
@@ -274,8 +274,8 @@
                     <div v-if="characterAchievement.character_level != 0" class="ma-2" style="font-size: 16px !important;">
                       Lv.{{ characterBasic.character_level }} / {{ characterBasic.character_class }} 
                     </div>
-                    <div class="ma-0" style="font-size: 14px; color: grey; font-weight: bold;">월드 랭킹 13위</div>
-                    <div class="ma-0" style="font-size: 14px; color: grey; font-weight: bold;">랭킹 71위</div>
+                    <div style="font-size: 14px; color: grey; font-weight: bold;">월드 랭킹 13위</div>
+                    <div style="font-size: 14px; color: grey; font-weight: bold;">랭킹 71위</div>
                     <div v-if="characterAchievement.character_level != 0" class="mt-2" style="font-size: 13px; color: grey;">기준일: {{ recordDateFormat(characterBasic.date) }}</div>
                   </div>
                 </v-col>
@@ -296,48 +296,52 @@
               </div>
             </v-card-title>
             <v-card-item style=" background-color: #6D62A11A; "> 
-              <v-row justify="center" style="font-size: 13px" no-gutters>
-                <v-col cols="auto" class="d-flex align-center ma-2" style="height: 60px;">
-                    <div style="text-align: center;">
-                      <div v-if="characterUnion.union_level != 0">
-                        <div class="ml-1" style="font-family: 'Noto Sans KR', sans-serif; font-size: 24px; font-weight: 600;">
-                            85층
-                        </div>
-                        <div class="ml-1" style="color: #848999; font-family: 'Noto Sans KR', sans-serif; font-size: 16px;">
-                            Lv.{{ characterUnion.union_level }}
-                        </div>    
-                      </div>
-                      <div v-else>
-                        <div style="color: #848999; font-family: 'Noto Sans KR', sans-serif; font-size: 18px; font-weight: bold;">
-                          기록 없음
+              <v-row justify="center" style="font-size: 13px;" no-gutters>
+                <v-col cols="auto" class="d-flex text-center align-center ma-2" style="height: 60px;">
+                  <div v-if="characterUnion.union_level != 0">
+                    <div style="float: left;">
+                      <div style="position: relative; display: flex; align-items: center;">
+                        <img :src="unionIcon(characterUnion.union_level)" style="width: 25px; height: 25px;"/>
+                        <div style="font-family: 'Noto Sans KR', sans-serif; font-size: 24px; font-weight: 600; margin-left: 5px;"> 
+                          {{ unionGrade(characterUnion.union_level) }}
                         </div>
                       </div>
                     </div>
+                    <div style="color: #848999; font-family: 'Noto Sans KR', sans-serif; font-size: 16px;">
+                      Lv.{{ characterUnion.union_level }}
+                    </div>   
+                  </div> 
+                  <div v-else>
+                    <div style="color: #848999; font-family: 'Noto Sans KR', sans-serif; font-size: 18px; font-weight: bold;">
+                      기록 없음
+                    </div>
+                  </div>
                 </v-col>
               </v-row>
             </v-card-item>
             <v-card-item style="background-color: #FFF;">
               <v-row justify="center" >
-                <v-col cols="auto" class="d-flex align-center" style="height: 135px;">
+                <v-col cols="auto" class="align-center" style="height: 135px;">
                   <div style="text-align: center;">
-                    <div v-if="characterUnion.union_level != 0" class="ma-2" style="font-size: 16px !important;">
-                      전투력 {{ Number(characterUnion.union_power).toLocaleString() }}
+                    <div v-if="characterAchievement.character_level != 0" class="ma-2" style="font-size: 16px !important;">
+                      Lv.{{ characterBasic.character_level }} / {{ characterBasic.character_class }} 
                     </div>
-                    <div class="ma-0" style="font-size: 14px; color: grey; font-weight: bold;">월드 랭킹 13위</div>
-                    <div class="ma-0" style="font-size: 14px; color: grey; font-weight: bold;">랭킹 71위</div>
-                    <div v-if="characterUnion.union_level != 0" class="mt-2" style="font-size: 13px; color: grey;">기준일: {{ recordDateFormat(characterUnion.date) }}</div>
+                    <div style="font-size: 14px; color: grey; font-weight: bold;">월드 랭킹 13위</div>
+                    <div style="font-size: 14px; color: grey; font-weight: bold;">랭킹 71위</div>
+                    <div v-if="characterAchievement.character_level != 0" class="mt-2" style="font-size: 13px; color: grey;">기준일: {{ recordDateFormat(characterBasic.date) }}</div>
                   </div>
                 </v-col>
               </v-row>
             </v-card-item>
           </v-card> 
-        </v-col> 
+        </v-col>
     </v-row>
 </template>
-
 <script setup>
 import { getCharacterEquipment } from '@/api/characterInfo/statAndEquip.js';
 import getAchievementIcon from '@/common/achievementIcon.js';
+import getUnionGrade from '@/common/unionGrade';
+import getUnionIcon from '@/common/unionIcon.js';
 import AndroidCashItemEquipmentToolTipVue from '@/components/characterInfo/AndroidCashItemEquipmentToolTip.vue';
 import AndroidToolTip from '@/components/characterInfo/AndroidToolTip.vue';
 import CashItemEquipmentToolTip from '@/components/characterInfo/CashItemEquipmentToolTip.vue';
@@ -429,6 +433,13 @@ import { useRoute } from 'vue-router';
     const achievementIcon = (trophyGrade) => {
       return getAchievementIcon(trophyGrade);
     }
+    // 유니온 등급 아이콘
+    const unionIcon = (unionLevel) => {
+      return getUnionIcon(unionLevel);
+    } 
+    const unionGrade = (unionLevel) => {
+      return getUnionGrade(unionLevel);
+    };
     // 기록 기준일 포맷
     const recordDateFormat = (value) => {
       const date = new Date(value);
@@ -449,7 +460,6 @@ import { useRoute } from 'vue-router';
     });
     const changeText = () => {
         codyTextFlag.value = !codyTextFlag.value;
-
         selectPresetBtn1Flag();
     };
     // 코디 프리셋 버튼 관련
