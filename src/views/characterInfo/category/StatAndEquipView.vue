@@ -328,64 +328,6 @@
           </v-card> 
         </v-col>
     </v-row>
-    <v-row v-if="loading" justify="space-between">
-      <v-col>
-        <v-card
-          class="list-container mx-auto"
-          variant="outlined"
-          elevation="0"
-          style="border: 1px solid #eee; background-color: #fff;"
-        >
-          <v-card-item class="rank-card-title">
-            <v-row justify="space-between">
-              <v-col cols="auto">
-                <span style="color: black;">1월</span> 리부트 월드 랭킹
-              </v-col>
-            </v-row>
-          </v-card-item>
-          <v-table density="compact" style="border-radius: 0px;">
-            <thead style="background-color: #E6EAF3; font-size: 13px;">
-              <tr>
-                <th class="text-center">
-                  날씨
-                </th>
-                <th class="text-left">
-                  기록
-                </th>
-                <th class="text-center">
-                  보스
-                </th>
-                <th class="text-center">
-                  직업
-                </th>
-                <th class="text-center">
-                  레벨
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="item in dojangHistory" :key="item" style="font-size: 12px;">
-                <td class="text-center">
-                  <span>
-                    {{ item.ranking }}
-                  </span>
-                </td>
-                <td class="text-left">
-                  <div style="display: flex; align-items: center;">
-                    <span class="enable-click-text">
-                      {{ item.character_name }}
-                    </span>
-                  </div>
-                </td>
-                <td class="text-center"><span>{{ item.character_level }}</span></td>
-                <td class="text-center"><span>{{ Number(item.character_popularity).toLocaleString() }}</span></td>
-                <td class="text-center"><span class="enable-click-text">{{ item.character_guildname }}</span></td>
-              </tr>
-            </tbody>
-          </v-table>
-        </v-card>
-      </v-col>
-    </v-row>
 </template>
 <script setup>
 import { getCharacterEquipment } from '@/api/characterInfo/statAndEquip.js';
@@ -475,34 +417,6 @@ import { useRoute } from 'vue-router';
     const characterUnion = reactive([]);
     // 캐릭터 기본 정보
     const characterBasic = reactive([]); 
-    // 무릉 히스토리
-    const dojangHistory = reactive(
-      [
-        {'ranking': 1},
-        {'ranking': 2},
-        {'ranking': 3},
-      ],
-      [
-        {'character_name': "테스트"},
-        {'character_name': '테스트2'},
-        {'character_name': '테스트3'},
-      ],
-      [
-        {'character_level': 250},
-        {'character_level': 250},
-        {'character_level': 250},
-      ],
-      [
-        {'character_popularity': 1200},
-        {'character_popularity': 1200},
-        {'character_popularity': 1200},
-      ],
-      [
-        {'character_guildname': '화이트'},
-        {'character_guildname': '화이트'},
-        {'character_guildname': '화이트'},
-      ],
-    );
 
     onMounted(() => {
         characterEquipment();
