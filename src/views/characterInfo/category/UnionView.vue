@@ -36,9 +36,28 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { getCharacterUnion } from '@/api/characterInfo/union.js';
+import { onMounted, ref } from 'vue';
+import { useRoute } from 'vue-router';
 
-const loading = ref(true);
+    const route = useRoute();
+    const characterName = route.params;
+    const loading = ref(true);
+
+    onMounted(() => {
+        console.log(characterName);
+        characterUnion();
+    });
+
+    const characterUnion = async () => {
+        const params = { 'characterName': characterName.name };
+        try{
+            const response = await getCharacterUnion(params);
+            console.log(response.data.data);
+        } catch (error) {
+            console.log(error); 
+        }
+    };
 </script>
 
 <style scoped>
