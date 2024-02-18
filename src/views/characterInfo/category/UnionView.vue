@@ -58,6 +58,10 @@ import { useRoute } from 'vue-router';
     const loading = ref(true);
     // 유니온 
     const union = reactive({});
+    // 유니온 아티팩트
+    const unionArtifact = reactive({});
+    // 유니온 공격대
+    const unionRaider = reactive({});
 
     onMounted(() => {
         console.log(characterName);
@@ -77,6 +81,8 @@ import { useRoute } from 'vue-router';
             const response = await getCharacterUnion(params);
             console.log(response.data.data);
             Object.assign(union, response.data.data.union);
+            Object.assign(unionArtifact, response.data.data.unionArtifact);
+            Object.assign(unionRaider, response.data.data.unionRaider);
         } catch (error) {
             console.log(error); 
         }
