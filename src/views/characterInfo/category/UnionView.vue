@@ -5,29 +5,10 @@
                 <v-card-title style="font-size: 16px; border-bottom: 1px solid #EEE; font-weight: bold;">유니온 아티팩트</v-card-title>
                 <v-card-item class="equip-container ma-5">
                     <v-row>
-                        <v-col cols="8">
-                            <v-row>
-                                <v-col v-for="(item, index) in unionArtifact.union_artifact_crystal" :key="index" cols="3">
-                                    <v-card class="mx-auto" flat :style="{ backgroundColor: item.level === 5 ? '#EDECFB' : '#ECF5FC' }" width="170" height="170">
-                                        <v-card-title class="pa-2">
-                                            <div class="mt-3" style="display: flex; justify-content: center;">
-                                                <div v-for="index in item.level" :key="index" style="display: flex; margin: 1px;">
-                                                    <v-icon size="10" color="#303030">mdi-rhombus</v-icon>
-                                                </div>
-                                            </div>
-                                        </v-card-title>
-                                        <v-card-item> 
-                                            <v-row justify="center">
-                                                <v-col cols="auto" class="d-flex align-center">
-                                                    <img :src="unionArtifactCrystalIcon(item.name, item.level)" width="100"/>
-                                                </v-col>
-                                            </v-row>
-                                        </v-card-item>
-                                    </v-card>
-                                </v-col>            
-                            </v-row>
+                        <v-col cols="7">
+                            <UnionArtifactToolTip :union-artifact="unionArtifact.union_artifact_crystal"/>
                         </v-col>
-                        <v-col cols="4">
+                        <v-col cols="5">
                             <div class="union-grade">{{ unionGrade(union.union_level) }}</div>
                             <div style="display: flex; justify-content: space-between;">
                                 <img class="mt-5" :src="unionIcon(union.union_level)" style="width: 110px; height: 110px;"/>
@@ -37,6 +18,9 @@
                                     <div class="mt-2" style="font-size: 18px; text-align: right;">ARTIFACT LEVEL</div>
                                     <div style="text-align: right;">{{ union.union_artifact_level }}</div>
                                 </div>
+                            </div>
+                            <div class="mt-7">
+                                아티팩트 효과
                             </div>
                         </v-col>
                     </v-row>
@@ -65,9 +49,9 @@
 
 <script setup>
 import { getCharacterUnion } from '@/api/characterInfo/union.js';
-import getUnionArtifactCrystalIcon from '@/common/unionArtifactCrystalIcon.js';
 import getUnionGrade from '@/common/unionGrade';
 import getUnionIcon from '@/common/unionIcon.js';
+import UnionArtifactToolTip from '@/components/union/UnionArtifactToolTip.vue';
 import { onMounted, reactive, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
@@ -92,10 +76,7 @@ import { useRoute } from 'vue-router';
     const unionGrade = (unionLevel) => {
       return getUnionGrade(unionLevel);
     };
-    // 유니온 아티팩트 아이콘
-    const unionArtifactCrystalIcon = (unionArtifactCrystalName, level) => {
-        return getUnionArtifactCrystalIcon(unionArtifactCrystalName, level);
-    }
+
     const characterUnion = async () => {
         const params = { 'characterName': characterName.name };
         try{
