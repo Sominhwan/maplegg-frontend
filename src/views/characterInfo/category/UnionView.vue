@@ -19,8 +19,16 @@
                                     <div style="text-align: right;">{{ union.union_artifact_level }}</div>
                                 </div>
                             </div>
-                            <div class="mt-7">
-                                아티팩트 효과
+                            <div class="mt-6">
+                                <div class="union-grade">아티팩트 효과</div>
+                                <div class="union-artifact-effect-content mt-5">
+                                    <div v-for="(item) in unionArtifact.union_artifact_effect" :key="item">
+                                       <span style="font-weight: bold;">
+                                        Lv. {{ item.level }}
+                                       </span>
+                                        {{ item.name }}
+                                    </div>
+                                </div>
                             </div>
                         </v-col>
                     </v-row>
@@ -105,5 +113,17 @@ import { useRoute } from 'vue-router';
         text-align: center;
         color: #FFF;
         text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 10px #110B02, 0 0 10px #110B02, 0 0 10px #110B02, 0 0 10px #110B02, 0 0 3px #110B02;
+    }
+    .union-artifact-effect-content::-webkit-scrollbar {
+        width: 6px; /* 스크롤바의 너비 */
+    }
+    .union-artifact-effect-content::-webkit-scrollbar-thumb {
+        background: rgba(185, 185, 185, 0.3); /* 스크롤바의 색상 */
+        border-radius: 50px;
+    }
+    .union-artifact-effect-content {
+    
+        overflow: hidden; 
+        overflow-y: auto;
     }
 </style>
