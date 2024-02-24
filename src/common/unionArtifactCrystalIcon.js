@@ -14,7 +14,7 @@ const getUnionArtifactCrystalIcon = (unionArtifactCrystalName, level) => {
             case '크리스탈 : 발록':
                 return new URL(`@/assets/union/img-artifact06-purple.png`, import.meta.url).href;
             case '크리스탈 : 자쿰':
-                return new URL(`@/assets/union/img-artifact01-purple.png`, import.meta.url).href;
+                return new URL(`@/assets/union/img-artifact07-purple.png`, import.meta.url).href;
             case '크리스탈 : 핑크빈':
                 return new URL(`@/assets/union/img-artifact01-purple.png`, import.meta.url).href;
             case '크리스탈 : 파풀라투스':
@@ -37,7 +37,7 @@ const getUnionArtifactCrystalIcon = (unionArtifactCrystalName, level) => {
             case '크리스탈 : 발록':
                 return new URL(`@/assets/union/img-artifact06-blue.png`, import.meta.url).href;
             case '크리스탈 : 자쿰':
-                return new URL(`@/assets/union/img-artifact01-blue.png`, import.meta.url).href;
+                return new URL(`@/assets/union/img-artifact07-blue.png`, import.meta.url).href;
             case '크리스탈 : 핑크빈':
                 return new URL(`@/assets/union/img-artifact01-blue.png`, import.meta.url).href;
             case '크리스탈 : 파풀라투스':
