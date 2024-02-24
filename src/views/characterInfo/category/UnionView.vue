@@ -43,7 +43,15 @@
                 <v-card-item class="equip-container" style="border-top: 1px solid #EEE;">
                     <v-row>
                         <v-col cols="6">
-                            유니온 공격대 이미지
+                            <div class="mt-5">
+                                <div class="union-grade">유니온 캐릭터</div>
+                                <div>
+                                    <div v-for="(item) in unionRaider.union_block" :key="item">
+                                        <div>{{ item.block_class }}</div>
+                                        <div>Lv.{{ item.block_level}}</div>
+                                    </div>
+                                </div>
+                            </div>
                         </v-col>
                         <v-col cols="6">
                             <div class="mt-5">
