@@ -45,10 +45,14 @@
                         <v-col cols="6">
                             <div class="mt-5">
                                 <div class="union-grade">유니온 캐릭터</div>
-                                <div>
-                                    <div v-for="(item) in unionRaider.union_block" :key="item">
-                                        <div>{{ item.block_class }}</div>
-                                        <div>Lv.{{ item.block_level}}</div>
+                                <div class="union-raider-character-container mt-5">
+                                    <div v-for="(item, index) in sortUnionRaiderBlock" :key="index" style="display: flex; align-items: center;">
+                                        <img :src="characterIcon(item.block_class)" width="90"/>
+                                        <div class="item-details">
+                                            <div v-if="item.block_class !== '모바일 캐릭터'">{{ item.block_class }}</div>
+                                            <div v-if="item.block_class === '모바일 캐릭터'">메이플M</div>
+                                            <div>Lv.{{ item.block_level }}</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -58,7 +62,7 @@
                                 <div class="union-grade">공격대 효과</div>
                                 <div style="display: flex;">
                                     <div>
-                                        <div class="mt-3" style="font-weight: bold; font-size: 17px;">공격대원 효과</div>
+                                        <div class="mt-5" style="font-weight: bold; font-size: 17px;">공격대원 효과</div>
                                         <div class="union-raider-stat-content mt-3 mr-3 mb-3">
                                         <div class="mr-3" v-for="(item) in unionRaider.union_raider_stat" :key="item">
                                             {{ item }}
@@ -66,7 +70,7 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <div class="mt-3" style="font-weight: bold; font-size: 17px;">공격대 점령 효과</div>
+                                        <div class="mt-5" style="font-weight: bold; font-size: 17px;">공격대 점령 효과</div>
                                         <div class="union-occupied-stat-content mt-3 mr-3 mb-3">
                                             <div class="mr-3" v-for="(item) in unionRaider.union_occupied_stat" :key="item">
                                                 {{ item }}
@@ -85,10 +89,11 @@
 
 <script setup>
 import { getCharacterUnion } from '@/api/characterInfo/union.js';
+import getCharacterIcon from '@/common/characterIcon.js';
 import getUnionGrade from '@/common/unionGrade';
 import getUnionIcon from '@/common/unionIcon.js';
 import UnionArtifactToolTip from '@/components/union/UnionArtifactToolTip.vue';
-import { onMounted, reactive, ref } from 'vue';
+import { computed, onMounted, reactive, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
     const route = useRoute();
@@ -100,6 +105,11 @@ import { useRoute } from 'vue-router';
     const unionArtifact = reactive({});
     // 유니온 공격대
     const unionRaider = reactive({});
+    // 유니온 레이드 정렬
+    const sortUnionRaiderBlock = computed(() => {
+        const sortedUnionRaiderBlock = [...unionRaider.union_block].sort((a, b) => b.block_level - a.block_level);
+        return sortedUnionRaiderBlock;
+    });
 
     onMounted(() => {
         console.log(characterName);
@@ -112,6 +122,10 @@ import { useRoute } from 'vue-router';
     const unionGrade = (unionLevel) => {
       return getUnionGrade(unionLevel);
     };
+    // 캐릭터 아이콘
+    const characterIcon = (characterClass) => {
+        return getCharacterIcon(characterClass);
+    }
 
     const characterUnion = async () => {
         const params = { 'characterName': characterName.name };
@@ -161,7 +175,7 @@ import { useRoute } from 'vue-router';
         border-radius: 50px;
     }
     .union-raider-stat-content {
-        height: 355px;
+        /* height: 355px; */
         overflow: hidden; 
         overflow-y: auto;
     }
@@ -176,5 +190,16 @@ import { useRoute } from 'vue-router';
         height: 355px;
         overflow: hidden; 
         overflow-y: auto;
+    }
+    .item-details {
+        margin-left: 10px; /* 이미지와 세부 사항 사이 간격 */
+        display: flex;
+        flex-direction: column; /* 세부 사항을 세로로 나열 */
+    }
+    .union-raider-character-container {
+        align-items: center;  
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* 3개의 컬럼으로 구성 */
+        grid-gap: 10px; /* 그리드 아이템 사이의 간격 */
     }
 </style>
