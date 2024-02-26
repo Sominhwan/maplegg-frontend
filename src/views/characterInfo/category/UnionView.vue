@@ -3,7 +3,7 @@
         <v-col>
             <v-card class="union-artifact-card" flat>
                 <v-card-title style="font-size: 16px; border-bottom: 1px solid #EEE; font-weight: bold;">유니온 아티팩트</v-card-title>
-                <v-card-item class="equip-container ma-5">
+                <v-card-item class="ma-5">
                     <v-row>
                         <v-col cols="6">
                             <UnionArtifactToolTip :union-artifact="unionArtifact.union_artifact_crystal"/>
@@ -39,11 +39,11 @@
     <v-row v-if="loading" justify="space-between">
         <v-col>
             <v-card class="union-raider-card" flat>
-                <v-card-title style="font-size: 16px; font-weight: bold;">유니온 공격대</v-card-title>
-                <v-card-item class="equip-container" style="border-top: 1px solid #EEE;">
+                <v-card-title style="font-size: 16px; border-bottom: 1px solid #EEE; font-weight: bold;">유니온 공격대</v-card-title>
+                <v-card-item class="ma-5">
                     <v-row>
                         <v-col cols="6">
-                            <div class="mt-5">
+                            <div>
                                 <div class="union-grade">유니온 캐릭터</div>
                                 <div class="union-raider-character-container mt-5">
                                     <div v-for="(item, index) in sortUnionRaiderBlock" :key="index" style="display: flex; align-items: center;">
@@ -58,7 +58,7 @@
                             </div>
                         </v-col>
                         <v-col cols="6">
-                            <div class="mt-5">
+                            <div>
                                 <div class="union-grade">공격대 효과</div>
                                 <div style="display: flex;">
                                     <div>
