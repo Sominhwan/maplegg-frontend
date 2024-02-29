@@ -35,19 +35,61 @@
                                     </div>
                                     </div>
                                 </div>
+                                <div class="hex">
+                                    <div class="hex-inner">
+                                    <div class="content">
+                                        <div>HEXA 5</div>
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="hex">
+                                    <div class="hex-inner">
+                                    <div class="content">
+                                        <div>HEXA 6</div>
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="hex">
+                                    <div class="hex-inner">
+                                    <div class="content">
+                                        <div>HEXA 7</div>
+                                    </div>
+                                    </div>
+                                </div>
                             </div>
                         </v-col>
                         <v-col cols="6">
                             <div class="wrap">
                                 <v-list>
-                                    <v-list-item class="mb-1" width="250" style="background-color: #E8EDEF;">
-                                        테스트
+                                    <v-list-item class="mb-1" width="350" style="background-color: #E8EDEF;">
+                                        <v-list-item-subtitle>MAIN STAT</v-list-item-subtitle>
+                                        <v-list-item-title v-if="hexamatrixStat.character_hexa_stat_core && hexamatrixStat.character_hexa_stat_core.length > 0">
+                                            <span>Lv.{{ hexamatrixStat.character_hexa_stat_core[0].main_stat_level }}</span>
+                                            {{ hexamatrixStat.character_hexa_stat_core[0].main_stat_name }}
+                                        </v-list-item-title>
+                                        <v-list-item-title v-else>
+                                            -
+                                        </v-list-item-title>
                                     </v-list-item>
-                                    <v-list-item class="mb-1" width="250" style="background-color: #E8EDEF;">
-                                        테스트
+                                    <v-list-item class="mb-1" width="350" style="background-color: #E8EDEF;">
+                                        <v-list-item-subtitle>ADDITIONAL STAT</v-list-item-subtitle>
+                                        <v-list-item-title v-if="hexamatrixStat.character_hexa_stat_core && hexamatrixStat.character_hexa_stat_core.length > 0">
+                                            <span>Lv.{{ hexamatrixStat.character_hexa_stat_core[0].sub_stat_level_1 }}</span>
+                                            {{ hexamatrixStat.character_hexa_stat_core[0].sub_stat_name_1 }}
+                                        </v-list-item-title>
+                                        <v-list-item-title v-else>
+                                            -
+                                        </v-list-item-title>
                                     </v-list-item>
-                                    <v-list-item width="250" style="background-color: #E8EDEF;">
-                                        테스트
+                                    <v-list-item width="350" style="background-color: #E8EDEF;">
+                                        <v-list-item-subtitle>ADDITIONAL STAT</v-list-item-subtitle>
+                                        <v-list-item-title v-if="hexamatrixStat.character_hexa_stat_core && hexamatrixStat.character_hexa_stat_core.length > 0">
+                                            <span>Lv.{{ hexamatrixStat.character_hexa_stat_core[0].sub_stat_level_2 }}</span>
+                                            {{ hexamatrixStat.character_hexa_stat_core[0].sub_stat_name_2 }}
+                                        </v-list-item-title>
+                                        <v-list-item-title v-else>
+                                            -
+                                        </v-list-item-title>
                                     </v-list-item>
                                 </v-list>
                             </div>
@@ -75,12 +117,15 @@
 
 <script setup>
 import { getCharacterSkillAndSymbol } from '@/api/characterInfo/skillAndSymbol.js';
-import { onMounted, ref } from 'vue';
+import { onMounted, reactive, ref } from 'vue';
 import { useRoute } from 'vue-router';
     const route = useRoute();
     const characterName = route.params;
-    const loading = ref(true);
-
+    const loading = ref(false);
+    // 6차 스킬
+    const hexamatrix = reactive({});
+    // 6차 스텟
+    const hexamatrixStat = reactive({});
 
     onMounted(() => {
         console.log(characterName);
@@ -92,8 +137,9 @@ import { useRoute } from 'vue-router';
         const params = { 'characterName': characterName.name };
         try{
             const response = await getCharacterSkillAndSymbol(params);
-            console.log(response.data.data);
-
+            Object.assign(hexamatrix, response.data.data.hexamatrix);
+            Object.assign(hexamatrixStat, response.data.data.hexamatrixStat);
+            console.log(hexamatrixStat);
         } catch (error) {
             console.log(error); 
         } finally {
@@ -110,8 +156,8 @@ import { useRoute } from 'vue-router';
         border: 1px solid #EEE;
     }
     .wrap {
-        width: 100%;
-        margin: 30px auto;
+        width: 85%;
+        margin:40px auto;
         display: flex;
         flex-wrap: wrap;
     }
@@ -127,7 +173,7 @@ import { useRoute } from 'vue-router';
     .hex::after {
         content: '';
         display: block;
-        padding-top: 50%;
+        padding-top: 30%;
         padding-bottom: 50%;
     }
     .hex-inner {
