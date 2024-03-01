@@ -198,7 +198,7 @@ import { useRoute } from 'vue-router';
         justify-content: center;
         align-items: center;
     }
-        .content p {
+    .content p {
         font-size: 3vw;
         text-align: center;
         color: #fff;
