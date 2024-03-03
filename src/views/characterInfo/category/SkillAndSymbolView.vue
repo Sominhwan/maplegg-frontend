@@ -10,7 +10,11 @@
                                 <div class="hex">
                                     <div class="hex-inner">
                                     <div class="content">
-                                        <div>HEXA 1</div>
+                                        <div class="hexa-skill-container">
+                                            <img class="hexa-img" src="@/assets/skill/hexaSkill/adventurer/archMage-ice/adventurer-archMage-brizard.png" style="width: 50px;"/>  
+                                            <div class="skill-level">13</div>
+                                        </div>
+                                       
                                     </div>
                                     </div>
                                 </div>
@@ -139,7 +143,7 @@ import { useRoute } from 'vue-router';
             const response = await getCharacterSkillAndSymbol(params);
             Object.assign(hexamatrix, response.data.data.hexamatrix);
             Object.assign(hexamatrixStat, response.data.data.hexamatrixStat);
-            console.log(hexamatrixStat);
+            console.log(response.data.data);
         } catch (error) {
             console.log(error); 
         } finally {
@@ -156,7 +160,7 @@ import { useRoute } from 'vue-router';
         border: 1px solid #EEE;
     }
     .wrap {
-        width: 85%;
+        width: 60%;
         margin:40px auto;
         display: flex;
         flex-wrap: wrap;
@@ -202,5 +206,55 @@ import { useRoute } from 'vue-router';
         font-size: 3vw;
         text-align: center;
         color: #fff;
+    }
+    .hexa-skill-container {
+        display: flex; 
+        align-items: center; 
+        justify-content: center;
+    }
+    @media (max-width: 1920px) {
+        .hexa-img {  
+            width: 30px !important; 
+        }
+    }
+    @media (max-width: 1280px) {
+        .hexa-img {
+            width: 20px !important;
+        }
+    }
+    @media (max-width: 720px) {
+        .hexa-img {
+            width: 10px !important; 
+        }
+    }
+    .skill-level {
+        background-color: #000;
+        text-align: center;
+        width: 30px;
+        border-radius: 20%;
+        color: #FFF;
+        top: 13px;
+        font-size: 12px;
+    }
+    @media (max-width: 1920px) {
+        .skill-level {  
+            width: 20px !important;
+            top: 5px;
+            font-size: 8px;
+        }
+    }
+    @media (max-width: 1280px) {
+        .skill-level {
+            width: 15px !important;
+            top: 5px;
+            font-size: 6px;
+        }
+    }
+    @media (max-width: 720px) {
+        .skill-level {
+            width: 10px !important;
+            top: 0px;
+            font-size: 4px;
+        }
     }
 </style>
