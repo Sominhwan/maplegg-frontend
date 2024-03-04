@@ -7,56 +7,13 @@
                     <v-row>
                         <v-col cols="6">
                             <div class="wrap">
-                                <div class="hex">
+                                <div v-for="i in 7" :key="i"  class="hex">
                                     <div class="hex-inner">
                                     <div class="content">
                                         <div class="hexa-skill-container">
                                             <img class="hexa-img" src="@/assets/skill/hexaSkill/adventurer/archMage-ice/adventurer-archMage-brizard.png" style="width: 50px;"/>  
                                             <div class="skill-level">13</div>
-                                        </div>
-                                       
-                                    </div>
-                                    </div>
-                                </div>
-                                <div class="hex">
-                                    <div class="hex-inner">
-                                    <div class="content">
-                                        <div>HEXA 2</div>
-                                    </div>
-                                    </div>
-                                </div>
-                                <div class="hex">
-                                    <div class="hex-inner">
-                                    <div class="content">
-                                        <div>HEXA 3</div>
-                                    </div>
-                                    </div>
-                                </div>
-                                <div class="hex">
-                                    <div class="hex-inner">
-                                    <div class="content">
-                                        <div>HEXA 4</div>
-                                    </div>
-                                    </div>
-                                </div>
-                                <div class="hex">
-                                    <div class="hex-inner">
-                                    <div class="content">
-                                        <div>HEXA 5</div>
-                                    </div>
-                                    </div>
-                                </div>
-                                <div class="hex">
-                                    <div class="hex-inner">
-                                    <div class="content">
-                                        <div>HEXA 6</div>
-                                    </div>
-                                    </div>
-                                </div>
-                                <div class="hex">
-                                    <div class="hex-inner">
-                                    <div class="content">
-                                        <div>HEXA 7</div>
+                                        </div>               
                                     </div>
                                     </div>
                                 </div>
