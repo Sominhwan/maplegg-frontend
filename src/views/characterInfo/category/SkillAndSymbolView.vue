@@ -7,7 +7,7 @@
                     <v-row>
                         <v-col cols="6">
                             <div class="wrap">
-                                <div v-for="i in 7" :key="i"  class="hex">
+                                <div v-for="i in 7" :key="i" class="hex">
                                     <div class="hex-inner">
                                     <div class="content">
                                         <div class="hexa-skill-container">
@@ -66,8 +66,19 @@
                 <v-card-title style="font-size: 16px; border-bottom: 1px solid #EEE; font-weight: bold;">5차 스킬</v-card-title>
                 <v-card-item class="ma-5">
                     <v-row>
-                        <v-col cols="6">
-
+                        <v-col cols="12">
+                            <div class="vmatrix-wrap">
+                                <div v-for="i in 19" :key="i" class="vmatrix ">
+                                    <div class="vmatrix-inner">
+                                    <div class="vmatrix-content">
+                                        <div class="hexa-skill-container">
+                                            <img class="hexa-img" src="@/assets/skill/hexaSkill/adventurer/archMage-ice/adventurer-archMage-brizard.png" style="width: 50px;"/>  
+                                            <div class="skill-level">13</div>
+                                        </div>               
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
                         </v-col>
                     </v-row>
                 </v-card-item>
@@ -213,5 +224,53 @@ import { useRoute } from 'vue-router';
             top: 0px;
             font-size: 4px;
         }
+    }
+    .vmatrix-wrap {
+        width: 70%;
+        margin:40px auto;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .vmatrix {
+        width: 10%;
+        margin-bottom: 0.8%;
+        position: relative;
+        visibility: hidden;
+    }
+    .vmatrix:nth-of-type(0n+11) {
+        margin-left: 5.0%;
+    }
+    .vmatrix::after {
+        content: '';
+        display: block;
+        padding-top: 30%;
+        padding-bottom: 50%;
+    }
+    .vmatrix-inner {
+        position: absolute;
+        width: 99%;
+        padding-bottom: 114.6%;
+        overflow: hidden;
+        visibility: hidden;
+        transform: rotate3d(0,0,1,-60deg) skewY(30deg);
+    }
+    .vmatrix-inner * {
+        position: absolute;
+        visibility: visible;
+    }
+    .vmatrix-content {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        transform: skewY(-30deg) rotate3d(0,0,1,60deg);
+        background: #02b4cd80;
+        justify-content: center;
+        align-items: center;
+    }
+    .vmatrix-content p {
+        font-size: 3vw;
+        text-align: center;
+        color: #fff;
     }
 </style>
