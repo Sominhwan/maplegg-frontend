@@ -85,6 +85,20 @@
             </v-card>
         </v-col>
     </v-row>
+    <v-row v-if="loading" justify="space-between">
+        <v-col>
+            <v-card class="vmatrix-card" flat>
+                <v-card-title style="font-size: 16px; border-bottom: 1px solid #EEE; font-weight: bold;">심볼</v-card-title>
+                <v-card-item class="ma-5">
+                    <v-row>
+                        <v-col cols="12">
+
+                        </v-col>
+                    </v-row>
+                </v-card-item>
+            </v-card>
+        </v-col>
+    </v-row>
 </template>
 
 <script setup>
@@ -264,7 +278,7 @@ import { useRoute } from 'vue-router';
         height: 100%;
         overflow: hidden;
         transform: skewY(-30deg) rotate3d(0,0,1,60deg);
-        background: #02b4cd80;
+        background: #EEE;
         justify-content: center;
         align-items: center;
     }
