@@ -91,8 +91,22 @@
                 <v-card-title style="font-size: 16px; border-bottom: 1px solid #EEE; font-weight: bold;">심볼</v-card-title>
                 <v-card-item class="ma-5">
                     <v-row>
-                        <v-col cols="12">
-
+                        <v-col cols="2" v-for="i in 12" :key="i">
+                            <div class="symbol-wrap">
+                                <div class="symbol-name">
+                                    아케인심볼: 소멸의 여로
+                                </div>
+                                <div class="symbol-img-content pb-4">
+                                    <div style="display: flex; justify-content: center;">
+                                        <img src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEIDJHOA.png" width="50" height="50">
+                                        <div class="ml-4" style="flex-direction: column; font-size: 14px;">
+                                            <div>ARC 220</div>
+                                            <div>주스텟 2,200</div>
+                                            <div>성장 MAX</div>
+                                        </div>
+                                    </div>                                
+                                </div>
+                            </div>
                         </v-col>
                     </v-row>
                 </v-card-item>
@@ -286,5 +300,16 @@ import { useRoute } from 'vue-router';
         font-size: 3vw;
         text-align: center;
         color: #fff;
+    }
+    .symbol-wrap {
+        position: relative;
+        background-color: #EEE;
+        width: 100%;
+        border-radius: 5px;
+    }
+    .symbol-name {
+        display: flex;
+        justify-content: center;
+        padding: 10px;
     }
 </style>
