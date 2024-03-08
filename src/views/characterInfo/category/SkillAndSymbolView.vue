@@ -91,18 +91,22 @@
                 <v-card-title style="font-size: 16px; border-bottom: 1px solid #EEE; font-weight: bold;">심볼</v-card-title>
                 <v-card-item class="ma-5">
                     <v-row>
-                        <v-col cols="2" v-for="i in 12" :key="i">
+                        <v-col cols="3" v-for="item in symbol" :key="item.symbol_name">
                             <div class="symbol-wrap">
                                 <div class="symbol-name">
-                                    아케인심볼: 소멸의 여로
+                                    {{ item.symbol_name }}
                                 </div>
                                 <div class="symbol-img-content pb-4">
                                     <div style="display: flex; justify-content: center;">
-                                        <img src="https://open.api.nexon.com/static/maplestory/ItemIcon/KEIDJHOA.png" width="50" height="50">
+                                        <img :src="item.symbol_icon" width="50" height="50">
                                         <div class="ml-4" style="flex-direction: column; font-size: 14px;">
-                                            <div>ARC 220</div>
+                                            <div>ARC {{ item.symbol_force }}</div>
                                             <div>주스텟 2,200</div>
-                                            <div>성장 MAX</div>
+                                            <div>
+                                                성장 
+                                                <span v-if="item.symbol_level != 20">{{ item.symbol_level }}</span>
+                                                <span v-else>MAX</span>
+                                            </div>
                                         </div>
                                     </div>                                
                                 </div>
@@ -126,6 +130,8 @@ import { useRoute } from 'vue-router';
     const hexamatrix = reactive({});
     // 6차 스텟
     const hexamatrixStat = reactive({});
+    // 심볼
+    const symbol = reactive({});
 
     onMounted(() => {
         console.log(characterName);
@@ -139,6 +145,7 @@ import { useRoute } from 'vue-router';
             const response = await getCharacterSkillAndSymbol(params);
             Object.assign(hexamatrix, response.data.data.hexamatrix);
             Object.assign(hexamatrixStat, response.data.data.hexamatrixStat);
+            Object.assign(symbol, response.data.data.symbolEquipment.symbol);
             console.log(response.data.data);
         } catch (error) {
             console.log(error); 
