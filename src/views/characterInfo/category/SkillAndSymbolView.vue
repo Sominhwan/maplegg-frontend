@@ -101,7 +101,11 @@
                                         <img :src="item.symbol_icon" width="50" height="50">
                                         <div class="ml-4" style="flex-direction: column; font-size: 14px;">
                                             <div>ARC {{ item.symbol_force }}</div>
-                                            <div>주스텟 2,200</div>
+                                            <div v-if="item.symbol_str != '0'">STR {{ Number(item.symbol_str).toLocaleString() }}</div>
+                                            <div v-if="item.symbol_dex != '0'">DEX {{ Number(item.symbol_dex).toLocaleString() }}</div>
+                                            <div v-if="item.symbol_int != '0'">INT {{ Number(item.symbol_int).toLocaleString() }}</div>
+                                            <div v-if="item.symbol_luk != '0'">LUK {{ Number(item.symbol_luk).toLocaleString() }}</div>
+                                            <div v-if="item.symbol_hp != '0'">HP {{ Number(item.symbol_hp).toLocaleString() }}</div>
                                             <div>
                                                 성장 
                                                 <span v-if="item.symbol_level != 20">{{ item.symbol_level }}</span>
